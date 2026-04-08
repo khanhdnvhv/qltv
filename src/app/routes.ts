@@ -20,7 +20,8 @@ import { ThongBao } from "./components/ThongBao";
 import { NhatKy } from "./components/NhatKy";
 import { CaiDat } from "./components/CaiDat";
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
   { path: "/login", Component: LoginPage },
   {
     path: "/",
@@ -46,4 +47,6 @@ export const router = createBrowserRouter([
       { path: "cai-dat", Component: CaiDat },
     ],
   },
-]);
+],
+  { basename: '/qltv' }
+);
