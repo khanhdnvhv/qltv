@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#f5e070"/>
+      <stop offset="100%" stop-color="#b8972e"/>
+    </linearGradient>
+    <linearGradient id="ig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d3b66"/>
+      <stop offset="100%" stop-color="#0a2f52"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield outer (gold) -->
+  <path d="M32 4 L54 13 L54 30 C54 43 44 53 32 57 C20 53 10 43 10 30 L10 13 Z" fill="url(#sg)"/>
+  <!-- Shield inner (navy) -->
+  <path d="M32 9 L50 17 L50 31 C50 41 42 50 32 54 C22 50 14 41 14 31 L14 17 Z" fill="url(#ig)"/>
+  <!-- Star -->
+  <polygon points="32,17 34.5,24.5 42,24.5 36,29 38.5,37 32,32.5 25.5,37 28,29 22,24.5 29.5,24.5" fill="url(#sg)"/>
+  <!-- Bottom label bar -->
+  <rect x="20" y="42" width="24" height="8" rx="2" fill="#d4af37" opacity="0.95"/>
+  <text x="32" y="48.5" text-anchor="middle" fill="#0d3b66" font-size="4.5" font-weight="bold" font-family="Arial">CÔNG AN</text>
+</svg>
