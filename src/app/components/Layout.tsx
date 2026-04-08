@@ -17,6 +17,8 @@ export function Layout() {
     if (!isAuthenticated) navigate("/login", { replace: true });
   }, [isAuthenticated, navigate]);
 
+  if (!isAuthenticated) return null;
+
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background">
       <CommandPalette />
