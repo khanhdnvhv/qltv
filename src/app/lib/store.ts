@@ -1159,6 +1159,29 @@ class AppStore {
       this.nhatKy       = lsGet<NhatKy>(STORAGE_KEYS.NHAT_KY, [...MOCK_NHAT_KY]);
       this.cauHinh      = lsGetOne<CauHinh>(STORAGE_KEYS.CAU_HINH, { ...DEFAULT_CAU_HINH });
     }
+    // Restore session: nếu còn trong thời gian timeout thì tự đăng nhập lại
+    this._restoreSession();
+  }
+
+  private _restoreSession() {
+    const savedUserId = localStorage.getItem(STORAGE_KEYS.AUTH_USER_ID);
+    const lastActive  = localStorage.getItem(STORAGE_KEYS.AUTH_LAST_ACTIVE);
+    if (!savedUserId || !lastActive) return;
+    const timeoutMs = (this.cauHinh.sessionTimeout ?? 30) * 60 * 1000;
+    const elapsed   = Date.now() - Number(lastActive);
+    if (elapsed < timeoutMs) {
+      const user = this.users.find((u) => u.id === savedUserId);
+      if (user) {
+        this.currentUser     = user;
+        this.isAuthenticated = true;
+        // Cập nhật lastActive để session tiếp tục
+        localStorage.setItem(STORAGE_KEYS.AUTH_LAST_ACTIVE, String(Date.now()));
+      }
+    } else {
+      // Hết timeout → xóa session
+      localStorage.removeItem(STORAGE_KEYS.AUTH_USER_ID);
+      localStorage.removeItem(STORAGE_KEYS.AUTH_LAST_ACTIVE);
+    }
   }
 
   private _save() {
@@ -1196,14 +1219,26 @@ class AppStore {
     if (!userId || password !== DEMO_PASSWORD) return false;
     const user = this.users.find((u) => u.id === userId);
     if (!user) return false;
-    this.currentUser = user;
+    this.currentUser     = user;
     this.isAuthenticated = true;
+    // Lưu session vào localStorage
+    localStorage.setItem(STORAGE_KEYS.AUTH_USER_ID,     user.id);
+    localStorage.setItem(STORAGE_KEYS.AUTH_LAST_ACTIVE, String(Date.now()));
     this.notify();
     return true;
   }
 
+  /** Cập nhật lastActive — gọi khi có tương tác (click, keypress...) */
+  touchSession() {
+    if (this.isAuthenticated) {
+      localStorage.setItem(STORAGE_KEYS.AUTH_LAST_ACTIVE, String(Date.now()));
+    }
+  }
+
   logout() {
     this.isAuthenticated = false;
+    localStorage.removeItem(STORAGE_KEYS.AUTH_USER_ID);
+    localStorage.removeItem(STORAGE_KEYS.AUTH_LAST_ACTIVE);
     this.notify();
   }
 

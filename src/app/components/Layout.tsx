@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { CommandPalette } from "./shared/CommandPalette";
@@ -11,7 +11,31 @@ export function Layout() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated } = useStoreState();
+  const { isAuthenticated, cauHinh, store } = useStoreState();
+  const logoutTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Thời gian timeout (phút → ms), tối thiểu 1 phút
+  const timeoutMs = Math.max(1, cauHinh?.sessionTimeout ?? 30) * 60 * 1000;
+
+  const resetTimer = useCallback(() => {
+    store.touchSession();
+    if (logoutTimer.current) clearTimeout(logoutTimer.current);
+    logoutTimer.current = setTimeout(() => {
+      store.logout();
+    }, timeoutMs);
+  }, [store, timeoutMs]);
+
+  // Khởi động timer khi đã xác thực
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const events = ["mousedown", "keydown", "touchstart", "scroll"];
+    events.forEach((e) => window.addEventListener(e, resetTimer, { passive: true }));
+    resetTimer(); // bắt đầu đếm ngay
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, resetTimer));
+      if (logoutTimer.current) clearTimeout(logoutTimer.current);
+    };
+  }, [isAuthenticated, resetTimer]);
 
   useEffect(() => {
     if (!isAuthenticated) navigate("/login", { replace: true });

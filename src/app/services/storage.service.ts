@@ -6,6 +6,8 @@
 
 export const STORAGE_KEYS = {
   SEEDED:         'qltvhc_v1_seeded',
+  AUTH_USER_ID:   'qltvhc_v1_auth_user_id',
+  AUTH_LAST_ACTIVE: 'qltvhc_v1_auth_last_active',
   USERS:          'qltvhc_v1_users',
   DON_VI:         'qltvhc_v1_don_vi',
   KHO:            'qltvhc_v1_kho',
