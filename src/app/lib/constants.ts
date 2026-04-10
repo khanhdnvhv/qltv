@@ -430,7 +430,7 @@ export const VAI_TRO_LABELS: Record<VaiTroTangVat, string> = {
 // ========================
 export const MENU_BY_ROLE: Record<VaiTroTangVat, string[]> = {
   admin: [
-    "/", "/ho-so", "/tang-vat",
+    "/", "/danh-muc", "/ho-so", "/tang-vat",
     "/niem-phong", "/kho-bai", "/kiem-ke", "/luan-chuyen",
     "/xu-ly", "/giao-tu-giu", "/tien-bao-lanh",
     "/ky-so", "/tra-cuu", "/thong-ke",

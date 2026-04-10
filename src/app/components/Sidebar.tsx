@@ -3,13 +3,14 @@ import {
   LayoutDashboard, FolderOpen, Package, Stamp, Warehouse,
   ClipboardCheck, ArrowLeftRight, Gavel, FileCheck, Search,
   BarChart3, AlertTriangle, Bell, History, Settings,
-  CarFront, Banknote,
+  CarFront, Banknote, BookOpen,
 } from "lucide-react";
 import { useStoreState } from "../hooks/useStoreState";
 import { MENU_BY_ROLE, VAI_TRO_LABELS } from "../lib/constants";
 
 const allMenuItems = [
   { to: "/",                   icon: LayoutDashboard, label: "Dashboard" },
+  { to: "/danh-muc",           icon: BookOpen,         label: "Danh mục" },
   { to: "/ho-so",              icon: FolderOpen,       label: "Hồ sơ vụ việc" },
   { to: "/tang-vat",           icon: Package,          label: "Quản lý tang vật" },
   { to: "/niem-phong",         icon: Stamp,            label: "Niêm phong" },

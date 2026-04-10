@@ -14,6 +14,7 @@ import type {
   CanhBao, VanBan, NhatKy, ThongBao, CauHinh,
   TrangThaiTangVat, LoaiTangVat, TrangThaiHoSo,
   GiaoTuGiu, TienBaoLanh, TrangThaiGiaoTuGiu, TrangThaiBaoLanh,
+  CanCuPhapLyMau, DonViTinhDanhMuc,
 } from "./types";
 import { MOCK_USERS } from "./constants";
 
@@ -1061,6 +1062,32 @@ export const DEFAULT_CAU_HINH: CauHinh = {
 };
 
 // ========================
+// DEFAULT DANH MUC DATA
+// ========================
+
+const DEFAULT_CAN_CU_PHAP_LY_MAU: CanCuPhapLyMau[] = [
+  { id: 'ccpl1', tieuDe: 'Vi phạm giao thông đường bộ', noiDung: 'Điều 30 NĐ 100/2019/NĐ-CP', linhVuc: 'Giao thông', createdAt: '01/01/2026' },
+  { id: 'ccpl2', tieuDe: 'Hàng hóa không rõ nguồn gốc', noiDung: 'Điều 15 NĐ 185/2013/NĐ-CP', linhVuc: 'Kinh doanh', createdAt: '01/01/2026' },
+  { id: 'ccpl3', tieuDe: 'Vi phạm vệ sinh an toàn thực phẩm', noiDung: 'Luật An toàn thực phẩm 2010, NĐ 115/2018/NĐ-CP', linhVuc: 'Thực phẩm', createdAt: '01/01/2026' },
+  { id: 'ccpl4', tieuDe: 'Tang vật liên quan vũ khí', noiDung: 'Pháp lệnh Quản lý vũ khí, vật liệu nổ', linhVuc: 'An ninh', createdAt: '01/01/2026' },
+  { id: 'ccpl5', tieuDe: 'Vi phạm khai thác khoáng sản', noiDung: 'Luật Khoáng sản 2010, NĐ 158/2016/NĐ-CP', linhVuc: 'Tài nguyên', createdAt: '01/01/2026' },
+  { id: 'ccpl6', tieuDe: 'Vi phạm ma tuý', noiDung: 'Điều 322 BLHS 2015, NĐ 144/2021/NĐ-CP', linhVuc: 'An ninh', createdAt: '01/01/2026' },
+];
+
+const DEFAULT_DON_VI_TINH: DonViTinhDanhMuc[] = [
+  { id: 'dvt1', ten: 'Chiếc', kyHieu: 'chiếc', moTa: 'Đơn vị tính cho vật thể rời' },
+  { id: 'dvt2', ten: 'Kilogram', kyHieu: 'kg', moTa: 'Đơn vị khối lượng' },
+  { id: 'dvt3', ten: 'Lít', kyHieu: 'lít', moTa: 'Đơn vị thể tích chất lỏng' },
+  { id: 'dvt4', ten: 'Bộ', kyHieu: 'bộ', moTa: 'Tập hợp các vật thể liên quan' },
+  { id: 'dvt5', ten: 'Hộp', kyHieu: 'hộp', moTa: 'Đơn vị đóng gói dạng hộp' },
+  { id: 'dvt6', ten: 'Gói', kyHieu: 'gói', moTa: 'Đơn vị đóng gói dạng gói' },
+  { id: 'dvt7', ten: 'Tờ', kyHieu: 'tờ', moTa: 'Đơn vị cho giấy tờ, tài liệu' },
+  { id: 'dvt8', ten: 'Cái', kyHieu: 'cái', moTa: 'Đơn vị vật thể chung' },
+  { id: 'dvt9', ten: 'VND', kyHieu: 'VND', moTa: 'Đơn tiền mặt Việt Nam Đồng' },
+  { id: 'dvt10', ten: 'Gram', kyHieu: 'g', moTa: 'Đơn vị khối lượng nhỏ' },
+];
+
+// ========================
 // APP STORE
 // ========================
 
@@ -1083,6 +1110,8 @@ class AppStore {
   currentUser: User = MOCK_USERS[0];
   users: User[] = [];
   donVi: DonVi[] = [];
+  canCuPhapLyMau: CanCuPhapLyMau[] = [];
+  donViTinhDM: DonViTinhDanhMuc[] = [];
   kho: Kho[] = [];
   hoSo: HoSoVuViec[] = [];
   tangVat: TangVat[] = [];
@@ -1120,6 +1149,8 @@ class AppStore {
       // Lần đầu chạy: seed mock data vào localStorage
       this.users        = [...MOCK_USERS];
       this.donVi        = [...MOCK_DON_VI];
+      this.canCuPhapLyMau = [...DEFAULT_CAN_CU_PHAP_LY_MAU];
+      this.donViTinhDM  = [...DEFAULT_DON_VI_TINH];
       this.kho          = [...MOCK_KHO];
       this.hoSo         = [...MOCK_HO_SO];
       this.tangVat      = [...MOCK_TANG_VAT];
@@ -1142,6 +1173,8 @@ class AppStore {
       // Load từ localStorage
       this.users        = lsGet<User>(STORAGE_KEYS.USERS, [...MOCK_USERS]);
       this.donVi        = lsGet<DonVi>(STORAGE_KEYS.DON_VI, [...MOCK_DON_VI]);
+      this.canCuPhapLyMau = lsGet<CanCuPhapLyMau>(STORAGE_KEYS.CAN_CU_PHAP_LY_MAU, DEFAULT_CAN_CU_PHAP_LY_MAU);
+      this.donViTinhDM  = lsGet<DonViTinhDanhMuc>(STORAGE_KEYS.DON_VI_TINH_DM, DEFAULT_DON_VI_TINH);
       this.kho          = lsGet<Kho>(STORAGE_KEYS.KHO, [...MOCK_KHO]);
       this.hoSo         = lsGet<HoSoVuViec>(STORAGE_KEYS.HO_SO, [...MOCK_HO_SO]);
       this.tangVat      = lsGet<TangVat>(STORAGE_KEYS.TANG_VAT, [...MOCK_TANG_VAT]);
@@ -1187,6 +1220,8 @@ class AppStore {
   private _save() {
     lsSet(STORAGE_KEYS.USERS,          this.users);
     lsSet(STORAGE_KEYS.DON_VI,         this.donVi);
+    lsSet(STORAGE_KEYS.CAN_CU_PHAP_LY_MAU, this.canCuPhapLyMau);
+    lsSet(STORAGE_KEYS.DON_VI_TINH_DM, this.donViTinhDM);
     lsSet(STORAGE_KEYS.KHO,            this.kho);
     lsSet(STORAGE_KEYS.HO_SO,          this.hoSo);
     lsSet(STORAGE_KEYS.TANG_VAT,       this.tangVat);
@@ -1251,6 +1286,76 @@ class AppStore {
       this.currentUser = user;
       this.notify();
     }
+  }
+
+  addUser(data: Omit<User, 'id' | 'createdAt' | 'trangThai'>) {
+    const newUser: User = {
+      ...data,
+      id: `u${Date.now()}`,
+      trangThai: 'active',
+      createdAt: new Date().toLocaleDateString('vi-VN'),
+    };
+    this.users = [...this.users, newUser];
+    this.notify();
+  }
+  updateUser(id: string, data: Partial<User>) {
+    this.users = this.users.map(u => u.id === id ? { ...u, ...data } : u);
+    this.notify();
+  }
+  deleteUser(id: string) {
+    this.users = this.users.filter(u => u.id !== id);
+    this.notify();
+  }
+
+  // ========================
+  // DON VI
+  // ========================
+  addDonVi(data: Omit<DonVi, 'id'>) {
+    const newDV: DonVi = { ...data, id: `dv${Date.now()}` };
+    this.donVi = [...this.donVi, newDV];
+    this.notify();
+  }
+  updateDonVi(id: string, data: Partial<DonVi>) {
+    this.donVi = this.donVi.map(dv => dv.id === id ? { ...dv, ...data } : dv);
+    this.notify();
+  }
+  deleteDonVi(id: string) {
+    this.donVi = this.donVi.filter(dv => dv.id !== id);
+    this.notify();
+  }
+
+  // ========================
+  // CAN CU PHAP LY MAU
+  // ========================
+  addCanCuPhapLyMau(data: Omit<CanCuPhapLyMau, 'id' | 'createdAt'>) {
+    const item: CanCuPhapLyMau = { ...data, id: `ccpl${Date.now()}`, createdAt: new Date().toLocaleDateString('vi-VN') };
+    this.canCuPhapLyMau = [...this.canCuPhapLyMau, item];
+    this.notify();
+  }
+  updateCanCuPhapLyMau(id: string, data: Partial<CanCuPhapLyMau>) {
+    this.canCuPhapLyMau = this.canCuPhapLyMau.map(i => i.id === id ? { ...i, ...data } : i);
+    this.notify();
+  }
+  deleteCanCuPhapLyMau(id: string) {
+    this.canCuPhapLyMau = this.canCuPhapLyMau.filter(i => i.id !== id);
+    this.notify();
+  }
+
+  // ========================
+  // DON VI TINH DANH MUC
+  // ========================
+  addDonViTinh(data: Omit<DonViTinhDanhMuc, 'id'>) {
+    const item: DonViTinhDanhMuc = { ...data, id: `dvt${Date.now()}` };
+    this.donViTinhDM = [...this.donViTinhDM, item];
+    this.notify();
+  }
+  updateDonViTinh(id: string, data: Partial<DonViTinhDanhMuc>) {
+    this.donViTinhDM = this.donViTinhDM.map(i => i.id === id ? { ...i, ...data } : i);
+    this.notify();
+  }
+  deleteDonViTinh(id: string) {
+    this.donViTinhDM = this.donViTinhDM.filter(i => i.id !== id);
+    this.notify();
   }
 
   // ========================

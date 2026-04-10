@@ -652,6 +652,23 @@ export interface TienBaoLanh {
   createdAt: string;
 }
 
+// --- Căn cứ pháp lý mẫu ---
+export interface CanCuPhapLyMau {
+  id: string;
+  tieuDe: string;          // VD: "Vi phạm giao thông"
+  noiDung: string;         // VD: "Điều 30 NĐ 100/2019/NĐ-CP"
+  linhVuc: string;         // VD: "Giao thông", "Kinh doanh", "Môi trường"...
+  createdAt: string;
+}
+
+// --- Đơn vị tính ---
+export interface DonViTinhDanhMuc {
+  id: string;
+  ten: string;             // VD: "Chiếc"
+  kyHieu: string;          // VD: "chiếc"
+  moTa: string;
+}
+
 // --- Pagination & Filter ---
 export interface PaginationState {
   page: number;

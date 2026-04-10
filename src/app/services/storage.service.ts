@@ -26,6 +26,8 @@ export const STORAGE_KEYS = {
   THONG_BAO:      'qltvhc_v1_thong_bao',
   NHAT_KY:        'qltvhc_v1_nhat_ky',
   CAU_HINH:       'qltvhc_v1_cau_hinh',
+  CAN_CU_PHAP_LY_MAU: 'qltvhc_v1_can_cu_phap_ly_mau',
+  DON_VI_TINH_DM:     'qltvhc_v1_don_vi_tinh_dm',
 } as const;
 
 // ========================

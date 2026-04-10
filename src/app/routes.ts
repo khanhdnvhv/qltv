@@ -18,6 +18,7 @@ import { CanhBao } from "./components/CanhBao";
 import { ThongBao } from "./components/ThongBao";
 import { NhatKy } from "./components/NhatKy";
 import { CaiDat } from "./components/CaiDat";
+import { DanhMuc } from "./components/DanhMuc";
 
 export const router = createBrowserRouter(
   [
@@ -43,6 +44,7 @@ export const router = createBrowserRouter(
       { path: "thong-bao", Component: ThongBao },
       { path: "nhat-ky", Component: NhatKy },
       { path: "cai-dat", Component: CaiDat },
+      { path: "danh-muc", Component: DanhMuc },
     ],
   },
 ],

@@ -20,6 +20,8 @@ export function useStoreState() {
     currentUser: appStore.currentUser,
     users: appStore.users,
     donVi: appStore.donVi,
+    canCuPhapLyMau: appStore.canCuPhapLyMau,
+    donViTinhDM: appStore.donViTinhDM,
     kho: appStore.kho,
     hoSo: appStore.hoSo,
     tangVat: appStore.tangVat,
