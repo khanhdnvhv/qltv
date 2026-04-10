@@ -119,10 +119,11 @@ export function ThongKe() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Thống kê & Báo cáo</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Tổng hợp dữ liệu quản lý tang vật vi phạm hành chính
-          </p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+            <BarChart3 className="w-6 h-6" />
+            Thống kê & Báo cáo
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Tổng hợp dữ liệu quản lý tang vật vi phạm hành chính</p>
         </div>
         <div className="flex gap-3">
           <select

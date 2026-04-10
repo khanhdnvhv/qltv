@@ -52,10 +52,11 @@ export function ThongBao() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Thông báo</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Quản lý thông báo hệ thống, cảnh báo và nhắc nhở
-          </p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+            <Bell className="w-6 h-6" />
+            Thông báo
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Quản lý thông báo hệ thống, cảnh báo và nhắc nhở</p>
         </div>
         {unreadCount > 0 && (
           <button

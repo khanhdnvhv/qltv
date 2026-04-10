@@ -86,12 +86,15 @@ export function NhatKy() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Nhật ký hoạt động</h1>
-          <p className="text-muted-foreground text-sm mt-1">Lịch sử mọi thao tác trên hệ thống (Audit Trail)</p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+              <Clock className="w-6 h-6" />
+              Nhật ký hoạt động
+            </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Lịch sử mọi thao tác trên hệ thống (Audit Trail)</p>
         </div>
         <button
           onClick={handleExport}
-          className="px-4 py-2 bg-[#0d3b66] text-white rounded-lg text-sm hover:bg-[#0a2f52] flex items-center gap-2"
+          className="flex items-center gap-2 bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0a2f52] transition-colors"
         >
           <Download className="w-4 h-4" />
           Xuất nhật ký

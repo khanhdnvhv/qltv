@@ -215,14 +215,15 @@ export function KiemKe() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Kiểm kê kho</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Quản lý phiếu kiểm kê định kỳ và đột xuất tang vật trong kho
-          </p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+              <ClipboardCheck className="w-6 h-6" />
+              Kiểm kê kho
+            </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Quản lý phiếu kiểm kê định kỳ và đột xuất tang vật trong kho</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="px-4 py-2 bg-[#0d3b66] text-white rounded-lg text-sm hover:bg-[#0a2f52] flex items-center gap-2"
+          className="flex items-center gap-2 bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0a2f52] transition-colors"
         >
           <Plus className="w-4 h-4" />
           Tạo phiếu kiểm kê

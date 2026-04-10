@@ -892,7 +892,7 @@ export function DanhMuc() {
             <ChevronRight className="w-3 h-3" />
             <span className="text-[#0d3b66] font-semibold">Quản lý danh mục</span>
           </div>
-          <h1 className="text-2xl font-bold text-[#0d3b66]">Quản lý danh mục</h1>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">Quản lý danh mục</h1>
           <p className="text-sm text-gray-500 mt-0.5">Quản lý các danh mục dùng chung trong hệ thống</p>
         </div>
         <div

@@ -127,11 +127,14 @@ export function TienBaoLanh() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Tiền Bảo Lãnh Tang Vật</h1>
-            <p className="text-sm text-gray-500 mt-1">Điều 15 NĐ 47/2026/NĐ-CP — Nhận tiền bảo lãnh thay thế tạm giữ tang vật</p>
+            <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+                <Banknote className="w-6 h-6" />
+                Tiền bảo lãnh tang vật
+              </h1>
+            <p className="text-sm text-gray-500 mt-0.5">Điều 15 NĐ 47/2026/NĐ-CP — Nhận tiền bảo lãnh thay thế tạm giữ tang vật</p>
           </div>
           {canCreate && (
-            <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium">
+            <button onClick={() => setShowCreateModal(true)} className="flex items-center gap-2 bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg hover:bg-[#0a2f52] text-sm font-semibold transition-colors">
               <Plus className="w-4 h-4" /> Tiếp nhận
             </button>
           )}

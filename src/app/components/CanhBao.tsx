@@ -61,10 +61,11 @@ export function CanhBao() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-[#0d3b66]">Cảnh báo tang vật</h1>
-        <p className="text-muted-foreground text-sm mt-1">
-          Theo dõi và xử lý các cảnh báo tang vật quá hạn, sắp đến hạn và các vấn đề cần xử lý
-        </p>
+        <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+          <AlertTriangle className="w-6 h-6" />
+          Cảnh báo tang vật
+        </h1>
+        <p className="text-sm text-gray-500 mt-0.5">Theo dõi và xử lý các cảnh báo tang vật quá hạn, sắp đến hạn và các vấn đề cần xử lý</p>
       </div>
 
       {/* Stats cards */}

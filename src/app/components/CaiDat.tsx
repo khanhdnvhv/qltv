@@ -407,8 +407,11 @@ export function CaiDat() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[#0d3b66]">Cài đặt hệ thống</h1>
-        <p className="text-muted-foreground text-sm mt-1">Quản lý cấu hình và tham số hệ thống quản lý tang vật</p>
+        <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+          <Settings className="w-6 h-6" />
+          Cài đặt hệ thống
+        </h1>
+        <p className="text-sm text-gray-500 mt-0.5">Quản lý cấu hình và tham số hệ thống quản lý tang vật</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">

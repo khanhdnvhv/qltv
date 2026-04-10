@@ -130,14 +130,15 @@ export function NiemPhong() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Quản lý Niêm phong</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Theo dõi tình trạng niêm phong tang vật vi phạm
-          </p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+              <Stamp className="w-6 h-6" />
+              Quản lý niêm phong
+            </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Theo dõi tình trạng niêm phong tang vật vi phạm</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="px-4 py-2 bg-[#0d3b66] text-white rounded-lg text-sm hover:bg-[#0a2f52] flex items-center gap-2"
+          className="flex items-center gap-2 bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0a2f52] transition-colors"
         >
           <Plus className="w-4 h-4" />
           Tạo niêm phong

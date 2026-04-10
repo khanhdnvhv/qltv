@@ -65,10 +65,11 @@ export function KySo() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[#0d3b66]">Ký duyệt văn bản</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            Ký số điện tử quyết định xử lý, biên bản bàn giao và các văn bản tang vật
-          </p>
+          <h1 className="text-2xl font-bold text-[#0d3b66] flex items-center gap-2">
+            <Pen className="w-6 h-6" />
+            Ký duyệt văn bản
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">Ký số điện tử quyết định xử lý, biên bản bàn giao và các văn bản tang vật</p>
         </div>
       </div>
 
