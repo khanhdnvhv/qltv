@@ -27,8 +27,19 @@ type CreateForm = {
   soDu: number;
 };
 
+type ChiTietRow = {
+  tangVatId: string;
+  tenTangVat: string;
+  soLuongSoSach: number;
+  donViTinh: string;
+  soLuongThucTe: number;
+  tinhTrangThucTe: string;
+  ketQua: "khop" | "thieu" | "hu_hong" | "du";
+  ghiChu: string;
+};
+
 export function KiemKe() {
-  const { kiemKe, kho, store, currentUser } = useStoreState();
+  const { kiemKe, kho, tangVat, store, currentUser } = useStoreState();
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterKho, setFilterKho] = useState("all");
@@ -48,6 +59,7 @@ export function KiemKe() {
     soHuHong: 0,
     soDu: 0,
   });
+  const [chiTietRows, setChiTietRows] = useState<ChiTietRow[]>([]);
 
   const filtered = useMemo(() =>
     kiemKe.filter(kk => {
@@ -72,17 +84,62 @@ export function KiemKe() {
   const handleKhoSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const k = kho.find(k => k.id === e.target.value);
     if (k) {
+      const tvTrongKho = tangVat.filter(tv =>
+        tv.khoId === k.id && ["dang_luu_kho", "cho_xu_ly", "dang_xu_ly"].includes(tv.trangThai)
+      );
+      const rows: ChiTietRow[] = tvTrongKho.map(tv => ({
+        tangVatId: tv.id,
+        tenTangVat: tv.ten,
+        soLuongSoSach: tv.soLuong,
+        donViTinh: tv.donViTinh,
+        soLuongThucTe: tv.soLuong,
+        tinhTrangThucTe: tv.tinhTrangBanDau || "Bình thường",
+        ketQua: "khop" as const,
+        ghiChu: "",
+      }));
+      setChiTietRows(rows);
       setForm(prev => ({
         ...prev,
         khoId: k.id,
         khoTen: k.ten,
-        tongTangVatKiemKe: k.dangLuu,
-        soKhop: k.dangLuu,
+        tongTangVatKiemKe: tvTrongKho.length,
+        soKhop: tvTrongKho.length,
         soThieu: 0,
         soHuHong: 0,
         soDu: 0,
       }));
     }
+  };
+
+  const updateChiTietRow = (idx: number, field: keyof ChiTietRow, value: string | number) => {
+    setChiTietRows(prev => {
+      const updated = prev.map((row, i) => {
+        if (i !== idx) return row;
+        const newRow = { ...row, [field]: value };
+        // Tự tính kết quả
+        if (field === "soLuongThucTe" || field === "tinhTrangThucTe") {
+          const qty = field === "soLuongThucTe" ? Number(value) : newRow.soLuongThucTe;
+          const tinh = field === "tinhTrangThucTe" ? String(value) : newRow.tinhTrangThucTe;
+          if (tinh.toLowerCase().includes("hư") || tinh.toLowerCase().includes("hỏng") || tinh.toLowerCase().includes("hu hong")) {
+            newRow.ketQua = "hu_hong";
+          } else if (qty < newRow.soLuongSoSach) {
+            newRow.ketQua = "thieu";
+          } else if (qty > newRow.soLuongSoSach) {
+            newRow.ketQua = "du";
+          } else {
+            newRow.ketQua = "khop";
+          }
+        }
+        return newRow;
+      });
+      // Cập nhật tổng
+      const soKhop = updated.filter(r => r.ketQua === "khop").length;
+      const soThieu = updated.filter(r => r.ketQua === "thieu").length;
+      const soHuHong = updated.filter(r => r.ketQua === "hu_hong").length;
+      const soDu = updated.filter(r => r.ketQua === "du").length;
+      setForm(p => ({ ...p, soKhop, soThieu, soHuHong, soDu, tongTangVatKiemKe: updated.length }));
+      return updated;
+    });
   };
 
   const handleCreate = () => {
@@ -102,13 +159,24 @@ export function KiemKe() {
       soThieu: form.soThieu,
       soHuHong: form.soHuHong,
       soDu: form.soDu,
-      chiTiet: [],
+      chiTiet: chiTietRows.map((r, i) => ({
+        id: `ctkk-${i}`,
+        kiemKeId: "",
+        tangVatId: r.tangVatId,
+        tenTangVat: r.tenTangVat,
+        soLuongSoSach: r.soLuongSoSach,
+        soLuongThucTe: r.soLuongThucTe,
+        tinhTrangThucTe: r.tinhTrangThucTe,
+        ketQua: r.ketQua,
+        ghiChu: r.ghiChu,
+      })),
       ketLuan: form.ketLuan,
       ghiChu: form.ghiChu,
     });
     toast.success("Đã tạo phiếu kiểm kê");
     setShowCreate(false);
     setForm({ khoId: "", khoTen: "", ketLuan: "", ghiChu: "", tongTangVatKiemKe: 0, soKhop: 0, soThieu: 0, soHuHong: 0, soDu: 0 });
+    setChiTietRows([]);
   };
 
   const handleHoanThanh = () => {
@@ -423,7 +491,7 @@ export function KiemKe() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-5">
             <div className="flex items-center justify-between">
               <h2 className="text-[#0d3b66] font-bold">Tạo phiếu kiểm kê</h2>
-              <button onClick={() => setShowCreate(false)} className="text-muted-foreground hover:text-[#1a2332]">
+              <button onClick={() => { setShowCreate(false); setChiTietRows([]); }} className="text-muted-foreground hover:text-[#1a2332]">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -446,47 +514,80 @@ export function KiemKe() {
               </div>
 
               {form.khoId && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">Tổng tang vật KK</label>
-                    <input
-                      type="number"
-                      value={form.tongTangVatKiemKe}
-                      onChange={e => setForm(prev => ({ ...prev, tongTangVatKiemKe: Number(e.target.value) }))}
-                      min={0}
-                      className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">Số khớp sổ sách</label>
-                    <input
-                      type="number"
-                      value={form.soKhop}
-                      onChange={e => setForm(prev => ({ ...prev, soKhop: Number(e.target.value) }))}
-                      min={0}
-                      className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">Số thiếu</label>
-                    <input
-                      type="number"
-                      value={form.soThieu}
-                      onChange={e => setForm(prev => ({ ...prev, soThieu: Number(e.target.value) }))}
-                      min={0}
-                      className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground mb-1 block">Số hư hỏng</label>
-                    <input
-                      type="number"
-                      value={form.soHuHong}
-                      onChange={e => setForm(prev => ({ ...prev, soHuHong: Number(e.target.value) }))}
-                      min={0}
-                      className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm"
-                    />
-                  </div>
+                <div className="space-y-3">
+                  {chiTietRows.length > 0 ? (
+                    <div>
+                      <label className="text-sm text-muted-foreground mb-2 block font-medium">
+                        Chi tiết kiểm kê từng tang vật ({chiTietRows.length} mục)
+                      </label>
+                      <div className="border border-border rounded-lg overflow-hidden max-h-64 overflow-y-auto">
+                        <table className="w-full text-xs">
+                          <thead className="bg-[#f8fafc]">
+                            <tr>
+                              <th className="text-left px-2 py-1.5 text-muted-foreground font-medium">Tang vật</th>
+                              <th className="text-center px-2 py-1.5 text-muted-foreground font-medium">Sổ sách</th>
+                              <th className="text-center px-2 py-1.5 text-muted-foreground font-medium">Thực tế</th>
+                              <th className="text-left px-2 py-1.5 text-muted-foreground font-medium">Tình trạng</th>
+                              <th className="text-center px-2 py-1.5 text-muted-foreground font-medium">KQ</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-border/40">
+                            {chiTietRows.map((row, idx) => {
+                              const kqColor = row.ketQua === "khop" ? "#2e7d32" : row.ketQua === "thieu" ? "#c62828" : row.ketQua === "hu_hong" ? "#e65100" : "#f57f17";
+                              const kqLabel = row.ketQua === "khop" ? "Khớp" : row.ketQua === "thieu" ? "Thiếu" : row.ketQua === "hu_hong" ? "Hỏng" : "Dư";
+                              return (
+                                <tr key={row.tangVatId} className="hover:bg-[#f8fafc]">
+                                  <td className="px-2 py-1.5">
+                                    <p className="font-medium truncate max-w-[100px]">{row.tenTangVat}</p>
+                                  </td>
+                                  <td className="px-2 py-1.5 text-center text-muted-foreground">{row.soLuongSoSach}</td>
+                                  <td className="px-2 py-1.5 text-center">
+                                    <input
+                                      type="number"
+                                      value={row.soLuongThucTe}
+                                      onChange={e => updateChiTietRow(idx, "soLuongThucTe", Number(e.target.value))}
+                                      min={0}
+                                      className="w-16 px-1.5 py-0.5 border border-border rounded text-center bg-white"
+                                    />
+                                  </td>
+                                  <td className="px-2 py-1.5">
+                                    <input
+                                      type="text"
+                                      value={row.tinhTrangThucTe}
+                                      onChange={e => updateChiTietRow(idx, "tinhTrangThucTe", e.target.value)}
+                                      className="w-full px-1.5 py-0.5 border border-border rounded bg-white text-xs"
+                                      placeholder="Tình trạng..."
+                                    />
+                                  </td>
+                                  <td className="px-2 py-1.5 text-center">
+                                    <span className="font-medium text-xs" style={{ color: kqColor }}>{kqLabel}</span>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                      {/* Summary */}
+                      <div className="grid grid-cols-4 gap-2 mt-2">
+                        {[
+                          { label: "Khớp", value: form.soKhop, color: "#2e7d32" },
+                          { label: "Thiếu", value: form.soThieu, color: "#c62828" },
+                          { label: "Hư hỏng", value: form.soHuHong, color: "#e65100" },
+                          { label: "Dư", value: form.soDu, color: "#f57f17" },
+                        ].map(s => (
+                          <div key={s.label} className="text-center p-2 bg-[#f8fafc] rounded-lg">
+                            <p className="text-lg font-bold" style={{ color: s.color }}>{s.value}</p>
+                            <p className="text-xs text-muted-foreground">{s.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-4 bg-[#f8fafc] rounded-lg text-center text-sm text-muted-foreground">
+                      Không có tang vật nào đang lưu trong kho này
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -515,7 +616,7 @@ export function KiemKe() {
 
             <div className="flex gap-3 pt-2">
               <button
-                onClick={() => setShowCreate(false)}
+                onClick={() => { setShowCreate(false); setChiTietRows([]); }}
                 className="flex-1 py-2.5 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
               >
                 Hủy

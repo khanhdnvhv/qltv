@@ -329,6 +329,39 @@ export interface PhieuNhapKho {
   createdAt: string;
 }
 
+// --- Phieu xuat kho ---
+export interface PhieuXuatKhoChiTiet {
+  id: string;
+  phieuId: string;
+  tangVatId: string;
+  tenTangVat: string;
+  soLuong: number;
+  donViTinh: string;
+  tinhTrang: string;
+  ghiChu: string;
+}
+
+export interface PhieuXuatKho {
+  id: string;
+  maPhieu: string;
+  hoSoId: string;
+  maBienBan: string;
+  khoId: string;
+  khoTen: string;
+  ngayXuat: string;
+  lyDoXuat: "tra_lai" | "tieu_huy" | "ban_sung_cong" | "luan_chuyen" | "khac";
+  nguoiNhanId: string;
+  nguoiNhanTen: string;
+  nguoiGiaoId: string;
+  nguoiGiaoTen: string;
+  thuKhoId: string;
+  thuKhoTen: string;
+  trangThai: "nhap" | "da_duyet" | "hoan_thanh";
+  chiTiet: PhieuXuatKhoChiTiet[];
+  ghiChu: string;
+  createdAt: string;
+}
+
 // --- Kiem ke ---
 export interface KiemKeChiTiet {
   id: string;

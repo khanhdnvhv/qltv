@@ -1,6 +1,7 @@
 import {
   Settings, User, Shield, Bell, Globe,
   Database, Key, Monitor, Save, Lock, Unlock, RotateCcw,
+  RefreshCw, HardDrive,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -22,6 +23,16 @@ export function CaiDat() {
   const [localConfig, setLocalConfig] = useState<CauHinh>({ ...cauHinh });
   const [hasChanges, setHasChanges] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [storageInfo, setStorageInfo] = useState<{ totalKB: number; details: Record<string, string> } | null>(null);
+  const [showDemoResetConfirm, setShowDemoResetConfirm] = useState(false);
+
+  const handleShowStorageInfo = () => {
+    setStorageInfo(store.getStorageInfo());
+  };
+
+  const handleReset = () => {
+    store.resetToMockData();
+  };
 
   const updateConfig = (key: keyof CauHinh, value: any) => {
     setLocalConfig(prev => ({ ...prev, [key]: value }));
@@ -328,6 +339,89 @@ export function CaiDat() {
           </div>
         </div>
       </div>
+
+      {/* Demo Tools Panel */}
+      {currentUser.vaiTro === "admin" && (
+        <div className="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-border flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">
+              <Database className="w-4 h-4 text-purple-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-[#1a2332] text-sm">Công cụ Demo & LocalStorage</h3>
+              <p className="text-xs text-muted-foreground">Quản lý dữ liệu demo và bộ nhớ cục bộ</p>
+            </div>
+          </div>
+          <div className="p-5 space-y-4">
+            {/* Storage info */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleShowStorageInfo}
+                className="px-4 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm hover:bg-[#e2e8f0] flex items-center gap-2"
+              >
+                <HardDrive className="w-4 h-4 text-[#0d3b66]" />
+                Xem dung lượng localStorage
+              </button>
+              {storageInfo && (
+                <span className="text-sm text-[#0d3b66] font-semibold">
+                  Đang dùng: {storageInfo.totalKB} KB
+                </span>
+              )}
+            </div>
+
+            {storageInfo && (
+              <div className="p-3 bg-[#f8fafc] rounded-lg border border-border">
+                <p className="text-xs text-muted-foreground font-medium mb-2">Chi tiết theo module:</p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1.5">
+                  {Object.entries(storageInfo.details).map(([name, size]) => (
+                    <div key={name} className="flex items-center justify-between px-2 py-1 bg-white rounded border border-border/50">
+                      <span className="text-xs text-muted-foreground truncate">{name}</span>
+                      <span className="text-xs font-medium text-[#0d3b66] ml-2 shrink-0">{size}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Reset */}
+            <div className="pt-2 border-t border-border">
+              <p className="text-xs text-muted-foreground mb-3">
+                Xóa toàn bộ dữ liệu trong localStorage và khôi phục về dữ liệu mẫu ban đầu. Trang sẽ tự reload.
+              </p>
+              {!showDemoResetConfirm ? (
+                <button
+                  onClick={() => setShowDemoResetConfirm(true)}
+                  className="px-4 py-2 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm hover:bg-red-100 flex items-center gap-2"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Reset về dữ liệu mock ban đầu
+                </button>
+              ) : (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg space-y-3">
+                  <p className="text-sm text-red-700 font-medium">
+                    ⚠️ Xác nhận reset? Toàn bộ thay đổi sẽ mất và không thể khôi phục.
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleReset}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 flex items-center gap-2"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                      Xác nhận Reset
+                    </button>
+                    <button
+                      onClick={() => setShowDemoResetConfirm(false)}
+                      className="px-4 py-2 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
+                    >
+                      Hủy
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Reset Confirm Dialog */}
       {showResetConfirm && (

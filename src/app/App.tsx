@@ -2,7 +2,8 @@ import { RouterProvider } from "react-router";
 import { router } from "./routes";
 import { StoreContext, appStore } from "./lib/store";
 import { Toaster } from "sonner";
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, useState } from "react";
+import { LoadingScreen } from "./components/shared/LoadingScreen";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -25,6 +26,12 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  if (loading) {
+    return <LoadingScreen onDone={() => setLoading(false)} duration={1400} />;
+  }
+
   return (
     <ErrorBoundary>
       <StoreContext.Provider value={appStore}>

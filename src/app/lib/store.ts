@@ -3,10 +3,14 @@
 // ============================================================
 
 import { createContext, useContext } from "react";
+import {
+  STORAGE_KEYS, isSeeded, markSeeded,
+  lsGet, lsGetOne, lsSet, lsSetOne,
+} from "../services/storage.service";
 import type {
   User, DonVi, Kho, ViTriKho,
   HoSoVuViec, TangVat, NiemPhong,
-  PhieuNhapKho, KiemKe, LuanChuyen, XuLyTangVat,
+  PhieuNhapKho, PhieuXuatKho, KiemKe, LuanChuyen, XuLyTangVat,
   CanhBao, VanBan, NhatKy, ThongBao, CauHinh,
   TrangThaiTangVat, LoaiTangVat, TrangThaiHoSo,
   GiaoTuGiu, TienBaoLanh, TrangThaiGiaoTuGiu, TrangThaiBaoLanh,
@@ -1077,25 +1081,30 @@ class AppStore {
   // --- State ---
   isAuthenticated: boolean = false;
   currentUser: User = MOCK_USERS[0];
-  users: User[] = [...MOCK_USERS];
-  donVi: DonVi[] = [...MOCK_DON_VI];
-  kho: Kho[] = [...MOCK_KHO];
-  hoSo: HoSoVuViec[] = [...MOCK_HO_SO];
-  tangVat: TangVat[] = [...MOCK_TANG_VAT];
-  niemPhong: NiemPhong[] = [...MOCK_NIEM_PHONG];
-  phieuNhapKho: PhieuNhapKho[] = [...MOCK_PHIEU_NHAP_KHO];
-  kiemKe: KiemKe[] = [...MOCK_KIEM_KE];
-  luanChuyen: LuanChuyen[] = [...MOCK_LUAN_CHUYEN];
-  xuLy: XuLyTangVat[] = [...MOCK_XU_LY];
-  giaoTuGiu: GiaoTuGiu[] = [...MOCK_GIAO_TU_GIU];
-  tienBaoLanh: TienBaoLanh[] = [...MOCK_TIEN_BAO_LANH];
-  canhBao: CanhBao[] = [...MOCK_CANH_BAO];
-  vanBan: VanBan[] = [...MOCK_VAN_BAN];
-  thongBao: ThongBao[] = [...MOCK_THONG_BAO];
-  nhatKy: NhatKy[] = [...MOCK_NHAT_KY];
+  users: User[] = [];
+  donVi: DonVi[] = [];
+  kho: Kho[] = [];
+  hoSo: HoSoVuViec[] = [];
+  tangVat: TangVat[] = [];
+  niemPhong: NiemPhong[] = [];
+  phieuNhapKho: PhieuNhapKho[] = [];
+  phieuXuatKho: PhieuXuatKho[] = [];
+  kiemKe: KiemKe[] = [];
+  luanChuyen: LuanChuyen[] = [];
+  xuLy: XuLyTangVat[] = [];
+  giaoTuGiu: GiaoTuGiu[] = [];
+  tienBaoLanh: TienBaoLanh[] = [];
+  canhBao: CanhBao[] = [];
+  vanBan: VanBan[] = [];
+  thongBao: ThongBao[] = [];
+  nhatKy: NhatKy[] = [];
   cauHinh: CauHinh = { ...DEFAULT_CAU_HINH };
 
   private listeners: Set<Listener> = new Set();
+
+  constructor() {
+    this._loadFromStorage();
+  }
 
   // --- Subscription ---
   subscribe(listener: Listener) {
@@ -1103,7 +1112,78 @@ class AppStore {
     return () => { this.listeners.delete(listener); };
   }
 
+  // ========================
+  // STORAGE
+  // ========================
+  private _loadFromStorage() {
+    if (!isSeeded()) {
+      // Lần đầu chạy: seed mock data vào localStorage
+      this.users        = [...MOCK_USERS];
+      this.donVi        = [...MOCK_DON_VI];
+      this.kho          = [...MOCK_KHO];
+      this.hoSo         = [...MOCK_HO_SO];
+      this.tangVat      = [...MOCK_TANG_VAT];
+      this.niemPhong    = [...MOCK_NIEM_PHONG];
+      this.phieuNhapKho = [...MOCK_PHIEU_NHAP_KHO];
+      this.phieuXuatKho = [];
+      this.kiemKe       = [...MOCK_KIEM_KE];
+      this.luanChuyen   = [...MOCK_LUAN_CHUYEN];
+      this.xuLy         = [...MOCK_XU_LY];
+      this.giaoTuGiu    = [...MOCK_GIAO_TU_GIU];
+      this.tienBaoLanh  = [...MOCK_TIEN_BAO_LANH];
+      this.canhBao      = [...MOCK_CANH_BAO];
+      this.vanBan       = [...MOCK_VAN_BAN];
+      this.thongBao     = [...MOCK_THONG_BAO];
+      this.nhatKy       = [...MOCK_NHAT_KY];
+      this.cauHinh      = { ...DEFAULT_CAU_HINH };
+      this._save();
+      markSeeded();
+    } else {
+      // Load từ localStorage
+      this.users        = lsGet<User>(STORAGE_KEYS.USERS, [...MOCK_USERS]);
+      this.donVi        = lsGet<DonVi>(STORAGE_KEYS.DON_VI, [...MOCK_DON_VI]);
+      this.kho          = lsGet<Kho>(STORAGE_KEYS.KHO, [...MOCK_KHO]);
+      this.hoSo         = lsGet<HoSoVuViec>(STORAGE_KEYS.HO_SO, [...MOCK_HO_SO]);
+      this.tangVat      = lsGet<TangVat>(STORAGE_KEYS.TANG_VAT, [...MOCK_TANG_VAT]);
+      this.niemPhong    = lsGet<NiemPhong>(STORAGE_KEYS.NIEM_PHONG, [...MOCK_NIEM_PHONG]);
+      this.phieuNhapKho = lsGet<PhieuNhapKho>(STORAGE_KEYS.PHIEU_NHAP_KHO, [...MOCK_PHIEU_NHAP_KHO]);
+      this.phieuXuatKho = lsGet<PhieuXuatKho>(STORAGE_KEYS.PHIEU_XUAT_KHO, []);
+      this.kiemKe       = lsGet<KiemKe>(STORAGE_KEYS.KIEM_KE, [...MOCK_KIEM_KE]);
+      this.luanChuyen   = lsGet<LuanChuyen>(STORAGE_KEYS.LUAN_CHUYEN, [...MOCK_LUAN_CHUYEN]);
+      this.xuLy         = lsGet<XuLyTangVat>(STORAGE_KEYS.XU_LY, [...MOCK_XU_LY]);
+      this.giaoTuGiu    = lsGet<GiaoTuGiu>(STORAGE_KEYS.GIAO_TU_GIU, [...MOCK_GIAO_TU_GIU]);
+      this.tienBaoLanh  = lsGet<TienBaoLanh>(STORAGE_KEYS.TIEN_BAO_LANH, [...MOCK_TIEN_BAO_LANH]);
+      this.canhBao      = lsGet<CanhBao>(STORAGE_KEYS.CANH_BAO, [...MOCK_CANH_BAO]);
+      this.vanBan       = lsGet<VanBan>(STORAGE_KEYS.VAN_BAN, [...MOCK_VAN_BAN]);
+      this.thongBao     = lsGet<ThongBao>(STORAGE_KEYS.THONG_BAO, [...MOCK_THONG_BAO]);
+      this.nhatKy       = lsGet<NhatKy>(STORAGE_KEYS.NHAT_KY, [...MOCK_NHAT_KY]);
+      this.cauHinh      = lsGetOne<CauHinh>(STORAGE_KEYS.CAU_HINH, { ...DEFAULT_CAU_HINH });
+    }
+  }
+
+  private _save() {
+    lsSet(STORAGE_KEYS.USERS,          this.users);
+    lsSet(STORAGE_KEYS.DON_VI,         this.donVi);
+    lsSet(STORAGE_KEYS.KHO,            this.kho);
+    lsSet(STORAGE_KEYS.HO_SO,          this.hoSo);
+    lsSet(STORAGE_KEYS.TANG_VAT,       this.tangVat);
+    lsSet(STORAGE_KEYS.NIEM_PHONG,     this.niemPhong);
+    lsSet(STORAGE_KEYS.PHIEU_NHAP_KHO, this.phieuNhapKho);
+    lsSet(STORAGE_KEYS.PHIEU_XUAT_KHO, this.phieuXuatKho);
+    lsSet(STORAGE_KEYS.KIEM_KE,        this.kiemKe);
+    lsSet(STORAGE_KEYS.LUAN_CHUYEN,    this.luanChuyen);
+    lsSet(STORAGE_KEYS.XU_LY,          this.xuLy);
+    lsSet(STORAGE_KEYS.GIAO_TU_GIU,    this.giaoTuGiu);
+    lsSet(STORAGE_KEYS.TIEN_BAO_LANH,  this.tienBaoLanh);
+    lsSet(STORAGE_KEYS.CANH_BAO,       this.canhBao);
+    lsSet(STORAGE_KEYS.VAN_BAN,        this.vanBan);
+    lsSet(STORAGE_KEYS.THONG_BAO,      this.thongBao);
+    lsSet(STORAGE_KEYS.NHAT_KY,        this.nhatKy);
+    lsSetOne(STORAGE_KEYS.CAU_HINH,    this.cauHinh);
+  }
+
   private notify() {
+    this._save(); // Persist trước khi notify UI
     this.listeners.forEach((l) => l());
   }
 
@@ -1276,6 +1356,43 @@ class AppStore {
     this.notify();
   }
 
+  banGiaoLuanChuyen(id: string) {
+    const now = new Date();
+    const dateStr = `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
+    const lc = this.luanChuyen.find((l) => l.id === id);
+    if (!lc) return;
+    // Cập nhật trạng thái luân chuyển
+    this.updateLuanChuyen(id, {
+      trangThai: "da_ban_giao",
+      ngayBanGiao: dateStr,
+      nguoiGiaoId: this.currentUser.id,
+      nguoiGiaoTen: this.currentUser.hoTen,
+      nguoiNhanId: this.currentUser.id,
+      nguoiNhanTen: this.currentUser.hoTen,
+    });
+    // Cập nhật tang vật: chuyển sang kho mới nếu là luân chuyển kho nội bộ
+    if (lc.loaiLuanChuyen === "luan_chuyen_kho" && lc.khoNhanId) {
+      this.tangVat = this.tangVat.map((tv) =>
+        tv.id === lc.tangVatId
+          ? { ...tv, khoId: lc.khoNhanId, khoTen: lc.khoNhanTen ?? tv.khoTen, updatedAt: dateStr }
+          : tv
+      );
+      // Giảm kho nguồn, tăng kho đích
+      this.kho = this.kho.map((k) => {
+        if (k.id === lc.khoNguonId) return { ...k, dangLuu: Math.max(0, k.dangLuu - 1) };
+        if (k.id === lc.khoNhanId) return { ...k, dangLuu: k.dangLuu + 1 };
+        return k;
+      });
+    } else {
+      // Chuyển cơ quan khác / bàn giao: giảm kho nguồn, cập nhật trạng thái tang vật
+      this.kho = this.kho.map((k) =>
+        k.id === lc.khoNguonId ? { ...k, dangLuu: Math.max(0, k.dangLuu - 1) } : k
+      );
+    }
+    this._addNhatKy("Bàn giao luân chuyển", "LuanChuyen", lc.id, lc.maLuanChuyen, `Bàn giao ${lc.tenTangVat} cho ${lc.donViNhanTen}`);
+    this.notify();
+  }
+
   // ========================
   // XU LY
   // ========================
@@ -1417,6 +1534,27 @@ class AppStore {
     this._addNhatKy("Tạo phiếu nhập kho", "PhieuNhapKho", pnk.id, pnk.maPhieu, `Nhập kho ${pnk.khoTen}`);
     this.notify();
     return pnk;
+  }
+
+  addPhieuXuatKho(data: Omit<PhieuXuatKho, "id" | "maPhieu" | "createdAt">) {
+    const now = new Date();
+    const dateStr = `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
+    const pxk: PhieuXuatKho = {
+      ...data,
+      id: genId(),
+      maPhieu: genMa("PXK"),
+      createdAt: dateStr,
+    };
+    this.phieuXuatKho = [pxk, ...this.phieuXuatKho];
+    // Cập nhật kho.dangLuu (giảm đi)
+    this.kho = this.kho.map((k) =>
+      k.id === data.khoId
+        ? { ...k, dangLuu: Math.max(0, k.dangLuu - data.chiTiet.length) }
+        : k
+    );
+    this._addNhatKy("Tạo phiếu xuất kho", "PhieuXuatKho", pxk.id, pxk.maPhieu, `Xuất kho ${pxk.khoTen} - ${data.lyDoXuat}`);
+    this.notify();
+    return pxk;
   }
 
   // ========================
@@ -1795,6 +1933,33 @@ class AppStore {
       giaoTuGiuKy: this.giaoTuGiu.filter((g) => inPeriod(g.createdAt)).length,
       tienBaoLanhKy: this.tienBaoLanh.filter((t) => inPeriod(t.createdAt)).length,
     };
+  }
+
+  // ========================
+  // DEV / DEMO TOOLS
+  // ========================
+  /**
+   * Reset về dữ liệu mock ban đầu (dùng để demo lại từ đầu).
+   * Xóa localStorage và reload.
+   */
+  resetToMockData() {
+    Object.values(STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
+    window.location.reload();
+  }
+
+  /**
+   * Lấy thông tin dung lượng localStorage đang dùng.
+   */
+  getStorageInfo() {
+    let total = 0;
+    const details: Record<string, string> = {};
+    Object.entries(STORAGE_KEYS).forEach(([name, key]) => {
+      const val = localStorage.getItem(key);
+      const size = val ? Math.round(val.length * 2 / 1024) : 0;
+      details[name] = `${size} KB`;
+      total += val ? val.length * 2 : 0;
+    });
+    return { totalKB: Math.round(total / 1024), details };
   }
 }
 

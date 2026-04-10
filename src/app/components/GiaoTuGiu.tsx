@@ -10,6 +10,25 @@ import type { GiaoTuGiu as TGiaoTuGiu, TrangThaiGiaoTuGiu } from "../lib/types";
 
 const PAGE_SIZE = 8;
 
+function addBusinessDays(dateStr: string, days: number): string {
+  // dateStr có thể là "YYYY-MM-DD" (từ input date) hoặc "DD/MM/YYYY"
+  let date: Date;
+  if (dateStr.includes("-")) {
+    const [y, m, d] = dateStr.split("-").map(Number);
+    date = new Date(y, m - 1, d);
+  } else {
+    const [d, m, y] = dateStr.split("/").map(Number);
+    date = new Date(y, m - 1, d);
+  }
+  let added = 0;
+  while (added < days) {
+    date.setDate(date.getDate() + 1);
+    const dow = date.getDay();
+    if (dow !== 0 && dow !== 6) added++;
+  }
+  return `${String(date.getDate()).padStart(2,"0")}/${String(date.getMonth()+1).padStart(2,"0")}/${date.getFullYear()}`;
+}
+
 const STATUS_STYLES: Record<TrangThaiGiaoTuGiu, { cls: string; label: string }> = {
   cho_xet_duyet: { cls: "bg-yellow-100 text-yellow-800", label: "Chờ xét duyệt" },
   da_duyet: { cls: "bg-blue-100 text-blue-800", label: "Đã duyệt" },
@@ -37,6 +56,7 @@ export function GiaoTuGiu() {
     doiTuongTen: "", doiTuongCccd: "", doiTuongDiaChi: "", doiTuongSdt: "",
     lyDoGiao: "", canCuPhapLy: "Điều 14 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)",
     dieuKienGiu: "", ghiChu: "",
+    ngayNopDon: "", hanXetDuyet: "",
   });
 
   const list = store.giaoTuGiu.filter((g) => !filterStatus || g.trangThai === filterStatus);
@@ -61,7 +81,7 @@ export function GiaoTuGiu() {
     });
     toast.success("Đã tạo đề xuất giao tự giữ");
     setShowCreateModal(false);
-    setForm({ tangVatId: "", tenTangVat: "", maBienBan: "", hoSoId: "", doiTuongTen: "", doiTuongCccd: "", doiTuongDiaChi: "", doiTuongSdt: "", lyDoGiao: "", canCuPhapLy: "Điều 14 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)", dieuKienGiu: "", ghiChu: "" });
+    setForm({ tangVatId: "", tenTangVat: "", maBienBan: "", hoSoId: "", doiTuongTen: "", doiTuongCccd: "", doiTuongDiaChi: "", doiTuongSdt: "", lyDoGiao: "", canCuPhapLy: "Điều 14 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)", dieuKienGiu: "", ghiChu: "", ngayNopDon: "", hanXetDuyet: "" });
   }
 
   function handleApprove(approved: boolean) {
@@ -279,6 +299,26 @@ export function GiaoTuGiu() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Điều kiện tự giữ <span className="text-red-500">*</span></label>
                 <textarea value={form.dieuKienGiu} onChange={(e) => setForm({ ...form, dieuKienGiu: e.target.value })} rows={2} className="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Không được sử dụng, không rời địa phương..." />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Ngày nộp đơn</label>
+                <input
+                  type="date"
+                  value={form.ngayNopDon}
+                  onChange={e => {
+                    const val = e.target.value;
+                    const han = val ? addBusinessDays(val, 3) : "";
+                    setForm(prev => ({ ...prev, ngayNopDon: val, hanXetDuyet: han }));
+                  }}
+                  className="w-full border rounded-lg px-3 py-2 text-sm"
+                />
+                {form.hanXetDuyet && (
+                  <p className="text-xs text-[#e65100] mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-3 h-3" />
+                    Hạn xét duyệt: <strong>{form.hanXetDuyet}</strong> (3 ngày làm việc)
+                  </p>
+                )}
               </div>
 
               <div>

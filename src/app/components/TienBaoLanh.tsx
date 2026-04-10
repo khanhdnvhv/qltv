@@ -10,6 +10,24 @@ import type { TienBaoLanh as TTienBaoLanh, TrangThaiBaoLanh } from "../lib/types
 
 const PAGE_SIZE = 8;
 
+function addBusinessDays(dateStr: string, days: number): string {
+  let date: Date;
+  if (dateStr.includes("-")) {
+    const [y, m, d] = dateStr.split("-").map(Number);
+    date = new Date(y, m - 1, d);
+  } else {
+    const [d, m, y] = dateStr.split("/").map(Number);
+    date = new Date(y, m - 1, d);
+  }
+  let added = 0;
+  while (added < days) {
+    date.setDate(date.getDate() + 1);
+    const dow = date.getDay();
+    if (dow !== 0 && dow !== 6) added++;
+  }
+  return `${String(date.getDate()).padStart(2,"0")}/${String(date.getMonth()+1).padStart(2,"0")}/${date.getFullYear()}`;
+}
+
 const STATUS_STYLES: Record<TrangThaiBaoLanh, { cls: string; label: string }> = {
   cho_chuyen_tai_vu: { cls: "bg-yellow-100 text-yellow-800", label: "Chờ chuyển tài vụ" },
   da_chuyen_tai_vu: { cls: "bg-blue-100 text-blue-800", label: "Đang tạm giữ" },
@@ -36,6 +54,7 @@ export function TienBaoLanh() {
     lyDoBaoLanh: "",
     canCuPhapLy: "Điều 15 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)",
     ghiChu: "",
+    ngayDatBaoLanh: "", hanChuyenTaiVu: "", ngayHetHanXuLy: "",
   });
 
   const [xuLyForm, setXuLyForm] = useState({
@@ -82,7 +101,7 @@ export function TienBaoLanh() {
     });
     toast.success("Đã tiếp nhận tiền bảo lãnh");
     setShowCreateModal(false);
-    setForm({ tangVatId: "", tenTangVat: "", maBienBan: "", hoSoId: "", doiTuongTen: "", doiTuongCccd: "", soTienBaoLanh: "", lyDoBaoLanh: "", canCuPhapLy: "Điều 15 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)", ghiChu: "" });
+    setForm({ tangVatId: "", tenTangVat: "", maBienBan: "", hoSoId: "", doiTuongTen: "", doiTuongCccd: "", soTienBaoLanh: "", lyDoBaoLanh: "", canCuPhapLy: "Điều 15 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)", ghiChu: "", ngayDatBaoLanh: "", hanChuyenTaiVu: "", ngayHetHanXuLy: "" });
   }
 
   function handleChuyenTaiVu(id: string) {
@@ -292,6 +311,31 @@ export function TienBaoLanh() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Lý do bảo lãnh <span className="text-red-500">*</span></label>
                 <textarea value={form.lyDoBaoLanh} onChange={(e) => setForm({ ...form, lyDoBaoLanh: e.target.value })} rows={2} className="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Nộp tiền bảo lãnh để nhận lại..." />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Ngày đặt bảo lãnh</label>
+                <input
+                  type="date"
+                  value={form.ngayDatBaoLanh}
+                  onChange={e => {
+                    const val = e.target.value;
+                    const hanCTV = val ? addBusinessDays(val, 2) : "";
+                    const hanXL = val ? addBusinessDays(val, 10) : "";
+                    setForm(prev => ({ ...prev, ngayDatBaoLanh: val, hanChuyenTaiVu: hanCTV, ngayHetHanXuLy: hanXL }));
+                  }}
+                  className="w-full border rounded-lg px-3 py-2 text-sm"
+                />
+                {(form.hanChuyenTaiVu || form.ngayHetHanXuLy) && (
+                  <div className="mt-1 space-y-0.5">
+                    {form.hanChuyenTaiVu && (
+                      <p className="text-xs text-[#1565c0]">📅 Hạn chuyển tài vụ: <strong>{form.hanChuyenTaiVu}</strong> (2 ngày LV)</p>
+                    )}
+                    {form.ngayHetHanXuLy && (
+                      <p className="text-xs text-[#e65100]">⏰ Hạn xử lý: <strong>{form.ngayHetHanXuLy}</strong> (10 ngày LV)</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Căn cứ pháp lý</label>
                 <input value={form.canCuPhapLy} onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })} className="w-full border rounded-lg px-3 py-2 text-sm" />

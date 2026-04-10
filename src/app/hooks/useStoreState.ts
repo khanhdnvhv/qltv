@@ -25,6 +25,7 @@ export function useStoreState() {
     tangVat: appStore.tangVat,
     niemPhong: appStore.niemPhong,
     phieuNhapKho: appStore.phieuNhapKho,
+    phieuXuatKho: appStore.phieuXuatKho,
     kiemKe: appStore.kiemKe,
     luanChuyen: appStore.luanChuyen,
     xuLy: appStore.xuLy,

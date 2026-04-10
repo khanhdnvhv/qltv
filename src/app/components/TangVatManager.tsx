@@ -51,6 +51,11 @@ export function TangVatManager() {
   const [confirmDelete, setConfirmDelete] = useState<TangVat | null>(null);
   const [editForm, setEditForm] = useState({ ten: "", dacDiemNhanDang: "", tinhTrangBanDau: "", giaTriUocTinh: 0, ghiChu: "" });
 
+  const [anhUrls, setAnhUrls] = useState<string[]>([""]);
+  const addAnhUrl = () => setAnhUrls(prev => [...prev, ""]);
+  const removeAnhUrl = (idx: number) => setAnhUrls(prev => prev.filter((_, i) => i !== idx));
+  const updateAnhUrl = (idx: number, val: string) => setAnhUrls(prev => prev.map((v, i) => i === idx ? val : v));
+
   const [form, setForm] = useState({
     hoSoId: "hs1",
     ten: "",
@@ -128,7 +133,14 @@ export function TangVatManager() {
       ngayNhapKho: dateStr,
       canBoQuanLyId: store.currentUser.id,
       canBoQuanLyTen: store.currentUser.hoTen,
-      hinhAnh: [],
+      hinhAnh: anhUrls.filter(u => u.trim()).map((url, i) => ({
+          id: `ha-${Date.now()}-${i}`,
+          tangVatId: "",
+          url,
+          moTa: `Ảnh ${i + 1}`,
+          uploadedAt: new Date().toLocaleDateString("vi-VN"),
+          uploadedBy: store.currentUser.hoTen,
+        })),
       ghiChu: form.ghiChu,
       soGiayPhep: form.soGiayPhep || undefined,
       coQuanCapPhep: form.coQuanCapPhep || undefined,
@@ -137,6 +149,7 @@ export function TangVatManager() {
       hanDungSanPham: form.hanDungSanPham || undefined,
     });
     setShowCreate(false);
+    setAnhUrls([""]);
   }
 
   function handleSaveEdit() {
@@ -396,11 +409,33 @@ export function TangVatManager() {
                 })()}
               </div>
 
-              {/* Thumbnail */}
-              <div className="w-full h-28 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex flex-col items-center justify-center gap-1.5">
-                <Camera className="w-7 h-7 text-gray-400" />
-                <p className="text-xs text-gray-400">Chưa có hình ảnh</p>
-              </div>
+              {/* Hình ảnh */}
+              {selected.hinhAnh && selected.hinhAnh.length > 0 ? (
+                <div>
+                  <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                    <Camera className="w-3.5 h-3.5" />
+                    Hình ảnh tang vật ({selected.hinhAnh.length})
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {selected.hinhAnh.map((ha) => (
+                      <img
+                        key={ha.id}
+                        src={ha.url}
+                        alt={ha.moTa}
+                        className="w-full h-20 object-cover rounded-lg border border-border"
+                        onError={e => {
+                          e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='%23f0f4f8'/%3E%3Ctext x='40' y='45' text-anchor='middle' fill='%23aaa' font-size='12'%3ENo img%3C/text%3E%3C/svg%3E";
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="w-full h-28 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex flex-col items-center justify-center gap-1.5">
+                  <Camera className="w-7 h-7 text-gray-400" />
+                  <p className="text-xs text-gray-400">Chưa có hình ảnh</p>
+                </div>
+              )}
 
               {/* Đặc điểm */}
               <div className="bg-blue-50 rounded-xl p-3.5 border border-blue-100">
@@ -715,6 +750,42 @@ export function TangVatManager() {
               </div>
 
               <div>
+                <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-1">
+                  <Camera className="w-3.5 h-3.5" />
+                  Hình ảnh tang vật
+                </label>
+                <div className="space-y-2">
+                  {anhUrls.map((url, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={url}
+                        onChange={e => updateAnhUrl(idx, e.target.value)}
+                        placeholder={`URL ảnh ${idx + 1} (https://...)`}
+                        className="flex-1 px-3 py-1.5 bg-[#f0f4f8] border border-border rounded-lg text-sm"
+                      />
+                      {url && (
+                        <img src={url} alt="" className="w-8 h-8 object-cover rounded border border-border" onError={e => (e.currentTarget.style.display = "none")} />
+                      )}
+                      {anhUrls.length > 1 && (
+                        <button type="button" onClick={() => removeAnhUrl(idx)} className="text-red-400 hover:text-red-600">
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addAnhUrl}
+                    className="text-sm text-[#0d3b66] hover:underline flex items-center gap-1"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Thêm ảnh
+                  </button>
+                </div>
+              </div>
+
+              <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Ghi chú</label>
                 <textarea
                   className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 resize-none"
@@ -727,7 +798,7 @@ export function TangVatManager() {
 
             <div className="flex gap-3 px-6 pb-6">
               <button
-                onClick={() => setShowCreate(false)}
+                onClick={() => { setShowCreate(false); setAnhUrls([""]); }}
                 className="flex-1 border border-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50"
               >
                 Hủy
