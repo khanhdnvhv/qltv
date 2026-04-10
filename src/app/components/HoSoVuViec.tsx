@@ -346,7 +346,13 @@ export function HoSoVuViec() {
                               >
                                 <Trash2 className="w-3.5 h-3.5 text-gray-400 hover:text-red-500" />
                               </button>
-                              <Eye className="w-4 h-4 text-gray-300 ml-1" />
+                              <button
+                                title="Xem chi tiết"
+                                onClick={() => setSelectedHoSo(hs)}
+                                className="p-1.5 hover:bg-blue-50 rounded-md transition-colors"
+                              >
+                                <Eye className="w-3.5 h-3.5 text-gray-400 hover:text-blue-600" />
+                              </button>
                             </div>
                           </td>
                         </tr>
