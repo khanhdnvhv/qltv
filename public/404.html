@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Tang Vật</title>
+    <script>
+      // SPA GitHub Pages redirect trick (by Rafael Pedicini)
+      // Encode path + query + hash vào query string rồi redirect về index.html
+      // index.html sẽ decode lại và dùng history.replaceState để restore URL
+      var pathSegmentsToKeep = 1; // số path segment của repo name (/qltv)
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1 + l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/').length) +
+        (l.search ? '&' + l.search.slice(1) : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body>
+    <p>Đang chuyển hướng...</p>
+  </body>
+</html>
