@@ -382,16 +382,20 @@ export function NiemPhong() {
 
       {/* Create modal */}
       {showCreate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-5">
-            <div className="flex items-center justify-between">
-              <h2 className="text-[#0d3b66] font-bold">Tạo biên bản niêm phong</h2>
-              <button onClick={() => setShowCreate(false)} className="text-muted-foreground hover:text-[#1a2332]">
+        <>
+          <div className="fixed inset-0 bg-black/40 z-50" onClick={() => setShowCreate(false)} />
+          <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-2xl flex flex-col z-50">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
+              <div>
+                <h2 className="text-xl font-bold text-[#0d3b66]">Tạo biên bản niêm phong</h2>
+                <p className="text-xs text-gray-400 mt-0.5">Niêm phong tang vật theo quy định</p>
+              </div>
+              <button onClick={() => setShowCreate(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
               <div>
                 <label className="text-sm text-muted-foreground mb-1 block">
                   Tang vật <span className="text-[#c62828]">*</span>
@@ -474,64 +478,66 @@ export function NiemPhong() {
               </div>
             </div>
 
-            <div className="flex gap-3 pt-2">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">
               <button
                 onClick={() => setShowCreate(false)}
-                className="flex-1 py-2.5 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
+                className="px-4 py-2.5 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
               >
                 Hủy
               </button>
               <button
                 onClick={handleCreate}
-                className="flex-1 py-2.5 bg-[#0d3b66] text-white rounded-lg text-sm hover:bg-[#0a2f52] flex items-center justify-center gap-2"
+                className="px-4 py-2.5 bg-[#0d3b66] text-white rounded-lg text-sm hover:bg-[#0a2f52] flex items-center gap-2"
               >
                 <Stamp className="w-4 h-4" />
                 Tạo niêm phong
               </button>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* Mo niem phong modal */}
       {showMoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-5">
-            <div className="flex items-center justify-between">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
               <h2 className="text-[#c62828] font-bold">Mở niêm phong</h2>
-              <button onClick={() => { setShowMoModal(null); setLyDoMo(""); }} className="text-muted-foreground hover:text-[#1a2332]">
+              <button onClick={() => { setShowMoModal(null); setLyDoMo(""); }} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-3 bg-[#ffebee] rounded-lg">
-              <p className="text-sm font-medium text-[#c62828]">{showMoModal.maNiemPhong}</p>
-              <p className="text-sm text-muted-foreground">{showMoModal.tenTangVat}</p>
+            <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+              <div className="p-3 bg-[#ffebee] rounded-lg">
+                <p className="text-sm font-medium text-[#c62828]">{showMoModal.maNiemPhong}</p>
+                <p className="text-sm text-muted-foreground">{showMoModal.tenTangVat}</p>
+              </div>
+
+              <div>
+                <label className="text-sm text-muted-foreground mb-1 block">
+                  Lý do mở niêm phong <span className="text-[#c62828]">*</span>
+                </label>
+                <textarea
+                  rows={3}
+                  value={lyDoMo}
+                  onChange={e => setLyDoMo(e.target.value)}
+                  placeholder="Nhập lý do mở niêm phong..."
+                  className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm resize-none"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="text-sm text-muted-foreground mb-1 block">
-                Lý do mở niêm phong <span className="text-[#c62828]">*</span>
-              </label>
-              <textarea
-                rows={3}
-                value={lyDoMo}
-                onChange={e => setLyDoMo(e.target.value)}
-                placeholder="Nhập lý do mở niêm phong..."
-                className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm resize-none"
-              />
-            </div>
-
-            <div className="flex gap-3">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">
               <button
                 onClick={() => { setShowMoModal(null); setLyDoMo(""); }}
-                className="flex-1 py-2.5 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
+                className="px-4 py-2.5 border border-border rounded-lg text-sm hover:bg-[#f8fafc]"
               >
                 Hủy
               </button>
               <button
                 onClick={handleMoNiemPhong}
-                className="flex-1 py-2.5 bg-[#c62828] text-white rounded-lg text-sm hover:bg-[#b71c1c] flex items-center justify-center gap-2"
+                className="px-4 py-2.5 bg-[#c62828] text-white rounded-lg text-sm hover:bg-[#b71c1c] flex items-center gap-2"
               >
                 <Unlock className="w-4 h-4" />
                 Xác nhận mở

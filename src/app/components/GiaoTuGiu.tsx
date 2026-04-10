@@ -440,9 +440,14 @@ export function GiaoTuGiu() {
       {showApproveModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className="bg-gradient-to-r from-green-600 to-green-700 p-5 rounded-t-2xl">
-              <h2 className="text-white font-bold text-lg">Xét duyệt giao tự giữ</h2>
-              <p className="text-green-200 text-sm">{showApproveModal.tenTangVat} — {showApproveModal.doiTuongTen}</p>
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-5 rounded-t-2xl flex justify-between items-start">
+              <div>
+                <h2 className="text-white font-bold text-lg">Xét duyệt giao tự giữ</h2>
+                <p className="text-green-200 text-sm">{showApproveModal.tenTangVat} — {showApproveModal.doiTuongTen}</p>
+              </div>
+              <button onClick={() => { setShowApproveModal(null); setLyDoTuChoi(""); }} className="p-1.5 hover:bg-white/20 rounded-lg transition-colors">
+                <X className="w-4 h-4 text-white" />
+              </button>
             </div>
             <div className="p-5 space-y-4">
               <div className="bg-gray-50 rounded-lg p-3 text-sm space-y-1">
@@ -472,9 +477,14 @@ export function GiaoTuGiu() {
       {showThuHoiModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className="bg-gradient-to-r from-red-600 to-red-700 p-5 rounded-t-2xl">
-              <h2 className="text-white font-bold text-lg">Thu hồi tang vật tự giữ</h2>
-              <p className="text-red-200 text-sm">{showThuHoiModal.tenTangVat}</p>
+            <div className="bg-gradient-to-r from-red-600 to-red-700 p-5 rounded-t-2xl flex justify-between items-start">
+              <div>
+                <h2 className="text-white font-bold text-lg">Thu hồi tang vật tự giữ</h2>
+                <p className="text-red-200 text-sm">{showThuHoiModal.tenTangVat}</p>
+              </div>
+              <button onClick={() => { setShowThuHoiModal(null); setLyDoThuHoi(""); }} className="p-1.5 hover:bg-white/20 rounded-lg transition-colors">
+                <X className="w-4 h-4 text-white" />
+              </button>
             </div>
             <div className="p-5 space-y-4">
               <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
