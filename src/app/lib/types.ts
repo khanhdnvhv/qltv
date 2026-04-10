@@ -669,6 +669,27 @@ export interface DonViTinhDanhMuc {
   moTa: string;
 }
 
+// --- Phan quyen ---
+export interface QuyenModule {
+  moduleId: string;   // e.g. "/ho-so"
+  xem: boolean;
+  them: boolean;
+  sua: boolean;
+  xoa: boolean;
+  duyet: boolean;
+}
+
+export interface NhomQuyen {
+  id: string;
+  ten: string;
+  moTa: string;
+  maMau: string;       // hex color
+  isSystem: boolean;   // nhóm hệ thống, không xóa được
+  vaiTroId: string;    // maps to VaiTroTangVat
+  quyenModules: QuyenModule[];
+  createdAt: string;
+}
+
 // --- Pagination & Filter ---
 export interface PaginationState {
   page: number;

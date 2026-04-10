@@ -14,6 +14,7 @@ import { useStoreState } from "../hooks/useStoreState";
 import { LOAI_TANG_VAT, LOAI_LUAN_CHUYEN, VAI_TRO_LABELS } from "../lib/constants";
 import { appStore } from "../lib/store";
 import type { DonVi, User, CanCuPhapLyMau, DonViTinhDanhMuc, VaiTroTangVat } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 // ========================
 // TYPES
@@ -272,10 +273,16 @@ function TabDonVi({ donVi }: { donVi: DonVi[] }) {
           <input value={form.ma} onChange={e => setForm(f => ({ ...f, ma: e.target.value }))} className={inputCls} placeholder="VD: CABX" />
         </Field>
         <Field label="Cấp đơn vị" required>
-          <select value={form.capDonVi} onChange={e => setForm(f => ({ ...f, capDonVi: e.target.value as DonVi["capDonVi"] }))} className={selectCls}>
-            <option value="tinh">Cấp tỉnh / thành phố</option>
-            <option value="xa">Cấp xã / phường</option>
-          </select>
+          <SearchableSelect
+            value={form.capDonVi}
+            onChange={(val) => setForm(f => ({ ...f, capDonVi: val as DonVi["capDonVi"] }))}
+            options={[
+              { value: "tinh", label: "Cấp tỉnh / thành phố" },
+              { value: "xa", label: "Cấp xã / phường" },
+            ]}
+            placeholder="— Chọn cấp đơn vị —"
+            clearable={false}
+          />
         </Field>
         <Field label="Địa chỉ">
           <input value={form.diaChi} onChange={e => setForm(f => ({ ...f, diaChi: e.target.value }))} className={inputCls} placeholder="Địa chỉ trụ sở" />
@@ -449,17 +456,22 @@ function TabCanBo({ users, donVi }: { users: User[]; donVi: DonVi[] }) {
           <input value={form.chucVu || ""} onChange={e => setForm(f => ({ ...f, chucVu: e.target.value }))} className={inputCls} placeholder="VD: Cán bộ nghiệp vụ" />
         </Field>
         <Field label="Vai trò" required>
-          <select value={form.vaiTro || "canbonv"} onChange={e => setForm(f => ({ ...f, vaiTro: e.target.value as VaiTroTangVat }))} className={selectCls}>
-            {(Object.entries(VAI_TRO_LABELS) as [VaiTroTangVat, string][]).map(([k, v]) => (
-              <option key={k} value={k}>{v}</option>
-            ))}
-          </select>
+          <SearchableSelect
+            value={form.vaiTro || "canbonv"}
+            onChange={(val) => setForm(f => ({ ...f, vaiTro: val as VaiTroTangVat }))}
+            options={Object.entries(VAI_TRO_LABELS).map(([v, l]) => ({ value: v, label: l }))}
+            placeholder="— Chọn vai trò —"
+            clearable={false}
+          />
         </Field>
         <Field label="Đơn vị" required>
-          <select value={form.donViId || ""} onChange={e => handleDonViChange(e.target.value)} className={selectCls}>
-            <option value="">-- Chọn đơn vị --</option>
-            {donVi.map(dv => <option key={dv.id} value={dv.id}>{dv.ten}</option>)}
-          </select>
+          <SearchableSelect
+            value={form.donViId || ""}
+            onChange={(val) => handleDonViChange(val)}
+            options={donVi.map(dv => ({ value: dv.id, label: dv.ten }))}
+            placeholder="-- Chọn đơn vị --"
+            clearable={false}
+          />
         </Field>
         <Field label="Số điện thoại">
           <input value={form.soDienThoai || ""} onChange={e => setForm(f => ({ ...f, soDienThoai: e.target.value }))} className={inputCls} placeholder="09xxxxxxxx" />
@@ -589,10 +601,12 @@ function TabCanCuPhapLy({ items }: { items: CanCuPhapLyMau[] }) {
           />
         </Field>
         <Field label="Lĩnh vực">
-          <select value={form.linhVuc} onChange={e => setForm(f => ({ ...f, linhVuc: e.target.value }))} className={selectCls}>
-            <option value="">-- Chọn lĩnh vực --</option>
-            {LINH_VUC_OPTIONS.map(lv => <option key={lv} value={lv}>{lv}</option>)}
-          </select>
+          <SearchableSelect
+            value={form.linhVuc}
+            onChange={(val) => setForm(f => ({ ...f, linhVuc: val }))}
+            options={LINH_VUC_OPTIONS.map(lv => ({ value: lv, label: lv }))}
+            placeholder="-- Chọn lĩnh vực --"
+          />
         </Field>
       </SidePanel>
     </>

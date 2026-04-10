@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_TANG_VAT, LOAI_TANG_VAT } from "../lib/constants";
 import type { TangVat, TrangThaiTangVat, LoaiTangVat } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 function formatNum(n: number) {
   return new Intl.NumberFormat("vi-VN").format(n);
@@ -197,28 +198,33 @@ export function TangVatManager() {
                 onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               />
             </div>
-            <select
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+            <SearchableSelect
               value={filterLoai}
-              onChange={(e) => { setFilterLoai(e.target.value as any); setPage(1); }}
-            >
-              {LOAI_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-            <select
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+              onChange={(val) => { setFilterLoai(val as LoaiTangVat | ""); setPage(1); }}
+              options={LOAI_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+              placeholder="Tất cả loại"
+              clearable={false}
+              className="w-48"
+            />
+            <SearchableSelect
               value={filterTT}
-              onChange={(e) => { setFilterTT(e.target.value as any); setPage(1); }}
-            >
-              {TRANG_THAI_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-            <select
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+              onChange={(val) => { setFilterTT(val as TrangThaiTangVat | ""); setPage(1); }}
+              options={TRANG_THAI_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+              placeholder="Tất cả trạng thái"
+              clearable={false}
+              className="w-48"
+            />
+            <SearchableSelect
               value={filterKho}
-              onChange={(e) => { setFilterKho(e.target.value); setPage(1); }}
-            >
-              <option value="">Tất cả kho</option>
-              {kho.map((k) => <option key={k.id} value={k.id}>{k.ten}</option>)}
-            </select>
+              onChange={(val) => { setFilterKho(val); setPage(1); }}
+              options={[
+                { value: "", label: "Tất cả kho" },
+                ...kho.map((k) => ({ value: k.id, label: k.ten })),
+              ]}
+              placeholder="Tất cả kho"
+              clearable={false}
+              className="w-44"
+            />
             <span className="text-sm text-gray-500 flex items-center px-2">{filtered.length} kết quả</span>
           </div>
 
@@ -507,19 +513,17 @@ export function TangVatManager() {
               {/* Cập nhật trạng thái */}
               <div>
                 <p className="text-xs font-semibold text-gray-600 mb-2">Cập nhật trạng thái</p>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-[#0d3b66]"
+                <SearchableSelect
                   value={selected.trangThai}
-                  onChange={(e) => {
-                    const tt = e.target.value as TrangThaiTangVat;
+                  onChange={(val) => {
+                    const tt = val as TrangThaiTangVat;
                     store.updateTrangThaiTangVat(selected.id, tt);
                     setSelected({ ...selected, trangThai: tt });
                   }}
-                >
-                  {TRANG_THAI_OPTIONS.filter((o) => o.value).map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
-                  ))}
-                </select>
+                  options={TRANG_THAI_OPTIONS.filter((o) => o.value).map((o) => ({ value: o.value, label: o.label }))}
+                  placeholder="— Chọn trạng thái —"
+                  clearable={false}
+                />
               </div>
             </div>
 
@@ -557,27 +561,23 @@ export function TangVatManager() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Hồ sơ vụ việc</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                  <SearchableSelect
                     value={form.hoSoId}
-                    onChange={(e) => setForm({ ...form, hoSoId: e.target.value })}
-                  >
-                    {hoSo.map((h) => (
-                      <option key={h.id} value={h.id}>{h.maBienBan} - {h.doiTuongViPham}</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setForm({ ...form, hoSoId: val })}
+                    options={hoSo.map((h) => ({ value: h.id, label: h.maBienBan, sublabel: h.doiTuongViPham }))}
+                    placeholder="— Chọn hồ sơ —"
+                    clearable={false}
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Loại tang vật</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                  <SearchableSelect
                     value={form.loai}
-                    onChange={(e) => setForm({ ...form, loai: e.target.value as LoaiTangVat })}
-                  >
-                    {LOAI_OPTIONS.filter((o) => o.value).map((o) => (
-                      <option key={o.value} value={o.value}>{o.label}</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setForm({ ...form, loai: val as LoaiTangVat })}
+                    options={LOAI_OPTIONS.filter((o) => o.value).map((o) => ({ value: o.value, label: o.label }))}
+                    placeholder="— Chọn loại —"
+                    clearable={false}
+                  />
                 </div>
               </div>
 
@@ -750,15 +750,13 @@ export function TangVatManager() {
 
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Kho lưu trữ</label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                <SearchableSelect
                   value={form.khoId}
-                  onChange={(e) => setForm({ ...form, khoId: e.target.value })}
-                >
-                  {kho.map((k) => (
-                    <option key={k.id} value={k.id}>{k.ten}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, khoId: val })}
+                  options={kho.map((k) => ({ value: k.id, label: k.ten }))}
+                  placeholder="— Chọn kho —"
+                  clearable={false}
+                />
               </div>
 
               <div>

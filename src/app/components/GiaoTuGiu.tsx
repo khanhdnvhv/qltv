@@ -7,6 +7,7 @@ import {
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_GIAO_TU_GIU } from "../lib/constants";
 import type { GiaoTuGiu as TGiaoTuGiu, TrangThaiGiaoTuGiu } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 const PAGE_SIZE = 8;
 
@@ -203,16 +204,17 @@ export function GiaoTuGiu() {
         {/* Filter + Table */}
         <div className="bg-white rounded-xl shadow-sm border">
           <div className="p-4 border-b flex gap-3 flex-wrap">
-            <select
+            <SearchableSelect
               value={filterStatus}
-              onChange={(e) => { setFilterStatus(e.target.value as TrangThaiGiaoTuGiu | ""); setPage(1); }}
-              className="border rounded-lg px-3 py-2 text-sm"
-            >
-              <option value="">Tất cả trạng thái</option>
-              {Object.entries(TRANG_THAI_GIAO_TU_GIU).map(([k, v]) => (
-                <option key={k} value={k}>{v.label}</option>
-              ))}
-            </select>
+              onChange={(val) => { setFilterStatus(val as TrangThaiGiaoTuGiu | ""); setPage(1); }}
+              options={[
+                { value: "", label: "Tất cả trạng thái" },
+                ...Object.entries(TRANG_THAI_GIAO_TU_GIU).map(([k, v]) => ({ value: k, label: v.label })),
+              ]}
+              placeholder="Tất cả trạng thái"
+              clearable={false}
+              className="w-52"
+            />
             <span className="ml-auto text-sm text-gray-500 self-center">{list.length} bản ghi</span>
           </div>
 
@@ -310,16 +312,12 @@ export function GiaoTuGiu() {
             <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tang vật <span className="text-red-500">*</span></label>
-                <select
+                <SearchableSelect
                   value={form.tangVatId}
-                  onChange={(e) => setForm({ ...form, tangVatId: e.target.value })}
-                  className="w-full border rounded-lg px-3 py-2 text-sm"
-                >
-                  <option value="">— Chọn tang vật —</option>
-                  {tangVatOptions.map((tv) => (
-                    <option key={tv.id} value={tv.id}>{tv.ten} ({tv.maTangVat})</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, tangVatId: val })}
+                  options={tangVatOptions.map((tv) => ({ value: tv.id, label: tv.ten, sublabel: tv.maTangVat }))}
+                  placeholder="— Chọn tang vật —"
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -376,16 +374,12 @@ export function GiaoTuGiu() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Căn cứ pháp lý</label>
-                <select
+                <SearchableSelect
                   value={form.canCuPhapLy}
-                  onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-400 bg-white"
-                >
-                  <option value="">— Chọn căn cứ pháp lý —</option>
-                  {canCuPhapLyMau.map((m) => (
-                    <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, canCuPhapLy: val })}
+                  options={canCuPhapLyMau.map((m) => ({ value: m.noiDung, label: m.tieuDe, sublabel: m.linhVuc }))}
+                  placeholder="— Chọn căn cứ pháp lý —"
+                />
               </div>
             </div>
             <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">

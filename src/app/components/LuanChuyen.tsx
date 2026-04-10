@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_LUAN_CHUYEN, LOAI_LUAN_CHUYEN } from "../lib/constants";
 import type { TrangThaiLuanChuyen, LoaiLuanChuyen } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 const FILTER_OPTIONS: { value: TrangThaiLuanChuyen | ""; label: string }[] = [
   { value: "", label: "Tất cả" },
@@ -233,13 +234,13 @@ export function LuanChuyen() {
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
-        <select
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+        <SearchableSelect
           value={filterTT}
-          onChange={(e) => { setFilterTT(e.target.value as any); setPage(1); }}
-        >
-          {FILTER_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+          onChange={(val) => { setFilterTT(val as TrangThaiLuanChuyen | ""); setPage(1); }}
+          options={FILTER_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+          placeholder="Tất cả"
+          clearable={false}
+        />
       </div>
 
       {/* Table */}
@@ -371,27 +372,22 @@ export function LuanChuyen() {
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Tang vật <span className="text-red-500">*</span>
                 </label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                <SearchableSelect
                   value={form.tangVatId}
-                  onChange={(e) => setForm({ ...form, tangVatId: e.target.value })}
-                >
-                  {tangVat.filter((tv) => ["dang_luu_kho", "cho_xu_ly"].includes(tv.trangThai)).map((tv) => (
-                    <option key={tv.id} value={tv.id}>{tv.maTangVat} - {tv.ten}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, tangVatId: val })}
+                  options={tangVat.filter((tv) => ["dang_luu_kho", "cho_xu_ly"].includes(tv.trangThai)).map((tv) => ({ value: tv.id, label: `${tv.maTangVat} - ${tv.ten}` }))}
+                  placeholder="— Chọn tang vật —"
+                />
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Loại luân chuyển <span className="text-red-500">*</span></label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                <SearchableSelect
                   value={form.loaiLuanChuyen}
-                  onChange={(e) => setForm({ ...form, loaiLuanChuyen: e.target.value as LoaiLuanChuyen })}
-                >
-                  {Object.entries(LOAI_LUAN_CHUYEN).map(([k, v]) => (
-                    <option key={k} value={k}>{v.label}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, loaiLuanChuyen: val as LoaiLuanChuyen })}
+                  options={Object.entries(LOAI_LUAN_CHUYEN).map(([k, v]) => ({ value: k, label: v.label }))}
+                  placeholder="— Chọn loại luân chuyển —"
+                  clearable={false}
+                />
               </div>
               {form.loaiLuanChuyen === "chuyen_co_quan_to_tung" ? (
                 <>
@@ -428,29 +424,22 @@ export function LuanChuyen() {
                         onChange={(e) => setForm({ ...form, coQuanNhanTen: e.target.value })}
                       />
                     ) : (
-                      <select
-                        className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                      <SearchableSelect
                         value={form.donViNhanId}
-                        onChange={(e) => setForm({ ...form, donViNhanId: e.target.value })}
-                      >
-                        {donVi.map((d) => (
-                          <option key={d.id} value={d.id}>{d.ten}</option>
-                        ))}
-                      </select>
+                        onChange={(val) => setForm({ ...form, donViNhanId: val })}
+                        options={donVi.map((d) => ({ value: d.id, label: d.ten }))}
+                        placeholder="— Chọn đơn vị —"
+                      />
                     )}
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Kho nhận (tùy chọn)</label>
-                    <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                    <SearchableSelect
                       value={form.khoNhanId}
-                      onChange={(e) => setForm({ ...form, khoNhanId: e.target.value })}
-                    >
-                      <option value="">-- Chưa xác định --</option>
-                      {kho.map((k) => (
-                        <option key={k.id} value={k.id}>{k.ten}</option>
-                      ))}
-                    </select>
+                      onChange={(val) => setForm({ ...form, khoNhanId: val })}
+                      options={kho.map((k) => ({ value: k.id, label: k.ten, sublabel: k.diaChi }))}
+                      placeholder="-- Chưa xác định --"
+                    />
                   </div>
                 </>
               )}
@@ -468,16 +457,12 @@ export function LuanChuyen() {
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Căn cứ pháp lý</label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 bg-white"
+                <SearchableSelect
                   value={form.canCuPhapLy}
-                  onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
-                >
-                  <option value="">— Chọn căn cứ pháp lý —</option>
-                  {canCuPhapLyMau.map((m) => (
-                    <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, canCuPhapLy: val })}
+                  options={canCuPhapLyMau.map((m) => ({ value: m.noiDung, label: m.tieuDe, sublabel: m.noiDung }))}
+                  placeholder="— Chọn căn cứ pháp lý —"
+                />
               </div>
             </div>
             <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">

@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_HO_SO, TRANG_THAI_TANG_VAT } from "../lib/constants";
 import type { HoSoVuViec as IHoSo, TrangThaiHoSo } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 function formatNum(n: number) {
   return new Intl.NumberFormat("vi-VN").format(n);
@@ -250,25 +251,19 @@ export function HoSoVuViec() {
                 onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               />
             </div>
-            <select
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+            <SearchableSelect
               value={filterTT}
-              onChange={(e) => { setFilterTT(e.target.value as any); setPage(1); }}
-            >
-              {STATUS_FILTER_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-            <select
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+              onChange={(val) => { setFilterTT(val as TrangThaiHoSo | ""); setPage(1); }}
+              options={STATUS_FILTER_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+              placeholder="Tất cả trạng thái"
+              clearable={false}
+            />
+            <SearchableSelect
               value={filterDV}
-              onChange={(e) => { setFilterDV(e.target.value); setPage(1); }}
-            >
-              <option value="">Tất cả đơn vị</option>
-              {donVi.map((d) => (
-                <option key={d.id} value={d.id}>{d.ten}</option>
-              ))}
-            </select>
+              onChange={(val) => { setFilterDV(val); setPage(1); }}
+              options={donVi.map((d) => ({ value: d.id, label: d.ten }))}
+              placeholder="Tất cả đơn vị"
+            />
             <div className="text-sm text-gray-500 flex items-center px-2">
               {filtered.length} hồ sơ
             </div>
@@ -544,19 +539,16 @@ export function HoSoVuViec() {
               {/* Cập nhật trạng thái */}
               <div>
                 <p className="text-xs font-semibold text-gray-600 mb-2">Cập nhật trạng thái</p>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-[#0d3b66]"
+                <SearchableSelect
                   value={selectedHoSo.trangThai}
-                  onChange={(e) => {
-                    const tt = e.target.value as TrangThaiHoSo;
-                    store.updateTrangThaiHoSo(selectedHoSo.id, tt);
-                    setSelectedHoSo({ ...selectedHoSo, trangThai: tt });
+                  onChange={(tt) => {
+                    store.updateTrangThaiHoSo(selectedHoSo.id, tt as TrangThaiHoSo);
+                    setSelectedHoSo({ ...selectedHoSo, trangThai: tt as TrangThaiHoSo });
                   }}
-                >
-                  {STATUS_FILTER_OPTIONS.filter((o) => o.value).map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
-                  ))}
-                </select>
+                  options={STATUS_FILTER_OPTIONS.filter((o) => o.value).map((o) => ({ value: o.value, label: o.label }))}
+                  placeholder="— Chọn trạng thái —"
+                  clearable={false}
+                />
               </div>
             </div>
 
@@ -617,29 +609,21 @@ export function HoSoVuViec() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Đơn vị lập</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                  <SearchableSelect
                     value={form.donViLapId}
-                    onChange={(e) => setForm({ ...form, donViLapId: e.target.value })}
-                  >
-                    <option value="">-- Chọn đơn vị --</option>
-                    {donVi.map((d) => (
-                      <option key={d.id} value={d.id}>{d.ten}</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setForm({ ...form, donViLapId: val })}
+                    options={donVi.map((d) => ({ value: d.id, label: d.ten }))}
+                    placeholder="-- Chọn đơn vị --"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Cán bộ lập</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                  <SearchableSelect
                     value={form.canBoLapId}
-                    onChange={(e) => setForm({ ...form, canBoLapId: e.target.value })}
-                  >
-                    <option value="">-- Chọn cán bộ --</option>
-                    {users.filter((u) => ["admin", "lanhdao", "canbonv", "thukho"].includes(u.vaiTro)).map((u) => (
-                      <option key={u.id} value={u.id}>{u.hoTen} ({u.donViTen})</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setForm({ ...form, canBoLapId: val })}
+                    options={users.filter((u) => ["admin", "lanhdao", "canbonv", "thukho"].includes(u.vaiTro)).map((u) => ({ value: u.id, label: u.hoTen, sublabel: u.donViTen }))}
+                    placeholder="-- Chọn cán bộ --"
+                  />
                 </div>
               </div>
 
@@ -658,17 +642,19 @@ export function HoSoVuViec() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Loại giấy tờ</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                  <SearchableSelect
                     value={form.loaiGiayToDoiTuong}
-                    onChange={(e) => setForm({ ...form, loaiGiayToDoiTuong: e.target.value as typeof form.loaiGiayToDoiTuong })}
-                  >
-                    <option value="cccd">CCCD</option>
-                    <option value="cccd_dien_tu">CCCD điện tử</option>
-                    <option value="cmnd">CMND</option>
-                    <option value="ho_chieu">Hộ chiếu</option>
-                    <option value="mst">Mã số thuế</option>
-                  </select>
+                    onChange={(val) => setForm({ ...form, loaiGiayToDoiTuong: val as typeof form.loaiGiayToDoiTuong })}
+                    options={[
+                      { value: "cccd", label: "CCCD" },
+                      { value: "cccd_dien_tu", label: "CCCD điện tử" },
+                      { value: "cmnd", label: "CMND" },
+                      { value: "ho_chieu", label: "Hộ chiếu" },
+                      { value: "mst", label: "Mã số thuế" },
+                    ]}
+                    placeholder="— Chọn loại giấy tờ —"
+                    clearable={false}
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Số CCCD / Mã số thuế</label>
@@ -727,16 +713,12 @@ export function HoSoVuViec() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Căn cứ pháp lý</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 bg-white"
+                  <SearchableSelect
                     value={form.canCuPhapLy}
-                    onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
-                  >
-                    <option value="">— Chọn căn cứ pháp lý —</option>
-                    {canCuPhapLyMau.map((m) => (
-                      <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setForm({ ...form, canCuPhapLy: val })}
+                    options={canCuPhapLyMau.map((m) => ({ value: m.noiDung, label: m.tieuDe, sublabel: m.noiDung }))}
+                    placeholder="— Chọn căn cứ pháp lý —"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Địa điểm vi phạm</label>
@@ -777,16 +759,19 @@ export function HoSoVuViec() {
                   <div className="space-y-2">
                     {taiLieuList.map((tl, idx) => (
                       <div key={idx} className="flex items-center gap-2 p-2.5 bg-gray-50 rounded-lg border border-gray-200">
-                        <select
+                        <SearchableSelect
                           value={tl.loaiTaiLieu}
-                          onChange={e => updateTaiLieu(idx, "loaiTaiLieu", e.target.value)}
-                          className="px-2 py-1.5 bg-white border border-gray-200 rounded-lg text-xs shrink-0"
-                        >
-                          <option value="bien_ban">Biên bản</option>
-                          <option value="quyet_dinh">Quyết định</option>
-                          <option value="hinh_anh">Hình ảnh</option>
-                          <option value="khac">Khác</option>
-                        </select>
+                          onChange={(val) => updateTaiLieu(idx, "loaiTaiLieu", val)}
+                          options={[
+                            { value: "bien_ban", label: "Biên bản" },
+                            { value: "quyet_dinh", label: "Quyết định" },
+                            { value: "hinh_anh", label: "Hình ảnh" },
+                            { value: "khac", label: "Khác" },
+                          ]}
+                          placeholder="— Loại —"
+                          clearable={false}
+                          className="shrink-0"
+                        />
                         <label className="flex-1 cursor-pointer">
                           <div className="flex items-center gap-2 px-2 py-1.5 bg-white border border-dashed border-gray-300 rounded-lg hover:border-blue-400 transition-colors">
                             <Upload className="w-3.5 h-3.5 text-gray-400 shrink-0" />
@@ -880,16 +865,12 @@ export function HoSoVuViec() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Căn cứ pháp lý</label>
-                  <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 bg-white"
+                  <SearchableSelect
                     value={editForm.canCuPhapLy}
-                    onChange={(e) => setEditForm({ ...editForm, canCuPhapLy: e.target.value })}
-                  >
-                    <option value="">— Chọn căn cứ pháp lý —</option>
-                    {canCuPhapLyMau.map((m) => (
-                      <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
-                    ))}
-                  </select>
+                    onChange={(val) => setEditForm({ ...editForm, canCuPhapLy: val })}
+                    options={canCuPhapLyMau.map((m) => ({ value: m.noiDung, label: m.tieuDe, sublabel: m.noiDung }))}
+                    placeholder="— Chọn căn cứ pháp lý —"
+                  />
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Địa điểm vi phạm</label>

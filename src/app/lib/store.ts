@@ -15,6 +15,7 @@ import type {
   TrangThaiTangVat, LoaiTangVat, TrangThaiHoSo,
   GiaoTuGiu, TienBaoLanh, TrangThaiGiaoTuGiu, TrangThaiBaoLanh,
   CanCuPhapLyMau, DonViTinhDanhMuc,
+  NhomQuyen, QuyenModule,
 } from "./types";
 import { MOCK_USERS } from "./constants";
 
@@ -1088,6 +1089,101 @@ const DEFAULT_DON_VI_TINH: DonViTinhDanhMuc[] = [
 ];
 
 // ========================
+// DEFAULT NHOM QUYEN
+// ========================
+
+const MODULES_ALL = [
+  "/", "/ho-so", "/tang-vat", "/niem-phong", "/kho-bai",
+  "/kiem-ke", "/luan-chuyen", "/xu-ly", "/giao-tu-giu",
+  "/tien-bao-lanh", "/ky-so", "/tra-cuu", "/thong-ke",
+  "/canh-bao", "/thong-bao", "/nhat-ky", "/danh-muc", "/cai-dat",
+];
+
+function makeQuyen(modules: string[], opts: { xem?: boolean; them?: boolean; sua?: boolean; xoa?: boolean; duyet?: boolean } = {}): QuyenModule[] {
+  return MODULES_ALL.map((moduleId) => ({
+    moduleId,
+    xem: modules.includes(moduleId) ? (opts.xem ?? true) : false,
+    them: modules.includes(moduleId) ? (opts.them ?? false) : false,
+    sua: modules.includes(moduleId) ? (opts.sua ?? false) : false,
+    xoa: modules.includes(moduleId) ? (opts.xoa ?? false) : false,
+    duyet: modules.includes(moduleId) ? (opts.duyet ?? false) : false,
+  }));
+}
+
+const DEFAULT_NHOM_QUYEN: NhomQuyen[] = [
+  {
+    id: "nq1",
+    ten: "Quản trị viên",
+    moTa: "Toàn quyền trên tất cả các chức năng của hệ thống",
+    maMau: "#c62828",
+    isSystem: true,
+    vaiTroId: "admin",
+    quyenModules: MODULES_ALL.map((moduleId) => ({
+      moduleId, xem: true, them: true, sua: true, xoa: true, duyet: true,
+    })),
+    createdAt: "01/01/2025",
+  },
+  {
+    id: "nq2",
+    ten: "Lãnh đạo",
+    moTa: "Xem và phê duyệt toàn bộ nghiệp vụ, không xóa dữ liệu",
+    maMau: "#1565c0",
+    isSystem: true,
+    vaiTroId: "lanhdao",
+    quyenModules: makeQuyen(
+      ["/", "/ho-so", "/tang-vat", "/niem-phong", "/kho-bai", "/kiem-ke",
+       "/luan-chuyen", "/xu-ly", "/giao-tu-giu", "/tien-bao-lanh",
+       "/ky-so", "/tra-cuu", "/thong-ke", "/canh-bao", "/thong-bao", "/nhat-ky"],
+      { xem: true, them: false, sua: false, xoa: false, duyet: true }
+    ),
+    createdAt: "01/01/2025",
+  },
+  {
+    id: "nq3",
+    ten: "Thủ kho",
+    moTa: "Quản lý kho bãi, nhập xuất tang vật, kiểm kê và giao tự giữ",
+    maMau: "#2e7d32",
+    isSystem: true,
+    vaiTroId: "thukho",
+    quyenModules: makeQuyen(
+      ["/", "/tang-vat", "/niem-phong", "/kho-bai", "/kiem-ke",
+       "/luan-chuyen", "/giao-tu-giu", "/tien-bao-lanh", "/tra-cuu",
+       "/canh-bao", "/thong-bao"],
+      { xem: true, them: true, sua: true, xoa: false, duyet: false }
+    ),
+    createdAt: "01/01/2025",
+  },
+  {
+    id: "nq4",
+    ten: "Cán bộ nghiệp vụ",
+    moTa: "Lập hồ sơ, quản lý tang vật, xử lý nghiệp vụ hành chính",
+    maMau: "#7b1fa2",
+    isSystem: true,
+    vaiTroId: "canbonv",
+    quyenModules: makeQuyen(
+      ["/", "/ho-so", "/tang-vat", "/niem-phong", "/kho-bai", "/kiem-ke",
+       "/luan-chuyen", "/xu-ly", "/giao-tu-giu", "/tien-bao-lanh",
+       "/tra-cuu", "/canh-bao", "/thong-bao"],
+      { xem: true, them: true, sua: true, xoa: false, duyet: false }
+    ),
+    createdAt: "01/01/2025",
+  },
+  {
+    id: "nq5",
+    ten: "Người xem",
+    moTa: "Chỉ xem thông tin, không thao tác dữ liệu",
+    maMau: "#546e7a",
+    isSystem: true,
+    vaiTroId: "viewer",
+    quyenModules: makeQuyen(
+      ["/", "/tang-vat", "/tra-cuu", "/thong-ke", "/thong-bao"],
+      { xem: true, them: false, sua: false, xoa: false, duyet: false }
+    ),
+    createdAt: "01/01/2025",
+  },
+];
+
+// ========================
 // APP STORE
 // ========================
 
@@ -1112,6 +1208,7 @@ class AppStore {
   donVi: DonVi[] = [];
   canCuPhapLyMau: CanCuPhapLyMau[] = [];
   donViTinhDM: DonViTinhDanhMuc[] = [];
+  nhomQuyen: NhomQuyen[] = [];
   kho: Kho[] = [];
   hoSo: HoSoVuViec[] = [];
   tangVat: TangVat[] = [];
@@ -1151,6 +1248,7 @@ class AppStore {
       this.donVi        = [...MOCK_DON_VI];
       this.canCuPhapLyMau = [...DEFAULT_CAN_CU_PHAP_LY_MAU];
       this.donViTinhDM  = [...DEFAULT_DON_VI_TINH];
+      this.nhomQuyen    = [...DEFAULT_NHOM_QUYEN];
       this.kho          = [...MOCK_KHO];
       this.hoSo         = [...MOCK_HO_SO];
       this.tangVat      = [...MOCK_TANG_VAT];
@@ -1175,6 +1273,7 @@ class AppStore {
       this.donVi        = lsGet<DonVi>(STORAGE_KEYS.DON_VI, [...MOCK_DON_VI]);
       this.canCuPhapLyMau = lsGet<CanCuPhapLyMau>(STORAGE_KEYS.CAN_CU_PHAP_LY_MAU, DEFAULT_CAN_CU_PHAP_LY_MAU);
       this.donViTinhDM  = lsGet<DonViTinhDanhMuc>(STORAGE_KEYS.DON_VI_TINH_DM, DEFAULT_DON_VI_TINH);
+      this.nhomQuyen    = lsGet<NhomQuyen>(STORAGE_KEYS.NHOM_QUYEN, [...DEFAULT_NHOM_QUYEN]);
       this.kho          = lsGet<Kho>(STORAGE_KEYS.KHO, [...MOCK_KHO]);
       this.hoSo         = lsGet<HoSoVuViec>(STORAGE_KEYS.HO_SO, [...MOCK_HO_SO]);
       this.tangVat      = lsGet<TangVat>(STORAGE_KEYS.TANG_VAT, [...MOCK_TANG_VAT]);
@@ -1222,6 +1321,7 @@ class AppStore {
     lsSet(STORAGE_KEYS.DON_VI,         this.donVi);
     lsSet(STORAGE_KEYS.CAN_CU_PHAP_LY_MAU, this.canCuPhapLyMau);
     lsSet(STORAGE_KEYS.DON_VI_TINH_DM, this.donViTinhDM);
+    lsSet(STORAGE_KEYS.NHOM_QUYEN,     this.nhomQuyen);
     lsSet(STORAGE_KEYS.KHO,            this.kho);
     lsSet(STORAGE_KEYS.HO_SO,          this.hoSo);
     lsSet(STORAGE_KEYS.TANG_VAT,       this.tangVat);
@@ -1355,6 +1455,30 @@ class AppStore {
   }
   deleteDonViTinh(id: string) {
     this.donViTinhDM = this.donViTinhDM.filter(i => i.id !== id);
+    this.notify();
+  }
+
+  // ========================
+  // NHOM QUYEN
+  // ========================
+  addNhomQuyen(data: Omit<NhomQuyen, 'id' | 'createdAt' | 'isSystem'>) {
+    const now = new Date();
+    const dateStr = `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
+    const nq: NhomQuyen = { ...data, id: genId(), isSystem: false, createdAt: dateStr };
+    this.nhomQuyen = [...this.nhomQuyen, nq];
+    this.notify();
+    return nq;
+  }
+
+  updateNhomQuyen(id: string, data: Partial<NhomQuyen>) {
+    this.nhomQuyen = this.nhomQuyen.map((nq) => nq.id === id ? { ...nq, ...data } : nq);
+    this.notify();
+  }
+
+  deleteNhomQuyen(id: string) {
+    const nq = this.nhomQuyen.find(n => n.id === id);
+    if (nq?.isSystem) return; // cannot delete system groups
+    this.nhomQuyen = this.nhomQuyen.filter((n) => n.id !== id);
     this.notify();
   }
 

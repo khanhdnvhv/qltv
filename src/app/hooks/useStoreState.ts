@@ -22,6 +22,7 @@ export function useStoreState() {
     donVi: appStore.donVi,
     canCuPhapLyMau: appStore.canCuPhapLyMau,
     donViTinhDM: appStore.donViTinhDM,
+    nhomQuyen: appStore.nhomQuyen,
     kho: appStore.kho,
     hoSo: appStore.hoSo,
     tangVat: appStore.tangVat,

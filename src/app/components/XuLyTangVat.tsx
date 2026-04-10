@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
 import { HINH_THUC_XU_LY, TRANG_THAI_XU_LY } from "../lib/constants";
 import type { TrangThaiXuLy, HinhThucXuLy } from "../lib/types";
+import { SearchableSelect } from "./shared/SearchableSelect";
 
 const FILTER_OPTIONS: { value: TrangThaiXuLy | ""; label: string }[] = [
   { value: "", label: "Tất cả" },
@@ -229,13 +230,13 @@ export function XuLyTangVat() {
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
-        <select
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 outline-none"
+        <SearchableSelect
           value={filterTT}
-          onChange={(e) => { setFilterTT(e.target.value as any); setPage(1); }}
-        >
-          {FILTER_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+          onChange={(val) => { setFilterTT(val as TrangThaiXuLy | ""); setPage(1); }}
+          options={FILTER_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+          placeholder="Tất cả"
+          clearable={false}
+        />
       </div>
 
       {/* Table */}
@@ -419,44 +420,35 @@ export function XuLyTangVat() {
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Tang vật <span className="text-red-500">*</span>
                 </label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                <SearchableSelect
                   value={form.tangVatId}
-                  onChange={(e) => setForm({ ...form, tangVatId: e.target.value })}
-                >
-                  {tangVat.filter((tv) => ["dang_luu_kho", "cho_xu_ly", "dang_xu_ly"].includes(tv.trangThai)).map((tv) => (
-                    <option key={tv.id} value={tv.id}>{tv.maTangVat} - {tv.ten}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, tangVatId: val })}
+                  options={tangVat.filter((tv) => ["dang_luu_kho", "cho_xu_ly", "dang_xu_ly"].includes(tv.trangThai)).map((tv) => ({ value: tv.id, label: `${tv.maTangVat} - ${tv.ten}` }))}
+                  placeholder="— Chọn tang vật —"
+                />
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Hình thức xử lý <span className="text-red-500">*</span>
                 </label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                <SearchableSelect
                   value={form.hinhThuc}
-                  onChange={(e) => setForm({ ...form, hinhThuc: e.target.value as HinhThucXuLy })}
-                >
-                  {HINH_THUC_OPTIONS.map((o) => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, hinhThuc: val as HinhThucXuLy })}
+                  options={HINH_THUC_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+                  placeholder="— Chọn hình thức —"
+                  clearable={false}
+                />
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Căn cứ pháp lý <span className="text-red-500">*</span>
                 </label>
-                <select
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 bg-white"
+                <SearchableSelect
                   value={form.canCuPhapLy}
-                  onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
-                >
-                  <option value="">— Chọn căn cứ pháp lý —</option>
-                  {canCuPhapLyMau.map((m) => (
-                    <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
-                  ))}
-                </select>
+                  onChange={(val) => setForm({ ...form, canCuPhapLy: val })}
+                  options={canCuPhapLyMau.map((m) => ({ value: m.noiDung, label: m.tieuDe, sublabel: m.noiDung }))}
+                  placeholder="— Chọn căn cứ pháp lý —"
+                />
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Số quyết định (nếu có)</label>
@@ -510,17 +502,19 @@ export function XuLyTangVat() {
                   <p className="text-sm font-semibold text-red-800">Hội đồng tiêu hủy (Điều 17a NĐ 47/2026)</p>
                   <div>
                     <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Hình thức tiêu hủy</label>
-                    <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
+                    <SearchableSelect
                       value={form.hinhThucTieuHuy}
-                      onChange={(e) => setForm({ ...form, hinhThucTieuHuy: e.target.value as typeof form.hinhThucTieuHuy })}
-                    >
-                      <option value="co_hoc">Cơ học (nghiền, phá hủy)</option>
-                      <option value="hoa_chat">Hóa chất</option>
-                      <option value="dot">Đốt</option>
-                      <option value="chon">Chôn lấp</option>
-                      <option value="khac">Khác</option>
-                    </select>
+                      onChange={(val) => setForm({ ...form, hinhThucTieuHuy: val as typeof form.hinhThucTieuHuy })}
+                      options={[
+                        { value: "co_hoc", label: "Cơ học (nghiền, phá hủy)" },
+                        { value: "hoa_chat", label: "Hóa chất" },
+                        { value: "dot", label: "Đốt" },
+                        { value: "chon", label: "Chôn lấp" },
+                        { value: "khac", label: "Khác" },
+                      ]}
+                      placeholder="— Chọn hình thức tiêu hủy —"
+                      clearable={false}
+                    />
                   </div>
                   <div>
                     <div className="flex items-center justify-between mb-2">
@@ -538,11 +532,17 @@ export function XuLyTangVat() {
                       <div key={i} className="bg-white rounded-lg p-2 border mb-2 grid grid-cols-4 gap-2 text-xs">
                         <input className="border rounded px-2 py-1 col-span-1" placeholder="Họ tên" value={tv.hoTen} onChange={(e) => { const h = [...form.hoiDong]; h[i] = { ...h[i], hoTen: e.target.value }; setForm({ ...form, hoiDong: h }); }} />
                         <input className="border rounded px-2 py-1" placeholder="Chức vụ" value={tv.chucVu} onChange={(e) => { const h = [...form.hoiDong]; h[i] = { ...h[i], chucVu: e.target.value }; setForm({ ...form, hoiDong: h }); }} />
-                        <select className="border rounded px-2 py-1" value={tv.vaiTro} onChange={(e) => { const h = [...form.hoiDong]; h[i] = { ...h[i], vaiTro: e.target.value as "chu_tich" | "thu_ky" | "thanh_vien" }; setForm({ ...form, hoiDong: h }); }}>
-                          <option value="chu_tich">Chủ tịch</option>
-                          <option value="thu_ky">Thư ký</option>
-                          <option value="thanh_vien">Thành viên</option>
-                        </select>
+                        <SearchableSelect
+                          value={tv.vaiTro}
+                          onChange={(val) => { const h = [...form.hoiDong]; h[i] = { ...h[i], vaiTro: val as "chu_tich" | "thu_ky" | "thanh_vien" }; setForm({ ...form, hoiDong: h }); }}
+                          options={[
+                            { value: "chu_tich", label: "Chủ tịch" },
+                            { value: "thu_ky", label: "Thư ký" },
+                            { value: "thanh_vien", label: "Thành viên" },
+                          ]}
+                          placeholder="— Vai trò —"
+                          clearable={false}
+                        />
                         <button type="button" onClick={() => setForm({ ...form, hoiDong: form.hoiDong.filter((_, j) => j !== i) })} className="text-red-500 hover:text-red-700 text-xs">Xóa</button>
                       </div>
                     ))}
