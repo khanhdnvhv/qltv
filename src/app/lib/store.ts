@@ -300,7 +300,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Hàng 1 - Ô 5",
     trangThai: "da_tra_lai", ngayNhapKho: "06/01/2026", hanLuuKho: "06/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã trả lại chủ xe ngày 10/01/2026",
+    hinhAnh: [{"id":"tv1-1","url":"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop&auto=format","moTa":"Xe may Honda Wave Alpha mau do den"},{"id":"tv1-2","url":"https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=400&q=80&fit=crop&auto=format","moTa":"Bien so xe"}], ghiChu: "Đã trả lại chủ xe ngày 10/01/2026",
     createdAt: "06/01/2026", updatedAt: "10/01/2026",
   },
   {
@@ -315,7 +315,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Hàng 1 - Ô 1",
     trangThai: "dang_luu_kho", ngayNhapKho: "02/02/2026", hanLuuKho: "02/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chờ xác minh chủ xe",
+    hinhAnh: [{"id":"tv2-1","url":"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&q=80&fit=crop&auto=format","moTa":"O to Toyota Camry mau den"},{"id":"tv2-2","url":"https://images.unsplash.com/photo-1503736334956-4c8f8e4dc1d9?w=400&q=80&fit=crop&auto=format","moTa":"Noi that xe"}], ghiChu: "Chờ xác minh chủ xe",
     createdAt: "02/02/2026", updatedAt: "02/02/2026",
   },
   {
@@ -330,7 +330,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Hàng 2 - Ô 8",
     trangThai: "cho_xu_ly", ngayNhapKho: "06/03/2026", hanLuuKho: "06/09/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv3-1","url":"https://images.unsplash.com/photo-1568772585407-9f8c4c38a67f?w=400&q=80&fit=crop&auto=format","moTa":"Xe mo to Yamaha R15 V3 xanh trang"}], ghiChu: "",
     createdAt: "06/03/2026", updatedAt: "06/03/2026",
   },
   {
@@ -345,7 +345,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Hàng 1 - Ô 3",
     trangThai: "cho_xu_ly", ngayNhapKho: "06/03/2026", hanLuuKho: "06/09/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv4-1","url":"https://images.unsplash.com/photo-1609695942827-bb86c3a1fbb0?w=400&q=80&fit=crop&auto=format","moTa":"Xe mo to Kawasaki Z650 xanh la"}], ghiChu: "",
     createdAt: "06/03/2026", updatedAt: "06/03/2026",
   },
   {
@@ -359,7 +359,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu D - Neo đậu bến sông",
     trangThai: "da_tich_thu", ngayNhapKho: "20/02/2026", hanLuuKho: "20/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã ra quyết định tịch thu",
+    hinhAnh: [{"id":"tv5-1","url":"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80&fit=crop&auto=format","moTa":"Tau hut cat tren song"},{"id":"tv5-2","url":"https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=400&q=80&fit=crop&auto=format","moTa":"Thiet bi co gioi tau"}], ghiChu: "Đã ra quyết định tịch thu",
     createdAt: "20/02/2026", updatedAt: "01/03/2026",
   },
   // --- Hang hoa ---
@@ -373,7 +373,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Kệ 3 - Ô 12",
     trangThai: "dang_luu_kho", ngayNhapKho: "09/01/2026", hanLuuKho: "09/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv6-1","url":"https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80&fit=crop&auto=format","moTa":"Hang vai nhap lau dong bao tai"},{"id":"tv6-2","url":"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80&fit=crop&auto=format","moTa":"Cuon vai cac mau"}], ghiChu: "",
     createdAt: "09/01/2026", updatedAt: "09/01/2026",
   },
   {
@@ -386,7 +386,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Kệ 4 - Ô 5",
     trangThai: "dang_luu_kho", ngayNhapKho: "09/01/2026", hanLuuKho: "09/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv7-1","url":"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&q=80&fit=crop&auto=format","moTa":"Quan ao gia nhan hieu dong goi"},{"id":"tv7-2","url":"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80&fit=crop&auto=format","moTa":"Nhan mac gia mao"}], ghiChu: "",
     createdAt: "09/01/2026", updatedAt: "09/01/2026",
   },
   {
@@ -399,7 +399,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 1 - Ô 8",
     trangThai: "da_tieu_huy", ngayNhapKho: "13/01/2026", hanLuuKho: "13/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã tiêu hủy theo quyết định số QĐ-2026-003",
+    hinhAnh: [{"id":"tv8-1","url":"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80&fit=crop&auto=format","moTa":"Tui xach gia Coach mau nau den"},{"id":"tv8-2","url":"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&q=80&fit=crop&auto=format","moTa":"Logo gia mao tren tui"}], ghiChu: "Đã tiêu hủy theo quyết định số QĐ-2026-003",
     createdAt: "13/01/2026", updatedAt: "20/01/2026",
   },
   {
@@ -412,7 +412,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Tủ 1 - Ngăn 3",
     trangThai: "da_tieu_huy", ngayNhapKho: "13/01/2026", hanLuuKho: "13/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã tiêu hủy",
+    hinhAnh: [{"id":"tv9-1","url":"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80&fit=crop&auto=format","moTa":"Dong ho gia Rolex vo ma vang"},{"id":"tv9-2","url":"https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=400&q=80&fit=crop&auto=format","moTa":"Dong ho gia Omega con trong hop"}], ghiChu: "Đã tiêu hủy",
     createdAt: "13/01/2026", updatedAt: "20/01/2026",
   },
   // --- Thuc pham ---
@@ -426,7 +426,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Kệ 2 - Ô 4",
     trangThai: "da_tieu_huy", ngayNhapKho: "26/01/2026", hanLuuKho: "26/04/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã tiêu hủy, lập biên bản",
+    hinhAnh: [{"id":"tv10-1","url":"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80&fit=crop&auto=format","moTa":"Thuc pham chuc nang het han nhan nuoc ngoai"},{"id":"tv10-2","url":"https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&q=80&fit=crop&auto=format","moTa":"Hop thuc pham chuc nang da qua han"}], ghiChu: "Đã tiêu hủy, lập biên bản",
     createdAt: "26/01/2026", updatedAt: "01/02/2026",
   },
   {
@@ -439,7 +439,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Kệ 2 - Ô 5",
     trangThai: "da_tieu_huy", ngayNhapKho: "26/01/2026", hanLuuKho: "26/04/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã tiêu hủy",
+    hinhAnh: [{"id":"tv11-1","url":"https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop&auto=format","moTa":"Ruou khong ro nguon goc dung trong can nhua"}], ghiChu: "Đã tiêu hủy",
     createdAt: "26/01/2026", updatedAt: "01/02/2026",
   },
   // --- Tien te ---
@@ -453,7 +453,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Két sắt - Ngăn 1",
     trangThai: "cho_xu_ly", ngayNhapKho: "15/02/2026", hanLuuKho: "15/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chờ quyết định sung công",
+    hinhAnh: [{"id":"tv12-1","url":"https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=80&fit=crop&auto=format","moTa":"Tien mat thu duoc tu danh bac"},{"id":"tv12-2","url":"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80&fit=crop&auto=format","moTa":"Tien VND menh gia 500k dong xap"}], ghiChu: "Chờ quyết định sung công",
     createdAt: "15/02/2026", updatedAt: "15/02/2026",
   },
   // --- Vu khi ---
@@ -467,7 +467,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Tủ Vũ khí - Ngăn 2",
     trangThai: "dang_luu_kho", ngayNhapKho: "19/01/2026", hanLuuKho: "19/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv13-1","url":"https://images.unsplash.com/photo-1565375035406-2f2e55fc1f37?w=400&q=80&fit=crop&auto=format","moTa":"Dao nhon cac loai tich thu"}], ghiChu: "",
     createdAt: "19/01/2026", updatedAt: "19/01/2026",
   },
   // --- Thiet bi dien tu ---
@@ -481,7 +481,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 5 - Ô 1",
     trangThai: "dang_luu_kho", ngayNhapKho: "11/02/2026", hanLuuKho: "11/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đang chờ giám định",
+    hinhAnh: [{"id":"tv14-1","url":"https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80&fit=crop&auto=format","moTa":"iPhone 14 Pro dong hop chua active"},{"id":"tv14-2","url":"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80&fit=crop&auto=format","moTa":"Lo iPhone nhap lau trong thung carton"}], ghiChu: "Đang chờ giám định",
     createdAt: "11/02/2026", updatedAt: "11/02/2026",
   },
   {
@@ -494,7 +494,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 5 - Ô 2",
     trangThai: "dang_luu_kho", ngayNhapKho: "11/02/2026", hanLuuKho: "11/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv15-1","url":"https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&q=80&fit=crop&auto=format","moTa":"Samsung Galaxy Tab S8 chua active"}], ghiChu: "",
     createdAt: "11/02/2026", updatedAt: "11/02/2026",
   },
   {
@@ -507,7 +507,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Kệ 4 - Ô 1-5",
     trangThai: "dang_xu_ly", ngayNhapKho: "26/02/2026", hanLuuKho: "26/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv16-1","url":"https://images.unsplash.com/photo-1558618047-3f4a0af5e0a3?w=400&q=80&fit=crop&auto=format","moTa":"Thiet bi dien o cam cau dao kem chat luong"},{"id":"tv16-2","url":"https://images.unsplash.com/photo-1504274066-21e8432e81f4?w=400&q=80&fit=crop&auto=format","moTa":"Den LED loi khong dat tieu chuan"}], ghiChu: "",
     createdAt: "26/02/2026", updatedAt: "26/02/2026",
   },
   {
@@ -520,7 +520,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 3 - Ô 7",
     trangThai: "dang_xu_ly", ngayNhapKho: "26/02/2026", hanLuuKho: "26/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv17-1","url":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&q=80&fit=crop&auto=format","moTa":"Laptop nhai nhan hieu Dell HP"},{"id":"tv17-2","url":"https://images.unsplash.com/photo-1588702547923-7408785742e9?w=400&q=80&fit=crop&auto=format","moTa":"Logo Dell gia mao tren may"}], ghiChu: "",
     createdAt: "26/02/2026", updatedAt: "26/02/2026",
   },
   // --- Phuong tien ---
@@ -536,7 +536,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Hàng 2 - Ô 5",
     trangThai: "cho_xu_ly", ngayNhapKho: "16/01/2026", hanLuuKho: "16/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv18-1","url":"https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&q=80&fit=crop&auto=format","moTa":"Xe tai Hyundai cho gia suc khong giay to"},{"id":"tv18-2","url":"https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=400&q=80&fit=crop&auto=format","moTa":"Bien so xe 88C-654.32"}], ghiChu: "",
     createdAt: "16/01/2026", updatedAt: "16/01/2026",
   },
   {
@@ -549,7 +549,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Kệ 1 - Ô 8",
     trangThai: "da_tieu_huy", ngayNhapKho: "21/01/2026", hanLuuKho: "21/04/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Đã tiêu hủy",
+    hinhAnh: [{"id":"tv19-1","url":"https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop&auto=format","moTa":"Ruou dong chai thuy tinh nhan gia Hennessy"},{"id":"tv19-2","url":"https://images.unsplash.com/photo-1568644396922-5c3bfae12521?w=400&q=80&fit=crop&auto=format","moTa":"Nhan chai ruou gia mao"}], ghiChu: "Đã tiêu hủy",
     createdAt: "21/01/2026", updatedAt: "28/01/2026",
   },
   {
@@ -562,7 +562,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu An Toàn - Két 1",
     trangThai: "cho_xu_ly", ngayNhapKho: "06/02/2026", hanLuuKho: "06/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chờ bàn giao Quân đội tiêu hủy",
+    hinhAnh: [{"id":"tv20-1","url":"https://images.unsplash.com/photo-1617396900799-f4ec2b43c7d3?w=400&q=80&fit=crop&auto=format","moTa":"Vat lieu no TNT dong hop go"}], ghiChu: "Chờ bàn giao Quân đội tiêu hủy",
     createdAt: "06/02/2026", updatedAt: "06/02/2026",
   },
   {
@@ -575,7 +575,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu An Toàn - Két 2",
     trangThai: "dang_luu_kho", ngayNhapKho: "11/03/2026", hanLuuKho: "11/09/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chờ quyết định xử lý",
+    hinhAnh: [{"id":"tv21-1","url":"https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=400&q=80&fit=crop&auto=format","moTa":"Phao hoa phao no tich thu"},{"id":"tv21-2","url":"https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=400&q=80&fit=crop&auto=format","moTa":"Phao no cac loai"}], ghiChu: "Chờ quyết định xử lý",
     createdAt: "11/03/2026", updatedAt: "11/03/2026",
   },
   {
@@ -588,7 +588,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu D - Bãi ngoài",
     trangThai: "da_tich_thu", ngayNhapKho: "20/02/2026", hanLuuKho: "20/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv22-1","url":"https://images.unsplash.com/photo-1605281317010-fe5ffe798166?w=400&q=80&fit=crop&auto=format","moTa":"May hut cat mini dong co diesel"}], ghiChu: "",
     createdAt: "20/02/2026", updatedAt: "01/03/2026",
   },
   // Them hang hoa kho 4, kho 5
@@ -602,7 +602,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Chuồng tạm",
     trangThai: "da_tra_lai", ngayNhapKho: "16/01/2026", hanLuuKho: "16/02/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
-    hinhAnh: [], ghiChu: "Đã trả lại sau khi xử phạt và cấp giấy kiểm dịch",
+    hinhAnh: [{"id":"tv23-1","url":"https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=400&q=80&fit=crop&auto=format","moTa":"Lon thit van chuyen khong kiem dich"}], ghiChu: "Đã trả lại sau khi xử phạt và cấp giấy kiểm dịch",
     createdAt: "16/01/2026", updatedAt: "25/01/2026",
   },
   {
@@ -615,7 +615,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu D - Kệ 1",
     trangThai: "da_tieu_huy", ngayNhapKho: "21/01/2026", hanLuuKho: "21/02/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv24-1","url":"https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400&q=80&fit=crop&auto=format","moTa":"Bia hoi dong can 30 lit khong nhan mac"}], ghiChu: "",
     createdAt: "21/01/2026", updatedAt: "28/01/2026",
   },
   {
@@ -628,7 +628,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu A - Kệ 5 - Ô 1-8",
     trangThai: "dang_luu_kho", ngayNhapKho: "09/01/2026", hanLuuKho: "09/07/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv25-1","url":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80&fit=crop&auto=format","moTa":"Giay the thao Nike Adidas gia nhap lau"},{"id":"tv25-2","url":"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80&fit=crop&auto=format","moTa":"De giay va nhan hieu gia"}], ghiChu: "",
     createdAt: "09/01/2026", updatedAt: "09/01/2026",
   },
   {
@@ -641,7 +641,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 2 - Ô 9",
     trangThai: "cho_xu_ly", ngayNhapKho: "15/02/2026", hanLuuKho: "15/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv26-1","url":"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&q=80&fit=crop&auto=format","moTa":"Thiet bi dien tu dung danh bac online"}], ghiChu: "",
     createdAt: "15/02/2026", updatedAt: "15/02/2026",
   },
   {
@@ -654,7 +654,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Tủ hồ sơ - Ngăn 2",
     trangThai: "da_tra_lai", ngayNhapKho: "16/01/2026", hanLuuKho: "16/07/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
-    hinhAnh: [], ghiChu: "Tài liệu chứng cứ, chuyển hồ sơ xử lý",
+    hinhAnh: [{"id":"tv27-1","url":"https://images.unsplash.com/photo-1568667050-be6a6a30d528?w=400&q=80&fit=crop&auto=format","moTa":"Giay chung nhan kiem dich thu y gia mao"}], ghiChu: "Tài liệu chứng cứ, chuyển hồ sơ xử lý",
     createdAt: "16/01/2026", updatedAt: "16/01/2026",
   },
   {
@@ -667,7 +667,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu B - Kệ 1 - Ô 12",
     trangThai: "dang_luu_kho", ngayNhapKho: "02/02/2026", hanLuuKho: "02/08/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chứng cứ vụ vi phạm nồng độ cồn",
+    hinhAnh: [{"id":"tv28-1","url":"https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80&fit=crop&auto=format","moTa":"iPhone 15 Pro Max 512GB mau titanium"}], ghiChu: "Chứng cứ vụ vi phạm nồng độ cồn",
     createdAt: "02/02/2026", updatedAt: "02/02/2026",
   },
   {
@@ -680,7 +680,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu C - Bãi ngoài",
     trangThai: "dang_luu_kho", ngayNhapKho: "20/02/2026", hanLuuKho: "20/08/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
-    hinhAnh: [], ghiChu: "",
+    hinhAnh: [{"id":"tv29-1","url":"https://images.unsplash.com/photo-1504274066-21e8432e81f4?w=400&q=80&fit=crop&auto=format","moTa":"Sung phun cat chuyen dung di kem tau hut cat"}], ghiChu: "",
     createdAt: "20/02/2026", updatedAt: "20/02/2026",
   },
   {
@@ -693,7 +693,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     viTriKhoMoTa: "Khu An Toàn - Két 3",
     trangThai: "dang_luu_kho", ngayNhapKho: "11/03/2026", hanLuuKho: "11/09/2026",
     canBoQuanLyId: "u3", canBoQuanLyTen: "Phạm Văn Đức",
-    hinhAnh: [], ghiChu: "Chờ quyết định",
+    hinhAnh: [{"id":"tv30-1","url":"https://images.unsplash.com/photo-1617396900799-f4ec2b43c7d3?w=400&q=80&fit=crop&auto=format","moTa":"Kip no dien va phi dien tich thu"}], ghiChu: "Chờ quyết định",
     createdAt: "11/03/2026", updatedAt: "11/03/2026",
   },
   // Tang vat het han can canh bao

@@ -120,9 +120,29 @@ function GridCard({ tv, hoSoMaBienBan, onClick }: {
       className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer overflow-hidden group"
     >
       {/* Thumbnail area */}
-      <div className="relative h-[88px] flex items-center justify-center overflow-hidden"
+      <div className="relative h-[110px] flex items-center justify-center overflow-hidden"
         style={{ background: `linear-gradient(135deg, ${loaiCfg.bg} 0%, #f8fafc 100%)` }}>
-        <LoaiIcon loai={tv.loai} size={28} />
+        {tv.hinhAnh && tv.hinhAnh.length > 0 ? (
+          <img
+            src={tv.hinhAnh[0].url}
+            alt={tv.hinhAnh[0].moTa}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              (e.currentTarget.nextElementSibling as HTMLElement)?.style.setProperty('display', 'flex');
+            }}
+          />
+        ) : null}
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ display: tv.hinhAnh && tv.hinhAnh.length > 0 ? 'none' : 'flex' }}
+        >
+          <LoaiIcon loai={tv.loai} size={28} />
+        </div>
+        {/* Overlay gradient at bottom for readability */}
+        {tv.hinhAnh && tv.hinhAnh.length > 0 && (
+          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/30 to-transparent" />
+        )}
         {/* Status top-left */}
         <div className="absolute top-2 left-2">
           <StatusBadge cfg={ttCfg} small />
@@ -133,8 +153,15 @@ function GridCard({ tv, hoSoMaBienBan, onClick }: {
             <DeadlineBadge days={days} small />
           </div>
         )}
+        {/* Photo count badge */}
+        {tv.hinhAnh && tv.hinhAnh.length > 1 && (
+          <div className="absolute bottom-1.5 right-2 flex items-center gap-0.5 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-full">
+            <Eye className="w-2.5 h-2.5" />
+            {tv.hinhAnh.length}
+          </div>
+        )}
         {/* Eye on hover */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
           <div className="bg-white/90 rounded-full p-1.5 shadow">
             <Eye className="w-3.5 h-3.5 text-[#0d3b66]" />
           </div>
