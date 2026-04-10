@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import {
   CarFront, Plus, Eye, CheckCircle, XCircle, RotateCcw, ChevronLeft, ChevronRight,
-  AlertTriangle, Clock, CheckCheck, UserCheck,
+  AlertTriangle, Clock, CheckCheck, UserCheck, TrendingUp, CheckCircle2,
 } from "lucide-react";
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_GIAO_TU_GIU } from "../lib/constants";
@@ -129,21 +129,66 @@ export function GiaoTuGiu() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-4">
-          {[
-            { label: "Chờ phê duyệt", value: stats.choPD, icon: Clock, color: "text-yellow-600 bg-yellow-50 border-yellow-200" },
-            { label: "Đang tự giữ", value: stats.dangTG, icon: CarFront, color: "text-blue-600 bg-blue-50 border-blue-200" },
-            { label: "Đã hoàn trả", value: stats.daHT, icon: CheckCheck, color: "text-green-600 bg-green-50 border-green-200" },
-            { label: "Thu hồi", value: stats.thuHoi, icon: RotateCcw, color: "text-red-600 bg-red-50 border-red-200" },
-          ].map((s) => (
-            <div key={s.label} className={`rounded-xl border p-4 flex items-center gap-3 ${s.color}`}>
-              <s.icon className="w-8 h-8 shrink-0" />
-              <div>
-                <p className="text-2xl font-bold">{s.value}</p>
-                <p className="text-xs font-medium">{s.label}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-amber-50 border border-amber-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Clock className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-amber-500" />
               </div>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">Chờ xét duyệt</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.choPD}</p>
+              <p className="text-xs text-gray-600 mt-1">đang chờ xét duyệt</p>
             </div>
-          ))}
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <CarFront className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-blue-500" />
+              </div>
+              <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Đang tự giữ</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.dangTG}</p>
+              <p className="text-xs text-gray-600 mt-1">phương tiện tự giữ</p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <CheckCircle2 className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-green-500" />
+              </div>
+              <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">Đã hoàn tất</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.daHT}</p>
+              <p className="text-xs text-gray-600 mt-1">đã thu hồi</p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <XCircle className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-red-500" />
+              </div>
+              <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Từ chối</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.thuHoi}</p>
+              <p className="text-xs text-gray-600 mt-1">bị từ chối</p>
+            </div>
+          </div>
         </div>
 
         {/* Legal info banner */}

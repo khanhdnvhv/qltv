@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   FileText, CheckCircle2, Clock, Pen, Download, Eye,
-  Search, Shield, AlertTriangle, X, Lock, Plus,
+  Search, Shield, AlertTriangle, X, Lock, Plus, TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -73,18 +73,63 @@ export function KySo() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-lg border border-border p-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: s.color + "18" }}>
-              <s.icon className="w-5 h-5" style={{ color: s.color }} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-blue-500" />
             </div>
-            <div>
-              <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-            </div>
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">TỔNG VĂN BẢN</p>
+            <p className="text-2xl font-bold text-gray-900">{vanBan.length}</p>
+            <p className="text-xs text-gray-600 mt-1">tổng số văn bản</p>
           </div>
-        ))}
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-green-500" />
+            </div>
+            <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">ĐÃ KÝ SỐ</p>
+            <p className="text-2xl font-bold text-gray-900">{vanBan.filter(d => d.trangThai === "da_ky").length}</p>
+            <p className="text-xs text-gray-600 mt-1">văn bản đã ký</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-amber-50 border border-amber-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-amber-500" />
+            </div>
+            <p className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">CHỜ KÝ</p>
+            <p className="text-2xl font-bold text-gray-900">{vanBan.filter(d => d.trangThai === "cho_ky").length}</p>
+            <p className="text-xs text-gray-600 mt-1">văn bản chờ ký</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-red-500" />
+            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">TỪ CHỐI</p>
+            <p className="text-2xl font-bold text-gray-900">{vanBan.filter(d => d.trangThai === "tu_choi").length}</p>
+            <p className="text-xs text-gray-600 mt-1">văn bản từ chối</p>
+          </div>
+        </div>
       </div>
 
       {/* Filter + Search */}

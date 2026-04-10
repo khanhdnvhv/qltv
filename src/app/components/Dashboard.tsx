@@ -36,64 +36,6 @@ export function Dashboard() {
     [store]
   );
 
-  const kpiCards = [
-    {
-      label: "Tổng tang vật",
-      value: stats.tongTangVat,
-      icon: Package,
-      color: "#0d3b66",
-      bg: "#e8eef5",
-      sub: `${formatVND(stats.tongGiaTri)} ước tính`,
-      to: "/tang-vat",
-    },
-    {
-      label: "Đang lưu kho",
-      value: stats.dangLuuKho,
-      icon: Warehouse,
-      color: "#1565c0",
-      bg: "#e3f2fd",
-      sub: `${stats.choNhapKho} chờ nhập kho`,
-      to: "/kho-bai",
-    },
-    {
-      label: "Sắp đến hạn",
-      value: stats.sapHanLuuKho,
-      icon: AlertTriangle,
-      color: "#e65100",
-      bg: "#fff3e0",
-      sub: "Trong vòng 30 ngày tới",
-      to: "/canh-bao",
-    },
-    {
-      label: "Quá hạn lưu kho",
-      value: stats.quaHanLuuKho,
-      icon: XCircle,
-      color: "#c62828",
-      bg: "#ffebee",
-      sub: "Cần xử lý gấp",
-      to: "/canh-bao",
-      alert: true,
-    },
-    {
-      label: "Chờ xử lý",
-      value: stats.choXuLy,
-      icon: Clock,
-      color: "#f57f17",
-      bg: "#fff8e1",
-      sub: `${stats.daTichThu} tịch thu · ${stats.daTieuHuy} tiêu hủy`,
-      to: "/xu-ly",
-    },
-    {
-      label: "Đã xử lý xong",
-      value: stats.daTra + stats.daTichThu + stats.daTieuHuy + stats.daBan,
-      icon: CheckCircle2,
-      color: "#2e7d32",
-      bg: "#e8f5e9",
-      sub: `${stats.daTra} trả lại · ${stats.daBan} bán`,
-      to: "/xu-ly",
-    },
-  ];
-
   const pieData = useMemo(() =>
     tangVatByLoai.map((item, i) => ({
       name: LOAI_TANG_VAT[item.loai as keyof typeof LOAI_TANG_VAT]?.label || item.loai,
@@ -115,32 +57,119 @@ export function Dashboard() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        {kpiCards.map((card) => (
-          <div
-            key={card.label}
-            onClick={() => navigate(card.to)}
-            className={`rounded-xl border cursor-pointer transition-all hover:shadow-md hover:-translate-y-0.5 p-4 ${
-              card.alert ? "border-red-200 bg-red-50" : "border-gray-100 bg-white"
-            }`}
-          >
-            <div className="flex items-start justify-between mb-3">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ background: card.bg }}
-              >
-                <card.icon className="w-5 h-5" style={{ color: card.color }} />
+        {/* 1. Tổng tang vật - blue */}
+        <div
+          onClick={() => navigate("/tang-vat")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Package className="w-5 h-5 text-white" />
               </div>
-              {card.alert && card.value > 0 && (
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              )}
+              <TrendingUp className="w-5 h-5 text-blue-500" />
             </div>
-            <p className="text-2xl font-bold" style={{ color: card.color }}>
-              {formatNum(card.value)}
-            </p>
-            <p className="text-xs font-semibold text-gray-700 mt-1">{card.label}</p>
-            <p className="text-xs text-gray-400 mt-0.5 truncate">{card.sub}</p>
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">TỔNG TANG VẬT</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.tongTangVat)}</p>
+            <p className="text-xs text-gray-600 mt-1">{formatVND(stats.tongGiaTri)} ước tính</p>
           </div>
-        ))}
+        </div>
+
+        {/* 2. Đang lưu kho - cyan */}
+        <div
+          onClick={() => navigate("/kho-bai")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-cyan-50 border border-cyan-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Warehouse className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-cyan-500" />
+            </div>
+            <p className="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-1">ĐANG LƯU KHO</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.dangLuuKho)}</p>
+            <p className="text-xs text-gray-600 mt-1">{stats.choNhapKho} chờ nhập kho</p>
+          </div>
+        </div>
+
+        {/* 3. Sắp đến hạn - amber */}
+        <div
+          onClick={() => navigate("/canh-bao")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-amber-50 border border-amber-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <Clock className="w-5 h-5 text-amber-500" />
+            </div>
+            <p className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">SẮP ĐẾN HẠN</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.sapHanLuuKho)}</p>
+            <p className="text-xs text-gray-600 mt-1">Trong vòng 30 ngày tới</p>
+          </div>
+        </div>
+
+        {/* 4. Quá hạn lưu kho - red */}
+        <div
+          onClick={() => navigate("/canh-bao")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <XCircle className="w-5 h-5 text-white" />
+              </div>
+              <AlertTriangle className="w-5 h-5 text-red-500" />
+            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">QUÁ HẠN LƯU KHO</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.quaHanLuuKho)}</p>
+            <p className="text-xs text-gray-600 mt-1">Cần xử lý gấp</p>
+          </div>
+        </div>
+
+        {/* 5. Chờ xử lý - orange */}
+        <div
+          onClick={() => navigate("/xu-ly")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-orange-500" />
+            </div>
+            <p className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">CHỜ XỬ LÝ</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.choXuLy)}</p>
+            <p className="text-xs text-gray-600 mt-1">{stats.daTichThu} tịch thu · {stats.daTieuHuy} tiêu hủy</p>
+          </div>
+        </div>
+
+        {/* 6. Đã xử lý xong - green */}
+        <div
+          onClick={() => navigate("/xu-ly")}
+          className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-green-500" />
+            </div>
+            <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">ĐÃ XỬ LÝ XONG</p>
+            <p className="text-2xl font-bold text-gray-900">{formatNum(stats.daTra + stats.daTichThu + stats.daTieuHuy + stats.daBan)}</p>
+            <p className="text-xs text-gray-600 mt-1">{stats.daTra} trả lại · {stats.daBan} bán</p>
+          </div>
+        </div>
       </div>
 
       {/* Charts row 1 */}

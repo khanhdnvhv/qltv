@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   Bell, CheckCircle2, Clock, Inbox, MailOpen,
-  AlertTriangle, Info, Settings, X,
+  AlertTriangle, Info, Settings, X, TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -69,18 +69,63 @@ export function ThongBao() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-white rounded-lg border border-border p-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: s.color + "18" }}>
-              <s.icon className="w-5 h-5" style={{ color: s.color }} />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Inbox className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-blue-500" />
             </div>
-            <div>
-              <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-            </div>
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">TỔNG THÔNG BÁO</p>
+            <p className="text-2xl font-bold text-gray-900">{myNotifs.length}</p>
+            <p className="text-xs text-gray-600 mt-1">tổng số thông báo</p>
           </div>
-        ))}
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <MailOpen className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-red-500" />
+            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">CHƯA ĐỌC</p>
+            <p className="text-2xl font-bold text-gray-900">{myNotifs.filter(n => !n.daDoc).length}</p>
+            <p className="text-xs text-gray-600 mt-1">thông báo chưa đọc</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-orange-500" />
+            </div>
+            <p className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">CẢNH BÁO</p>
+            <p className="text-2xl font-bold text-gray-900">{myNotifs.filter(n => n.loai === "canh_bao").length}</p>
+            <p className="text-xs text-gray-600 mt-1">thông báo cảnh báo</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-purple-500" />
+            </div>
+            <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">PHÊ DUYỆT</p>
+            <p className="text-2xl font-bold text-gray-900">{myNotifs.filter(n => n.loai === "phe_duyet").length}</p>
+            <p className="text-xs text-gray-600 mt-1">thông báo phê duyệt</p>
+          </div>
+        </div>
       </div>
 
       {/* Filter tabs */}

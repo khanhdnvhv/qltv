@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import {
   ClipboardCheck, Plus, Search, CheckCircle2, Clock,
   X, Warehouse, Calendar, User, ChevronRight, AlertTriangle,
-  TrendingDown, Shield,
+  TrendingDown, Shield, TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -231,24 +231,62 @@ export function KiemKe() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Đang kiểm kê", value: stats.dangKiemKe, color: "#f57f17", bg: "#fff8e1", icon: Clock },
-          { label: "Hoàn thành", value: stats.hoanThanh, color: "#1565c0", bg: "#e3f2fd", icon: CheckCircle2 },
-          { label: "Đã phê duyệt", value: stats.pheDuyet, color: "#2e7d32", bg: "#e8f5e9", icon: Shield },
-          { label: "Có lệch sổ sách", value: stats.coLechSoSach, color: "#c62828", bg: "#ffebee", icon: AlertTriangle },
-        ].map(s => (
-          <div key={s.label} className="bg-white rounded-xl border border-border p-5 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: s.bg }}>
-                <s.icon className="w-5 h-5" style={{ color: s.color }} />
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-amber-50 border border-amber-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                <ClipboardCheck className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-                <p className="text-xs text-muted-foreground">{s.label}</p>
-              </div>
+              <TrendingUp className="w-5 h-5 text-amber-500" />
             </div>
+            <p className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">ĐANG KIỂM KÊ</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.dangKiemKe}</p>
+            <p className="text-xs text-gray-600 mt-1">phiếu đang thực hiện</p>
           </div>
-        ))}
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-blue-500" />
+            </div>
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">HOÀN THÀNH</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.hoanThanh}</p>
+            <p className="text-xs text-gray-600 mt-1">đã hoàn thành</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-green-500" />
+            </div>
+            <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">ĐÃ PHÊ DUYỆT</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.pheDuyet}</p>
+            <p className="text-xs text-gray-600 mt-1">được phê duyệt</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-red-500" />
+            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">CÓ LỆCH SỔ SÁCH</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.coLechSoSach}</p>
+            <p className="text-xs text-gray-600 mt-1">cần kiểm tra</p>
+          </div>
+        </div>
       </div>
 
       {/* Filter */}

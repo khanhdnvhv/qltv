@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import {
   Stamp, Plus, Search, CheckCircle2, Lock, Unlock,
   X, Package, Calendar, User, ChevronRight, FileText,
-  AlertTriangle,
+  AlertTriangle, TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -146,19 +146,48 @@ export function NiemPhong() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        {stats.map(s => (
-          <div key={s.key} className="bg-white rounded-xl border border-border p-5 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: s.bg }}>
-                <Stamp className="w-5 h-5" style={{ color: s.color }} />
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Stamp className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-                <p className="text-xs text-muted-foreground">{s.label}</p>
-              </div>
+              <TrendingUp className="w-5 h-5 text-blue-500" />
             </div>
+            <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">ĐANG NIÊM PHONG</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.find(s => s.key === "dang_niem_phong")?.value ?? 0}</p>
+            <p className="text-xs text-gray-600 mt-1">biên bản đang niêm phong</p>
           </div>
-        ))}
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Unlock className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-red-500" />
+            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">ĐÃ MỞ NIÊM PHONG</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.find(s => s.key === "da_mo")?.value ?? 0}</p>
+            <p className="text-xs text-gray-600 mt-1">biên bản đã mở</p>
+          </div>
+        </div>
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Lock className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-purple-500" />
+            </div>
+            <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">ĐÃ NIÊM PHONG LẠI</p>
+            <p className="text-2xl font-bold text-gray-900">{stats.find(s => s.key === "da_niem_phong_lai")?.value ?? 0}</p>
+            <p className="text-xs text-gray-600 mt-1">biên bản niêm phong lại</p>
+          </div>
+        </div>
       </div>
 
       {/* Filter */}

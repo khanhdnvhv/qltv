@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import {
   Banknote, Plus, Eye, ArrowRight, CheckCircle, XCircle,
-  ChevronLeft, ChevronRight, Clock, AlertTriangle,
+  ChevronLeft, ChevronRight, Clock, AlertTriangle, TrendingUp, CheckCircle2,
 } from "lucide-react";
 import { useStoreState } from "../hooks/useStoreState";
 import { TRANG_THAI_BAO_LANH } from "../lib/constants";
@@ -137,22 +137,66 @@ export function TienBaoLanh() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-4">
-          {[
-            { label: "Chờ chuyển tài vụ", value: stats.choChuyen, sub: "≤ 2 ngày LV", color: "text-yellow-600 bg-yellow-50 border-yellow-200", icon: Clock },
-            { label: "Chờ xử lý", value: stats.choXuLy, sub: "≤ 10 ngày LV", color: "text-orange-600 bg-orange-50 border-orange-200", icon: AlertTriangle },
-            { label: "Đã xử lý", value: stats.daXuLy, sub: "hoàn tất", color: "text-green-600 bg-green-50 border-green-200", icon: CheckCircle },
-            { label: "Tổng tiền", value: fmt(stats.tongTien), sub: "đang quản lý", color: "text-blue-600 bg-blue-50 border-blue-200", icon: Banknote },
-          ].map((s) => (
-            <div key={s.label} className={`rounded-xl border p-4 flex items-center gap-3 ${s.color}`}>
-              <s.icon className="w-8 h-8 shrink-0" />
-              <div>
-                <p className="text-xl font-bold leading-tight">{s.value}</p>
-                <p className="text-xs font-medium">{s.label}</p>
-                <p className="text-[10px] opacity-70">{s.sub}</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-amber-50 border border-amber-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Clock className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-amber-500" />
               </div>
+              <p className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-1">Chờ chuyển tài vụ</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.choChuyen}</p>
+              <p className="text-xs text-gray-600 mt-1">≤ 2 ngày làm việc</p>
             </div>
-          ))}
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <AlertTriangle className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-orange-500" />
+              </div>
+              <p className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">Chờ xử lý</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.choXuLy}</p>
+              <p className="text-xs text-gray-600 mt-1">≤ 10 ngày làm việc</p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <CheckCircle2 className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-green-500" />
+              </div>
+              <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">Đã xử lý</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.daXuLy}</p>
+              <p className="text-xs text-gray-600 mt-1">hoàn tất</p>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden bg-gradient-to-br from-white to-cyan-50 border border-cyan-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <Banknote className="w-5 h-5 text-white" />
+                </div>
+                <TrendingUp className="w-5 h-5 text-cyan-500" />
+              </div>
+              <p className="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-1">Tổng tiền</p>
+              <p className="text-2xl font-bold text-gray-900">{fmt(stats.tongTien)}</p>
+              <p className="text-xs text-gray-600 mt-1">đang quản lý (VND)</p>
+            </div>
+          </div>
         </div>
 
         {/* Workflow info */}

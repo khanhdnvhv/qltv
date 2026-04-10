@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import {
   AlertTriangle, Clock, CheckCircle2, XCircle, AlertCircle,
-  ChevronRight, Package, Warehouse, ShoppingCart,
+  ChevronRight, Package, Warehouse, ShoppingCart, TrendingUp,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -69,48 +69,63 @@ export function CanhBao() {
 
       {/* Stats cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-border p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#ffebee] flex items-center justify-center">
-              <XCircle className="w-5 h-5 text-[#c62828]" />
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                <XCircle className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-red-500" />
             </div>
-            <div>
-              <p className="text-2xl font-bold text-[#c62828]">{counts.critical}</p>
-              <p className="text-xs text-muted-foreground">Quá hạn</p>
-            </div>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wider mb-1">Quá hạn</p>
+            <p className="text-2xl font-bold text-gray-900">{counts.critical}</p>
+            <p className="text-xs text-gray-600 mt-1">cần xử lý ngay</p>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#fff3e0] flex items-center justify-center">
-              <AlertTriangle className="w-5 h-5 text-[#e65100]" />
+
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-orange-500" />
             </div>
-            <div>
-              <p className="text-2xl font-bold text-[#e65100]">{counts.warning}</p>
-              <p className="text-xs text-muted-foreground">Sắp đến hạn</p>
-            </div>
+            <p className="text-xs font-bold text-orange-600 uppercase tracking-wider mb-1">Sắp đến hạn</p>
+            <p className="text-2xl font-bold text-gray-900">{counts.warning}</p>
+            <p className="text-xs text-gray-600 mt-1">cần chú ý</p>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#e3f2fd] flex items-center justify-center">
-              <AlertCircle className="w-5 h-5 text-[#1565c0]" />
+
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <ShoppingCart className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-purple-500" />
             </div>
-            <div>
-              <p className="text-2xl font-bold text-[#1565c0]">{counts.info}</p>
-              <p className="text-xs text-muted-foreground">Thông tin</p>
-            </div>
+            <p className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Hàng cần bán ngay</p>
+            <p className="text-2xl font-bold text-gray-900">{counts.ban_ngay}</p>
+            <p className="text-xs text-gray-600 mt-1">thực phẩm/thuốc</p>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border p-5 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#e8f5e9] flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5 text-[#2e7d32]" />
+
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <TrendingUp className="w-5 h-5 text-green-500" />
             </div>
-            <div>
-              <p className="text-2xl font-bold text-[#2e7d32]">{counts.resolved}</p>
-              <p className="text-xs text-muted-foreground">Đã xử lý</p>
-            </div>
+            <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-1">Đã xử lý</p>
+            <p className="text-2xl font-bold text-gray-900">{counts.resolved}</p>
+            <p className="text-xs text-gray-600 mt-1">hoàn thành</p>
           </div>
         </div>
       </div>
