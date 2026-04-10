@@ -163,8 +163,8 @@ function NhomQuyenPanel({
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 z-50" onClick={onClose} />
-      <div className="fixed inset-y-0 right-0 w-[640px] bg-white shadow-2xl flex flex-col z-50">
+      <div className="fixed inset-0 bg-black/40 z-[60]" style={{ top: 0, bottom: 0, left: 0, right: 0 }} onClick={onClose} />
+      <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-2xl flex flex-col z-[60]" style={{ top: 0, bottom: 0 }}>
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
           <div className="flex items-center gap-3">
