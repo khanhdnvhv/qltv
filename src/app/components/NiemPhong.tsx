@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import {
   Stamp, Plus, Search, CheckCircle2, Lock, Unlock,
   X, Package, Calendar, User, ChevronRight, FileText,
-  AlertTriangle, TrendingUp,
+  AlertTriangle, TrendingUp, UploadCloud, Paperclip, Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
@@ -33,6 +33,25 @@ export function NiemPhong() {
   const [showCreate, setShowCreate] = useState(false);
   const [showMoModal, setShowMoModal] = useState<NiemPhongType | null>(null);
   const [lyDoMo, setLyDoMo] = useState("");
+
+  // File upload — biên bản niêm phong
+  const [bienBanFile, setBienBanFile] = useState<{ name: string; data: string } | null>(null);
+  // File upload — biên bản mở niêm phong
+  const [bienBanMoFile, setBienBanMoFile] = useState<{ name: string; data: string } | null>(null);
+
+  const handleFileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setter: (v: { name: string; data: string } | null) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setter({ name: file.name, data: reader.result as string });
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
 
   const [form, setForm] = useState<FormData>({
     tangVatId: "",
@@ -88,6 +107,10 @@ export function NiemPhong() {
       toast.error("Vui lòng điền đầy đủ thông tin bắt buộc");
       return;
     }
+    if (!bienBanFile) {
+      toast.error("Vui lòng tải lên biên bản niêm phong");
+      return;
+    }
     store.addNiemPhong({
       tangVatId: form.tangVatId,
       tenTangVat: form.tenTangVat,
@@ -99,11 +122,14 @@ export function NiemPhong() {
       moTaTinhTrang: form.moTaTinhTrang,
       soTem: form.soTem,
       hinhAnhUrl: "",
+      bienBanNiemPhongUrl: bienBanFile.data,
+      bienBanNiemPhongTen: bienBanFile.name,
       trangThai: "dang_niem_phong",
       ghiChu: form.ghiChu,
     });
     toast.success("Đã tạo biên bản niêm phong");
     setShowCreate(false);
+    setBienBanFile(null);
     setForm({ tangVatId: "", tenTangVat: "", maBienBan: "", moTaTinhTrang: "", soTem: "", ghiChu: "", ngoiChungKienTen: "" });
   };
 
@@ -112,16 +138,23 @@ export function NiemPhong() {
       toast.error("Vui lòng nhập lý do mở niêm phong");
       return;
     }
+    if (!bienBanMoFile) {
+      toast.error("Vui lòng tải lên biên bản mở niêm phong");
+      return;
+    }
     store.updateNiemPhong(showMoModal.id, {
       trangThai: "da_mo",
       ngayMo: new Date().toLocaleDateString("vi-VN"),
       nguoiMoId: currentUser.id,
       nguoiMoTen: currentUser.hoTen,
       lyDoMo,
+      bienBanMoUrl: bienBanMoFile.data,
+      bienBanMoTen: bienBanMoFile.name,
     });
     toast.success("Đã mở niêm phong");
     setShowMoModal(null);
     setLyDoMo("");
+    setBienBanMoFile(null);
     if (selected?.id === showMoModal.id) setSelected(null);
   };
 
@@ -350,6 +383,38 @@ export function NiemPhong() {
               <p className="text-sm p-3 bg-[#f8fafc] rounded-lg leading-relaxed">{selected.moTaTinhTrang}</p>
             </div>
 
+            {/* Biên bản niêm phong file */}
+            {selected.bienBanNiemPhongTen && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1.5">Biên bản niêm phong</p>
+                <a
+                  href={selected.bienBanNiemPhongUrl}
+                  download={selected.bienBanNiemPhongTen}
+                  className="flex items-center gap-2 p-2.5 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors group"
+                >
+                  <Paperclip className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span className="text-sm text-blue-700 truncate flex-1">{selected.bienBanNiemPhongTen}</span>
+                  <span className="text-xs text-blue-500 group-hover:underline shrink-0">Tải xuống</span>
+                </a>
+              </div>
+            )}
+
+            {/* Biên bản mở niêm phong file */}
+            {selected.bienBanMoTen && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1.5">Biên bản mở niêm phong</p>
+                <a
+                  href={selected.bienBanMoUrl}
+                  download={selected.bienBanMoTen}
+                  className="flex items-center gap-2 p-2.5 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors group"
+                >
+                  <Paperclip className="w-4 h-4 text-orange-600 shrink-0" />
+                  <span className="text-sm text-orange-700 truncate flex-1">{selected.bienBanMoTen}</span>
+                  <span className="text-xs text-orange-500 group-hover:underline shrink-0">Tải xuống</span>
+                </a>
+              </div>
+            )}
+
             {/* Mo niem phong info */}
             {selected.trangThai === "da_mo" && (
               <div className="p-3 bg-[#ffebee] rounded-lg border border-[#ef9a9a]/30">
@@ -469,6 +534,38 @@ export function NiemPhong() {
                 />
               </div>
 
+              {/* Biên bản niêm phong — upload */}
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
+                  Biên bản niêm phong <span className="text-red-500">*</span>
+                </label>
+                {bienBanFile ? (
+                  <div className="flex items-center gap-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                    <Paperclip className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span className="text-sm text-blue-700 truncate flex-1">{bienBanFile.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => setBienBanFile(null)}
+                      className="text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center gap-2 p-5 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                    <UploadCloud className="w-6 h-6 text-gray-400" />
+                    <span className="text-sm text-gray-500">Nhấn để tải lên biên bản niêm phong</span>
+                    <span className="text-xs text-gray-400">PDF, DOC, DOCX, JPG, PNG</span>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      onChange={e => handleFileUpload(e, setBienBanFile)}
+                    />
+                  </label>
+                )}
+              </div>
+
               {/* Warning */}
               <div className="p-3 bg-[#fff8e1] rounded-lg border border-[#ffc107]/30 flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-[#f57f17] mt-0.5 shrink-0" />
@@ -526,6 +623,38 @@ export function NiemPhong() {
                   placeholder="Nhập lý do mở niêm phong..."
                   className="w-full px-3 py-2 bg-[#f0f4f8] border border-border rounded-lg text-sm resize-none"
                 />
+              </div>
+
+              {/* Biên bản mở niêm phong — upload */}
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
+                  Biên bản mở niêm phong <span className="text-red-500">*</span>
+                </label>
+                {bienBanMoFile ? (
+                  <div className="flex items-center gap-3 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                    <Paperclip className="w-4 h-4 text-orange-600 shrink-0" />
+                    <span className="text-sm text-orange-700 truncate flex-1">{bienBanMoFile.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => setBienBanMoFile(null)}
+                      className="text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center gap-2 p-5 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-colors">
+                    <UploadCloud className="w-6 h-6 text-gray-400" />
+                    <span className="text-sm text-gray-500">Nhấn để tải lên biên bản mở niêm phong</span>
+                    <span className="text-xs text-gray-400">PDF, DOC, DOCX, JPG, PNG</span>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      onChange={e => handleFileUpload(e, setBienBanMoFile)}
+                    />
+                  </label>
+                )}
               </div>
             </div>
 

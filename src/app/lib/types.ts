@@ -284,11 +284,15 @@ export interface NiemPhong {
   moTaTinhTrang: string;   // Tình trạng khi niêm phong
   soTem: string;           // Số sêri tem niêm phong
   hinhAnhUrl: string;
+  bienBanNiemPhongUrl?: string;   // File biên bản niêm phong (base64)
+  bienBanNiemPhongTen?: string;   // Tên file biên bản niêm phong
   trangThai: TrangThaiNiemPhong;
   ngayMo?: string;
   nguoiMoId?: string;
   nguoiMoTen?: string;
   lyDoMo?: string;
+  bienBanMoUrl?: string;          // File biên bản mở niêm phong (base64)
+  bienBanMoTen?: string;          // Tên file biên bản mở niêm phong
   ghiChu: string;
   createdAt: string;
 }
