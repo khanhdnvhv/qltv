@@ -9,7 +9,7 @@ const DEMO_ACCOUNTS = [
   { username: "admin",   label: "Quản trị viên",    name: "Nguyễn Văn Hùng", dept: "PC06 - Phòng CSQLHC về TTXH", avatar: "NH", color: "#0d3b66", roleColor: "#c62828" },
   { username: "lanhdao", label: "Lãnh đạo",          name: "Trần Thị Lan",    dept: "PC06 - Phòng CSQLHC về TTXH", avatar: "TL", color: "#1565c0", roleColor: "#1565c0" },
   { username: "thukho",  label: "Thủ kho",           name: "Phạm Văn Đức",    dept: "PC06 - Phòng CSQLHC về TTXH", avatar: "PD", color: "#2e7d32", roleColor: "#2e7d32" },
-  { username: "canbonv", label: "Cán bộ nghiệp vụ",  name: "Lê Minh Tuấn",   dept: "CA Huyện Bình Xuyên",          avatar: "LT", color: "#7b1fa2", roleColor: "#7b1fa2" },
+  { username: "canbonv", label: "Cán bộ nghiệp vụ",  name: "Lê Minh Tuấn",   dept: "CA xã Bình Xuyên",             avatar: "LT", color: "#7b1fa2", roleColor: "#7b1fa2" },
   { username: "viewer",  label: "Xem",               name: "Nguyễn Thị Hoa",  dept: "Thanh tra Công an tỉnh",       avatar: "NH", color: "#5a6a7e", roleColor: "#5a6a7e" },
 ];
 

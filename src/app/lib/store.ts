@@ -38,10 +38,10 @@ function genMa(prefix: string): string {
 
 export const MOCK_DON_VI: DonVi[] = [
   { id: "dv1", ten: "PC06 - Phòng CSQLHC về TTXH", ma: "PC06", diaChi: "30 Đường Mê Linh, TP Vĩnh Yên", dienThoai: "0211.3862000", email: "pc06@congantinhvinhphuc.gov.vn", truongDonVi: "Nguyễn Văn Hùng", capDonVi: "tinh" },
-  { id: "dv2", ten: "CA Huyện Bình Xuyên", ma: "CABX", diaChi: "Thị trấn Gia Khánh, Bình Xuyên", dienThoai: "0211.3862111", email: "cabinhxuyen@congantinhvinhphuc.gov.vn", truongDonVi: "Trần Văn Bình", capDonVi: "huyen" },
-  { id: "dv3", ten: "CA TP Vĩnh Yên", ma: "CAVY", diaChi: "TP Vĩnh Yên", dienThoai: "0211.3862222", email: "cavinhyen@congantinhvinhphuc.gov.vn", truongDonVi: "Lê Văn Cường", capDonVi: "huyen" },
-  { id: "dv4", ten: "CA Huyện Vĩnh Tường", ma: "CAVT", diaChi: "Huyện Vĩnh Tường", dienThoai: "0211.3862333", email: "cavinhtuong@congantinhvinhphuc.gov.vn", truongDonVi: "Phạm Văn Đạt", capDonVi: "huyen" },
-  { id: "dv5", ten: "CA Huyện Yên Lạc", ma: "CAYL", diaChi: "Huyện Yên Lạc", dienThoai: "0211.3862444", email: "cayenlac@congantinhvinhphuc.gov.vn", truongDonVi: "Vũ Thị Lan", capDonVi: "huyen" },
+  { id: "dv2", ten: "CA xã Bình Xuyên", ma: "CABX", diaChi: "Thị trấn Gia Khánh, xã Bình Xuyên", dienThoai: "0211.3862111", email: "cabinhxuyen@congantinhvinhphuc.gov.vn", truongDonVi: "Trần Văn Bình", capDonVi: "xa" },
+  { id: "dv3", ten: "CA TP Vĩnh Yên", ma: "CAVY", diaChi: "TP Vĩnh Yên", dienThoai: "0211.3862222", email: "cavinhyen@congantinhvinhphuc.gov.vn", truongDonVi: "Lê Văn Cường", capDonVi: "tinh" },
+  { id: "dv4", ten: "CA xã Vĩnh Tường", ma: "CAVT", diaChi: "xã Vĩnh Tường", dienThoai: "0211.3862333", email: "cavinhtuong@congantinhvinhphuc.gov.vn", truongDonVi: "Phạm Văn Đạt", capDonVi: "xa" },
+  { id: "dv5", ten: "CA xã Yên Lạc", ma: "CAYL", diaChi: "xã Yên Lạc", dienThoai: "0211.3862444", email: "cayenlac@congantinhvinhphuc.gov.vn", truongDonVi: "Vũ Thị Lan", capDonVi: "xa" },
 ];
 
 export const MOCK_KHO: Kho[] = [
@@ -98,11 +98,11 @@ export const MOCK_KHO: Kho[] = [
   },
   {
     id: "kho4",
-    ten: "Kho CA Huyện Bình Xuyên",
+    ten: "Kho CA xã Bình Xuyên",
     ma: "KTV-CABX",
     diaChi: "Thị trấn Gia Khánh, Bình Xuyên",
     donViId: "dv2",
-    donViTen: "CA Huyện Bình Xuyên",
+    donViTen: "CA xã Bình Xuyên",
     sucChua: 80,
     dangLuu: 31,
     thuKhoId: "u4",
@@ -135,7 +135,7 @@ export const MOCK_KHO: Kho[] = [
 export const MOCK_HO_SO: HoSoVuViec[] = [
   {
     id: "hs1", maBienBan: "BB-2026-001", ngayLap: "05/01/2026",
-    donViLapId: "dv2", donViLapTen: "CA Huyện Bình Xuyên",
+    donViLapId: "dv2", donViLapTen: "CA xã Bình Xuyên",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Nguyễn Văn Tám", diaChiDoiTuong: "Xã Bá Hiến, Bình Xuyên, Vĩnh Phúc",
     cccdDoiTuong: "027045001234", hanhViViPham: "Điều khiển xe máy không đăng ký, không GPLX",
@@ -165,7 +165,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs4", maBienBan: "BB-2026-004", ngayLap: "15/01/2026",
-    donViLapId: "dv4", donViLapTen: "CA Huyện Vĩnh Tường",
+    donViLapId: "dv4", donViLapTen: "CA xã Vĩnh Tường",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Phạm Văn Long", diaChiDoiTuong: "Xã Vĩnh Sơn, Vĩnh Tường",
     cccdDoiTuong: "027075003456", hanhViViPham: "Vận chuyển gia súc không giấy tờ kiểm dịch",
@@ -175,7 +175,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs5", maBienBan: "BB-2026-005", ngayLap: "18/01/2026",
-    donViLapId: "dv2", donViLapTen: "CA Huyện Bình Xuyên",
+    donViLapId: "dv2", donViLapTen: "CA xã Bình Xuyên",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Hoàng Minh Sơn", diaChiDoiTuong: "Thị trấn Gia Khánh, Bình Xuyên",
     cccdDoiTuong: "027025004567", hanhViViPham: "Tàng trữ vũ khí thô sơ trái phép",
@@ -195,7 +195,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs7", maBienBan: "BB-2026-007", ngayLap: "25/01/2026",
-    donViLapId: "dv5", donViLapTen: "CA Huyện Yên Lạc",
+    donViLapId: "dv5", donViLapTen: "CA xã Yên Lạc",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Lê Thị Ngọc", diaChiDoiTuong: "Xã Liên Châu, Yên Lạc",
     cccdDoiTuong: "027085006789", hanhViViPham: "Buôn bán thực phẩm không an toàn, quá hạn sử dụng",
@@ -225,7 +225,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs10", maBienBan: "BB-2026-010", ngayLap: "10/02/2026",
-    donViLapId: "dv2", donViLapTen: "CA Huyện Bình Xuyên",
+    donViLapId: "dv2", donViLapTen: "CA xã Bình Xuyên",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Đinh Văn Hải", diaChiDoiTuong: "Thị trấn Hương Canh, Bình Xuyên",
     cccdDoiTuong: "027055008901", hanhViViPham: "Kinh doanh điện thoại nhập lậu, hàng giả",
@@ -245,7 +245,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs12", maBienBan: "BB-2026-012", ngayLap: "18/02/2026",
-    donViLapId: "dv4", donViLapTen: "CA Huyện Vĩnh Tường",
+    donViLapId: "dv4", donViLapTen: "CA xã Vĩnh Tường",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Nguyễn Thị Thảo", diaChiDoiTuong: "Xã Chấn Hưng, Vĩnh Tường",
     cccdDoiTuong: "027085010123", hanhViViPham: "Khai thác cát trái phép trên sông Hồng",
@@ -265,7 +265,7 @@ export const MOCK_HO_SO: HoSoVuViec[] = [
   },
   {
     id: "hs14", maBienBan: "BB-2026-014", ngayLap: "05/03/2026",
-    donViLapId: "dv5", donViLapTen: "CA Huyện Yên Lạc",
+    donViLapId: "dv5", donViLapTen: "CA xã Yên Lạc",
     canBoLapId: "u4", canBoLapTen: "Lê Minh Tuấn",
     doiTuongViPham: "Bùi Văn Tứ", diaChiDoiTuong: "Xã Trung Nguyên, Yên Lạc",
     cccdDoiTuong: "027015011234", hanhViViPham: "Điều khiển xe mô tô phân khối lớn đua trái phép",
@@ -597,7 +597,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     soLuong: 12, donViTinh: "con",
     dacDiemNhanDang: "Lợn thịt trọng lượng 80-100kg/con",
     tinhTrangBanDau: "Còn sống, khỏe mạnh",
-    giaTriUocTinh: 12000000, khoId: "kho4", khoTen: "Kho CA Huyện Bình Xuyên",
+    giaTriUocTinh: 12000000, khoId: "kho4", khoTen: "Kho CA xã Bình Xuyên",
     viTriKhoMoTa: "Khu B - Chuồng tạm",
     trangThai: "da_tra_lai", ngayNhapKho: "16/01/2026", hanLuuKho: "16/02/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
@@ -649,7 +649,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     soLuong: 15, donViTinh: "tờ",
     dacDiemNhanDang: "Giấy chứng nhận kiểm dịch thú y giả mạo dấu, chữ ký",
     tinhTrangBanDau: "Còn nguyên",
-    giaTriUocTinh: 500000, khoId: "kho4", khoTen: "Kho CA Huyện Bình Xuyên",
+    giaTriUocTinh: 500000, khoId: "kho4", khoTen: "Kho CA xã Bình Xuyên",
     viTriKhoMoTa: "Tủ hồ sơ - Ngăn 2",
     trangThai: "da_tra_lai", ngayNhapKho: "16/01/2026", hanLuuKho: "16/07/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
@@ -675,7 +675,7 @@ export const MOCK_TANG_VAT: TangVat[] = [
     soLuong: 2, donViTinh: "chiếc",
     dacDiemNhanDang: "Súng phun cát chuyên dụng đi kèm tàu hút cát",
     tinhTrangBanDau: "Còn sử dụng được",
-    giaTriUocTinh: 15000000, khoId: "kho4", khoTen: "Kho CA Huyện Bình Xuyên",
+    giaTriUocTinh: 15000000, khoId: "kho4", khoTen: "Kho CA xã Bình Xuyên",
     viTriKhoMoTa: "Khu C - Bãi ngoài",
     trangThai: "dang_luu_kho", ngayNhapKho: "20/02/2026", hanLuuKho: "20/08/2026",
     canBoQuanLyId: "u4", canBoQuanLyTen: "Lê Minh Tuấn",
@@ -776,7 +776,7 @@ export const MOCK_KIEM_KE: KiemKe[] = [
     chiTiet: [], ketLuan: "", ghiChu: "Đang kiểm kê, chưa hoàn thành", createdAt: "10/03/2026",
   },
   {
-    id: "kk4", maKiemKe: "KK-2026-004", khoId: "kho4", khoTen: "Kho CA Huyện Bình Xuyên",
+    id: "kk4", maKiemKe: "KK-2026-004", khoId: "kho4", khoTen: "Kho CA xã Bình Xuyên",
     ngayKiemKe: "15/03/2026", nguoiKiemKeId: "u4", nguoiKiemKeTen: "Lê Minh Tuấn",
     trangThai: "hoan_thanh", tongTangVatKiemKe: 4, soKhop: 4, soThieu: 0, soHuHong: 0, soDu: 0,
     chiTiet: [], ketLuan: "Khớp hoàn toàn với sổ sách",
@@ -795,13 +795,13 @@ export const MOCK_KIEM_KE: KiemKe[] = [
 export const MOCK_LUAN_CHUYEN: LuanChuyen[] = [
   { id: "lc1", maLuanChuyen: "LC-2026-001", tangVatId: "tv5", tenTangVat: "Tàu hút cát công suất lớn", maBienBan: "BB-2026-012", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho2", khoNguonTen: "Bãi Phương Tiện PC06", donViNhanId: "dv3", donViNhanTen: "CA TP Vĩnh Yên", khoNhanId: "kho5", khoNhanTen: "Kho CA TP Vĩnh Yên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", nguoiGiaoTen: "Phạm Văn Đức", nguoiNhanTen: "Nguyễn Thị Hoa", lyDo: "Chuyển về đơn vị nơi phương tiện hoạt động để thuận tiện xử lý", canCuPhapLy: "Điều 27 NĐ 31/2023/NĐ-CP", trangThai: "da_ban_giao", ngayDeNghi: "25/02/2026", ngayPheDuyet: "28/02/2026", ngayBanGiao: "02/03/2026", ghiChu: "", createdAt: "25/02/2026" },
   { id: "lc2", maLuanChuyen: "LC-2026-002", tangVatId: "tv20", tenTangVat: "Vật liệu nổ TNT 25kg", maBienBan: "BB-2026-009", loaiLuanChuyen: "ban_giao_co_quan_khac", khoNguonId: "kho3", khoNguonTen: "Kho Hàng Hóa Đặc Biệt", donViNhanId: "dv1", donViNhanTen: "Bộ CHQS tỉnh Vĩnh Phúc", coQuanNhanTen: "Bộ CHQS tỉnh Vĩnh Phúc", nguoiDeNghiId: "u1", nguoiDeNghiTen: "Nguyễn Văn Hùng", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", lyDo: "Bàn giao Quân đội tiêu hủy theo quy định an toàn", canCuPhapLy: "Điều 56 Luật Quản lý vũ khí 2017", trangThai: "da_phe_duyet", ngayDeNghi: "01/03/2026", ngayPheDuyet: "04/03/2026", ghiChu: "Chờ lịch bàn giao với Quân đội", createdAt: "01/03/2026" },
-  { id: "lc3", maLuanChuyen: "LC-2026-003", tangVatId: "tv14", tenTangVat: "iPhone 14 Pro 35 chiếc", maBienBan: "BB-2026-010", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho1", khoNguonTen: "Kho Tang Vật PC06", donViNhanId: "dv2", donViNhanTen: "CA Huyện Bình Xuyên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", lyDo: "Chuyển về đơn vị thụ lý hồ sơ gốc để xử lý tiếp", canCuPhapLy: "Điều 28 NĐ 31/2023/NĐ-CP", trangThai: "cho_phe_duyet", ngayDeNghi: "12/03/2026", ghiChu: "", createdAt: "12/03/2026" },
-  { id: "lc4", maLuanChuyen: "LC-2026-004", tangVatId: "tv2", tenTangVat: "Ô tô Toyota Camry", maBienBan: "BB-2026-008", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho2", khoNguonTen: "Bãi Phương Tiện PC06", donViNhanId: "dv4", donViNhanTen: "CA Huyện Vĩnh Tường", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", lyDo: "Xe đăng ký tại Vĩnh Tường, chuyển về để xử lý", canCuPhapLy: "Điều 27 NĐ 31/2023/NĐ-CP", trangThai: "tu_choi", ngayDeNghi: "05/02/2026", lyDoTuChoi: "Xe đang trong giai đoạn điều tra, chưa đủ cơ sở pháp lý để chuyển", ghiChu: "", createdAt: "05/02/2026" },
+  { id: "lc3", maLuanChuyen: "LC-2026-003", tangVatId: "tv14", tenTangVat: "iPhone 14 Pro 35 chiếc", maBienBan: "BB-2026-010", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho1", khoNguonTen: "Kho Tang Vật PC06", donViNhanId: "dv2", donViNhanTen: "CA xã Bình Xuyên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", lyDo: "Chuyển về đơn vị thụ lý hồ sơ gốc để xử lý tiếp", canCuPhapLy: "Điều 28 NĐ 31/2023/NĐ-CP", trangThai: "cho_phe_duyet", ngayDeNghi: "12/03/2026", ghiChu: "", createdAt: "12/03/2026" },
+  { id: "lc4", maLuanChuyen: "LC-2026-004", tangVatId: "tv2", tenTangVat: "Ô tô Toyota Camry", maBienBan: "BB-2026-008", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho2", khoNguonTen: "Bãi Phương Tiện PC06", donViNhanId: "dv4", donViNhanTen: "CA xã Vĩnh Tường", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", lyDo: "Xe đăng ký tại Vĩnh Tường, chuyển về để xử lý", canCuPhapLy: "Điều 27 NĐ 31/2023/NĐ-CP", trangThai: "tu_choi", ngayDeNghi: "05/02/2026", lyDoTuChoi: "Xe đang trong giai đoạn điều tra, chưa đủ cơ sở pháp lý để chuyển", ghiChu: "", createdAt: "05/02/2026" },
   { id: "lc5", maLuanChuyen: "LC-2026-005", tangVatId: "tv21", tenTangVat: "Pháo hoa pháo nổ 180kg", maBienBan: "BB-2026-015", loaiLuanChuyen: "ban_giao_co_quan_khac", khoNguonId: "kho3", khoNguonTen: "Kho Hàng Hóa Đặc Biệt", donViNhanId: "dv1", donViNhanTen: "Công an PCCC tỉnh", coQuanNhanTen: "Công an PCCC tỉnh Vĩnh Phúc", nguoiDeNghiId: "u1", nguoiDeNghiTen: "Nguyễn Văn Hùng", lyDo: "Bàn giao đơn vị có chức năng tiêu hủy an toàn", canCuPhapLy: "NĐ 137/2020/NĐ-CP Điều 16", trangThai: "cho_phe_duyet", ngayDeNghi: "20/03/2026", ghiChu: "", createdAt: "20/03/2026" },
   { id: "lc6", maLuanChuyen: "LC-2026-006", tangVatId: "tv12", tenTangVat: "Tiền mặt 42 triệu", maBienBan: "BB-2026-011", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho3", khoNguonTen: "Kho Hàng Hóa Đặc Biệt", donViNhanId: "dv1", donViNhanTen: "Kho bạc Nhà nước tỉnh Vĩnh Phúc", nguoiDeNghiId: "u2", nguoiDeNghiTen: "Trần Thị Lan", nguoiPheDuyetId: "u1", nguoiPheDuyetTen: "Nguyễn Văn Hùng", lyDo: "Nộp sung công quỹ Nhà nước theo quyết định", canCuPhapLy: "Điều 30 NĐ 31/2023/NĐ-CP", trangThai: "da_phe_duyet", ngayDeNghi: "10/03/2026", ngayPheDuyet: "14/03/2026", ghiChu: "", createdAt: "10/03/2026" },
   { id: "lc7", maLuanChuyen: "LC-2026-007", tangVatId: "tv22", tenTangVat: "Máy hút cát mini", maBienBan: "BB-2026-012", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho2", khoNguonTen: "Bãi Phương Tiện PC06", donViNhanId: "dv3", donViNhanTen: "CA TP Vĩnh Yên", khoNhanId: "kho5", khoNhanTen: "Kho CA TP Vĩnh Yên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", nguoiGiaoTen: "Phạm Văn Đức", nguoiNhanTen: "Nguyễn Thị Hoa", lyDo: "Chuyển cùng tàu hút cát đến đơn vị mới", canCuPhapLy: "Điều 27 NĐ 31/2023/NĐ-CP", trangThai: "da_ban_giao", ngayDeNghi: "25/02/2026", ngayPheDuyet: "28/02/2026", ngayBanGiao: "02/03/2026", ghiChu: "", createdAt: "25/02/2026" },
   { id: "lc8", maLuanChuyen: "LC-2026-008", tangVatId: "tv16", tenTangVat: "Thiết bị điện kém CL 500 cái", maBienBan: "BB-2026-013", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho1", khoNguonTen: "Kho Tang Vật PC06", donViNhanId: "dv1", donViNhanTen: "Trung tâm Tiêu chuẩn Đo lường Chất lượng", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", lyDo: "Gửi giám định chất lượng", canCuPhapLy: "Luật Chất lượng SP HH 2007 Điều 24", trangThai: "cho_phe_duyet", ngayDeNghi: "15/03/2026", ghiChu: "", createdAt: "15/03/2026" },
-  { id: "lc9", maLuanChuyen: "LC-2026-009", tangVatId: "tv6", tenTangVat: "Hàng vải nhập lậu 350kg", maBienBan: "BB-2026-002", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho1", khoNguonTen: "Kho Tang Vật PC06", donViNhanId: "dv2", donViNhanTen: "CA Huyện Bình Xuyên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", nguoiGiaoTen: "Phạm Văn Đức", nguoiNhanTen: "Lê Minh Tuấn", lyDo: "Chuyển về đơn vị tiếp nhận xử lý theo thẩm quyền", canCuPhapLy: "Điều 28 NĐ 31/2023/NĐ-CP", trangThai: "dang_van_chuyen", ngayDeNghi: "10/03/2026", ngayPheDuyet: "12/03/2026", ghiChu: "", createdAt: "10/03/2026" },
+  { id: "lc9", maLuanChuyen: "LC-2026-009", tangVatId: "tv6", tenTangVat: "Hàng vải nhập lậu 350kg", maBienBan: "BB-2026-002", loaiLuanChuyen: "luan_chuyen_kho", khoNguonId: "kho1", khoNguonTen: "Kho Tang Vật PC06", donViNhanId: "dv2", donViNhanTen: "CA xã Bình Xuyên", nguoiDeNghiId: "u4", nguoiDeNghiTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", nguoiGiaoTen: "Phạm Văn Đức", nguoiNhanTen: "Lê Minh Tuấn", lyDo: "Chuyển về đơn vị tiếp nhận xử lý theo thẩm quyền", canCuPhapLy: "Điều 28 NĐ 31/2023/NĐ-CP", trangThai: "dang_van_chuyen", ngayDeNghi: "10/03/2026", ngayPheDuyet: "12/03/2026", ghiChu: "", createdAt: "10/03/2026" },
   { id: "lc10", maLuanChuyen: "LC-2026-010", tangVatId: "tv13", tenTangVat: "Kiếm dao các loại", maBienBan: "BB-2026-005", loaiLuanChuyen: "chuyen_co_quan_to_tung", khoNguonId: "kho3", khoNguonTen: "Kho Hàng Hóa Đặc Biệt", coQuanNhanTen: "Viện Kiểm sát nhân dân tỉnh Vĩnh Phúc", soVanBanYeuCau: "VB-VKSND-2026-015", nguoiDeNghiId: "u1", nguoiDeNghiTen: "Nguyễn Văn Hùng", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", lyDo: "Chuyển Viện KSND làm vật chứng vụ án hình sự", canCuPhapLy: "Điều 106 BLTTHS 2015", trangThai: "da_ban_giao", ngayDeNghi: "25/01/2026", ngayPheDuyet: "28/01/2026", ngayBanGiao: "30/01/2026", ghiChu: "", createdAt: "25/01/2026" },
 ];
 
@@ -809,9 +809,9 @@ export const MOCK_XU_LY: XuLyTangVat[] = [
   { id: "xl1", maXuLy: "XL-2026-001", tangVatId: "tv1", tenTangVat: "Xe máy Honda Wave Alpha", maBienBan: "BB-2026-001", hinhThuc: "tra_lai", canCuPhapLy: "Điều 126 Luật Xử lý VPHC", quyetDinhSo: "QĐ-2026-001", ngayQuyetDinh: "09/01/2026", doiTuongTraLai: "Nguyễn Văn Tám", cccdNguoiNhan: "027045001234", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", trangThai: "hoan_thanh", ngayDeXuat: "08/01/2026", ngayPheDuyet: "09/01/2026", ngayHoanThanh: "10/01/2026", moTa: "Trả lại xe sau khi xử phạt vi phạm hành chính", ghiChu: "", createdAt: "08/01/2026" },
   { id: "xl2", maXuLy: "XL-2026-002", tangVatId: "tv8", tenTangVat: "Túi xách giả Coach 45 chiếc", maBienBan: "BB-2026-003", hinhThuc: "tieu_huy", canCuPhapLy: "Điều 28 NĐ 185/2013/NĐ-CP", quyetDinhSo: "QĐ-2026-003", ngayQuyetDinh: "18/01/2026", donViThucHienId: "dv1", donViThucHienTen: "PC06", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u1", nguoiPheDuyetTen: "Nguyễn Văn Hùng", trangThai: "hoan_thanh", ngayDeXuat: "17/01/2026", ngayPheDuyet: "18/01/2026", ngayHoanThanh: "20/01/2026", moTa: "Tiêu hủy hàng giả nhãn hiệu theo quy định", ghiChu: "", createdAt: "17/01/2026" },
   { id: "xl3", maXuLy: "XL-2026-003", tangVatId: "tv9", tenTangVat: "Đồng hồ giả Rolex Omega 28 chiếc", maBienBan: "BB-2026-003", hinhThuc: "tieu_huy", canCuPhapLy: "Điều 28 NĐ 185/2013/NĐ-CP", quyetDinhSo: "QĐ-2026-003", ngayQuyetDinh: "18/01/2026", donViThucHienId: "dv1", donViThucHienTen: "PC06", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u1", nguoiPheDuyetTen: "Nguyễn Văn Hùng", trangThai: "hoan_thanh", ngayDeXuat: "17/01/2026", ngayPheDuyet: "18/01/2026", ngayHoanThanh: "20/01/2026", moTa: "Tiêu hủy đồng hồ giả nhãn hiệu", ghiChu: "", createdAt: "17/01/2026" },
-  { id: "xl4", maXuLy: "XL-2026-004", tangVatId: "tv10", tenTangVat: "Thực phẩm chức năng hết hạn", maBienBan: "BB-2026-007", hinhThuc: "tieu_huy", canCuPhapLy: "Điều 23 Luật ATTP 2010", donViThucHienId: "dv5", donViThucHienTen: "CA Huyện Yên Lạc", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", trangThai: "hoan_thanh", ngayDeXuat: "30/01/2026", ngayPheDuyet: "31/01/2026", ngayHoanThanh: "01/02/2026", moTa: "Tiêu hủy thực phẩm hết hạn sử dụng, không đảm bảo an toàn", ghiChu: "", createdAt: "30/01/2026" },
+  { id: "xl4", maXuLy: "XL-2026-004", tangVatId: "tv10", tenTangVat: "Thực phẩm chức năng hết hạn", maBienBan: "BB-2026-007", hinhThuc: "tieu_huy", canCuPhapLy: "Điều 23 Luật ATTP 2010", donViThucHienId: "dv5", donViThucHienTen: "CA xã Yên Lạc", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", trangThai: "hoan_thanh", ngayDeXuat: "30/01/2026", ngayPheDuyet: "31/01/2026", ngayHoanThanh: "01/02/2026", moTa: "Tiêu hủy thực phẩm hết hạn sử dụng, không đảm bảo an toàn", ghiChu: "", createdAt: "30/01/2026" },
   { id: "xl5", maXuLy: "XL-2026-005", tangVatId: "tv5", tenTangVat: "Tàu hút cát công suất lớn", maBienBan: "BB-2026-012", hinhThuc: "tich_thu", canCuPhapLy: "Điều 26 Luật Khoáng sản 2010", quyetDinhSo: "QĐ-2026-012", ngayQuyetDinh: "28/02/2026", donViThucHienId: "dv1", donViThucHienTen: "PC06", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u1", nguoiPheDuyetTen: "Nguyễn Văn Hùng", trangThai: "hoan_thanh", ngayDeXuat: "26/02/2026", ngayPheDuyet: "28/02/2026", ngayHoanThanh: "01/03/2026", moTa: "Tịch thu tàu khai thác khoáng sản trái phép", ghiChu: "", createdAt: "26/02/2026" },
-  { id: "xl6", maXuLy: "XL-2026-006", tangVatId: "tv23", tenTangVat: "Lợn vận chuyển không kiểm dịch", maBienBan: "BB-2026-004", hinhThuc: "tra_lai", canCuPhapLy: "Điều 31 Pháp lệnh Thú y 2004", donViThucHienId: "dv2", donViThucHienTen: "CA Huyện Bình Xuyên", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", trangThai: "hoan_thanh", ngayDeXuat: "22/01/2026", ngayPheDuyet: "23/01/2026", ngayHoanThanh: "25/01/2026", moTa: "Trả lại sau xử phạt và cấp giấy kiểm dịch bổ sung", ghiChu: "", createdAt: "22/01/2026" },
+  { id: "xl6", maXuLy: "XL-2026-006", tangVatId: "tv23", tenTangVat: "Lợn vận chuyển không kiểm dịch", maBienBan: "BB-2026-004", hinhThuc: "tra_lai", canCuPhapLy: "Điều 31 Pháp lệnh Thú y 2004", donViThucHienId: "dv2", donViThucHienTen: "CA xã Bình Xuyên", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u2", nguoiPheDuyetTen: "Trần Thị Lan", trangThai: "hoan_thanh", ngayDeXuat: "22/01/2026", ngayPheDuyet: "23/01/2026", ngayHoanThanh: "25/01/2026", moTa: "Trả lại sau xử phạt và cấp giấy kiểm dịch bổ sung", ghiChu: "", createdAt: "22/01/2026" },
   { id: "xl7", maXuLy: "XL-2026-007", tangVatId: "tv12", tenTangVat: "Tiền mặt 42 triệu", maBienBan: "BB-2026-011", hinhThuc: "tich_thu", canCuPhapLy: "Điều 28 NĐ 144/2021/NĐ-CP", quyetDinhSo: "QĐ-2026-011", ngayQuyetDinh: "01/03/2026", soTienBan: 42000000, nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", nguoiPheDuyetId: "u1", nguoiPheDuyetTen: "Nguyễn Văn Hùng", trangThai: "da_phe_duyet", ngayDeXuat: "28/02/2026", ngayPheDuyet: "01/03/2026", moTa: "Tịch thu sung công tiền đánh bạc", ghiChu: "Đang làm thủ tục nộp Kho bạc", createdAt: "28/02/2026" },
   { id: "xl8", maXuLy: "XL-2026-008", tangVatId: "tv18", tenTangVat: "Xe tải chở gia súc không phép", maBienBan: "BB-2026-004", hinhThuc: "tra_lai", canCuPhapLy: "Điều 130 Luật Xử lý VPHC", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", trangThai: "cho_phe_duyet", ngayDeXuat: "25/02/2026", moTa: "Đề xuất trả lại xe sau khi xử phạt xong", ghiChu: "", createdAt: "25/02/2026" },
   { id: "xl9", maXuLy: "XL-2026-009", tangVatId: "tv16", tenTangVat: "Thiết bị điện kém chất lượng", maBienBan: "BB-2026-013", hinhThuc: "tieu_huy", canCuPhapLy: "Điều 29 Luật Chất lượng SP HH 2007", nguoiDeXuatId: "u4", nguoiDeXuatTen: "Lê Minh Tuấn", trangThai: "cho_phe_duyet", ngayDeXuat: "20/03/2026", moTa: "Tiêu hủy thiết bị điện không đạt chuẩn, nguy cơ gây cháy nổ", ghiChu: "", createdAt: "20/03/2026" },
@@ -845,7 +845,7 @@ export const MOCK_GIAO_TU_GIU: GiaoTuGiu[] = [
     tangVatId: "tv23", tenTangVat: "Lợn vận chuyển không kiểm dịch", maBienBan: "BB-2026-004",
     hoSoId: "hs4",
     doiTuongId: "dt2", doiTuongTen: "Phạm Văn Long", doiTuongCccd: "027055007890",
-    doiTuongDiaChi: "Thôn Đông, Xã Tam Hợp, Huyện Bình Xuyên", doiTuongSdt: "0987654321",
+    doiTuongDiaChi: "Thôn Đông, Xã Tam Hợp, xã Bình Xuyên", doiTuongSdt: "0987654321",
     lyDoGiao: "Lợn là gia súc sống, không thể lưu kho lâu dài, đối tượng có điều kiện chăm sóc",
     canCuPhapLy: "Điều 14 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)",
     dieuKienGiu: "Không được bán, giết mổ hoặc di chuyển đàn lợn. Phải cách ly theo yêu cầu thú y",
@@ -864,7 +864,7 @@ export const MOCK_GIAO_TU_GIU: GiaoTuGiu[] = [
     tangVatId: "tv18", tenTangVat: "Xe tải chở gia súc không phép", maBienBan: "BB-2026-004",
     hoSoId: "hs4",
     doiTuongId: "dt3", doiTuongTen: "Trần Văn Minh", doiTuongCccd: "027066008901",
-    doiTuongDiaChi: "Số 45 Đường Nguyễn Trãi, Huyện Bình Xuyên", doiTuongSdt: "0978123456",
+    doiTuongDiaChi: "Số 45 Đường Nguyễn Trãi, xã Bình Xuyên", doiTuongSdt: "0978123456",
     lyDoGiao: "Đối tượng cần phương tiện mưu sinh, cam kết không tái vi phạm",
     canCuPhapLy: "Điều 14 NĐ 138/2021/NĐ-CP (sửa đổi NĐ 47/2026)",
     dieuKienGiu: "Chỉ sử dụng xe trong địa bàn tỉnh, phải có giấy phép vận tải hợp lệ",
@@ -985,7 +985,7 @@ export const MOCK_VAN_BAN: VanBan[] = [
   { id: "vb11", maVanBan: "VB-2026-011", tieuDe: "Biên bản niêm phong vật liệu nổ", loaiVanBan: "bien_ban_niem_phong", hoSoId: "hs9", maBienBan: "BB-2026-009", tangVatId: "tv20", noiDung: "Biên bản niêm phong 25kg TNT và 50 kíp nổ tại Kho Hàng Hóa Đặc Biệt", nguoiTaoId: "u1", nguoiTaoTen: "Nguyễn Văn Hùng", nguoiKyId: "u1", nguoiKyTen: "Nguyễn Văn Hùng", trangThai: "da_ky", ngayTao: "06/02/2026", ngayKy: "06/02/2026" },
   { id: "vb12", maVanBan: "VB-2026-012", tieuDe: "Quyết định xử lý xe tải BB-2026-004", loaiVanBan: "quyet_dinh_xu_ly", hoSoId: "hs4", maBienBan: "BB-2026-004", tangVatId: "tv18", noiDung: "Đề xuất trả lại xe tải sau khi hoàn tất xử phạt VPHC", nguoiTaoId: "u4", nguoiTaoTen: "Lê Minh Tuấn", trangThai: "nhap", ngayTao: "25/02/2026" },
   { id: "vb13", maVanBan: "VB-2026-013", tieuDe: "Biên bản bàn giao vật liệu nổ cho Quân đội", loaiVanBan: "bien_ban_ban_giao", hoSoId: "hs9", maBienBan: "BB-2026-009", tangVatId: "tv20", noiDung: "Biên bản bàn giao vật liệu nổ cho Bộ CHQS tỉnh Vĩnh Phúc", nguoiTaoId: "u1", nguoiTaoTen: "Nguyễn Văn Hùng", trangThai: "nhap", ngayTao: "05/03/2026" },
-  { id: "vb14", maVanBan: "VB-2026-014", tieuDe: "Công văn phối hợp xử lý iPhone nhập lậu", loaiVanBan: "cong_van", hoSoId: "hs10", maBienBan: "BB-2026-010", noiDung: "Đề nghị CA Huyện Bình Xuyên phối hợp xử lý lô hàng iPhone và Samsung nhập lậu", nguoiTaoId: "u1", nguoiTaoTen: "Nguyễn Văn Hùng", nguoiKyId: "u1", nguoiKyTen: "Nguyễn Văn Hùng", trangThai: "da_ky", ngayTao: "15/02/2026", ngayKy: "16/02/2026" },
+  { id: "vb14", maVanBan: "VB-2026-014", tieuDe: "Công văn phối hợp xử lý iPhone nhập lậu", loaiVanBan: "cong_van", hoSoId: "hs10", maBienBan: "BB-2026-010", noiDung: "Đề nghị CA xã Bình Xuyên phối hợp xử lý lô hàng iPhone và Samsung nhập lậu", nguoiTaoId: "u1", nguoiTaoTen: "Nguyễn Văn Hùng", nguoiKyId: "u1", nguoiKyTen: "Nguyễn Văn Hùng", trangThai: "da_ky", ngayTao: "15/02/2026", ngayKy: "16/02/2026" },
   { id: "vb15", maVanBan: "VB-2026-015", tieuDe: "Biên bản tiêu hủy pháo nổ", loaiVanBan: "bien_ban_tieu_huy", hoSoId: "hs15", maBienBan: "BB-2026-015", tangVatId: "tv21", noiDung: "Biên bản tiêu hủy 180kg pháo hoa và pháo nổ", nguoiTaoId: "u4", nguoiTaoTen: "Lê Minh Tuấn", trangThai: "nhap", ngayTao: "20/03/2026" },
 ];
 
@@ -1018,7 +1018,7 @@ export const MOCK_NHAT_KY: NhatKy[] = [
   { id: "nk3", userId: "u1", userTen: "Nguyễn Văn Hùng", hanhDong: "Niêm phong", doiTuong: "NiemPhong", doiTuongId: "np9", doiTuongMa: "NP-2026-009", chiTiet: "Niêm phong pháo hoa, pháo nổ kho Hàng Hóa Đặc Biệt", thoiGian: "11/03/2026 11:00" },
   { id: "nk4", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Tạo đề nghị luân chuyển", doiTuong: "LuanChuyen", doiTuongId: "lc5", doiTuongMa: "LC-2026-005", chiTiet: "Tạo đề nghị luân chuyển pháo nổ sang PCCC tỉnh", thoiGian: "20/03/2026 14:00" },
   { id: "nk5", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Đề xuất xử lý", doiTuong: "XuLy", doiTuongId: "xl9", doiTuongMa: "XL-2026-009", chiTiet: "Đề xuất tiêu hủy 500 thiết bị điện kém chất lượng", thoiGian: "20/03/2026 15:30" },
-  { id: "nk6", userId: "u3", userTen: "Phạm Văn Đức", hanhDong: "Kiểm kê", doiTuong: "KiemKe", doiTuongId: "kk4", doiTuongMa: "KK-2026-004", chiTiet: "Hoàn thành kiểm kê Kho CA Huyện Bình Xuyên - kết quả khớp 100%", thoiGian: "15/03/2026 16:00" },
+  { id: "nk6", userId: "u3", userTen: "Phạm Văn Đức", hanhDong: "Kiểm kê", doiTuong: "KiemKe", doiTuongId: "kk4", doiTuongMa: "KK-2026-004", chiTiet: "Hoàn thành kiểm kê Kho CA xã Bình Xuyên - kết quả khớp 100%", thoiGian: "15/03/2026 16:00" },
   { id: "nk7", userId: "u1", userTen: "Nguyễn Văn Hùng", hanhDong: "Ký văn bản", doiTuong: "VanBan", doiTuongId: "vb14", doiTuongMa: "VB-2026-014", chiTiet: "Ký công văn phối hợp xử lý iPhone nhập lậu", thoiGian: "16/02/2026 08:45" },
   { id: "nk8", userId: "u2", userTen: "Trần Thị Lan", hanhDong: "Phê duyệt luân chuyển", doiTuong: "LuanChuyen", doiTuongId: "lc6", doiTuongMa: "LC-2026-006", chiTiet: "Phê duyệt luân chuyển tiền mặt 42 triệu sang Kho bạc", thoiGian: "14/03/2026 09:30" },
   { id: "nk9", userId: "u1", userTen: "Nguyễn Văn Hùng", hanhDong: "Phê duyệt xử lý", doiTuong: "XuLy", doiTuongId: "xl7", doiTuongMa: "XL-2026-007", chiTiet: "Phê duyệt tịch thu sung công 42 triệu tiền đánh bạc", thoiGian: "01/03/2026 10:00" },
@@ -1028,7 +1028,7 @@ export const MOCK_NHAT_KY: NhatKy[] = [
   { id: "nk13", userId: "u1", userTen: "Nguyễn Văn Hùng", hanhDong: "Phê duyệt hồ sơ", doiTuong: "HoSo", doiTuongId: "hs3", doiTuongMa: "BB-2026-003", chiTiet: "Phê duyệt hồ sơ vụ tàng trữ hàng giả mạo", thoiGian: "20/01/2026 14:00" },
   { id: "nk14", userId: "u2", userTen: "Trần Thị Lan", hanhDong: "Phê duyệt luân chuyển", doiTuong: "LuanChuyen", doiTuongId: "lc2", doiTuongMa: "LC-2026-002", chiTiet: "Phê duyệt chuyển vật liệu nổ cho Quân đội", thoiGian: "04/03/2026 10:30" },
   { id: "nk15", userId: "u3", userTen: "Phạm Văn Đức", hanhDong: "Kiểm kê", doiTuong: "KiemKe", doiTuongId: "kk1", doiTuongMa: "KK-2026-001", chiTiet: "Hoàn thành kiểm kê định kỳ Kho Tang Vật PC06", thoiGian: "01/03/2026 17:00" },
-  { id: "nk16", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Tạo đề nghị luân chuyển", doiTuong: "LuanChuyen", doiTuongId: "lc3", doiTuongMa: "LC-2026-003", chiTiet: "Tạo đề nghị chuyển iPhone sang CA Huyện Bình Xuyên", thoiGian: "12/03/2026 11:00" },
+  { id: "nk16", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Tạo đề nghị luân chuyển", doiTuong: "LuanChuyen", doiTuongId: "lc3", doiTuongMa: "LC-2026-003", chiTiet: "Tạo đề nghị chuyển iPhone sang CA xã Bình Xuyên", thoiGian: "12/03/2026 11:00" },
   { id: "nk17", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Tạo hồ sơ", doiTuong: "HoSo", doiTuongId: "hs13", doiTuongMa: "BB-2026-013", chiTiet: "Tạo hồ sơ vụ kinh doanh thiết bị điện kém chất lượng", thoiGian: "25/02/2026 09:00" },
   { id: "nk18", userId: "u2", userTen: "Trần Thị Lan", hanhDong: "Phê duyệt kiểm kê", doiTuong: "KiemKe", doiTuongId: "kk1", doiTuongMa: "KK-2026-001", chiTiet: "Phê duyệt kết quả kiểm kê Kho Tang Vật PC06", thoiGian: "03/03/2026 10:00" },
   { id: "nk19", userId: "u4", userTen: "Lê Minh Tuấn", hanhDong: "Đề xuất xử lý", doiTuong: "XuLy", doiTuongId: "xl8", doiTuongMa: "XL-2026-008", chiTiet: "Đề xuất trả lại xe tải cho chủ phương tiện", thoiGian: "25/02/2026 14:00" },

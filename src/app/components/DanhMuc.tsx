@@ -38,7 +38,6 @@ const TABS: Tab[] = [
 
 const CAP_DON_VI_LABELS: Record<DonVi["capDonVi"], string> = {
   tinh: "Cấp tỉnh",
-  huyen: "Cấp huyện",
   xa: "Cấp xã",
 };
 
@@ -162,7 +161,7 @@ function TabDonVi({ donVi }: { donVi: DonVi[] }) {
   const [showPanel, setShowPanel] = useState(false);
   const [editItem, setEditItem] = useState<DonVi | null>(null);
   const [form, setForm] = useState<Omit<DonVi, "id">>({
-    ten: "", ma: "", diaChi: "", dienThoai: "", email: "", truongDonVi: "", capDonVi: "huyen",
+    ten: "", ma: "", diaChi: "", dienThoai: "", email: "", truongDonVi: "", capDonVi: "xa",
   });
 
   const filtered = donVi.filter(dv =>
@@ -267,16 +266,15 @@ function TabDonVi({ donVi }: { donVi: DonVi[] }) {
         onSubmit={handleSubmit}
       >
         <Field label="Tên đơn vị" required>
-          <input value={form.ten} onChange={e => setForm(f => ({ ...f, ten: e.target.value }))} className={inputCls} placeholder="VD: CA Huyện Bình Xuyên" />
+          <input value={form.ten} onChange={e => setForm(f => ({ ...f, ten: e.target.value }))} className={inputCls} placeholder="VD: CA xã Bình Xuyên" />
         </Field>
         <Field label="Mã đơn vị" required>
           <input value={form.ma} onChange={e => setForm(f => ({ ...f, ma: e.target.value }))} className={inputCls} placeholder="VD: CABX" />
         </Field>
         <Field label="Cấp đơn vị" required>
           <select value={form.capDonVi} onChange={e => setForm(f => ({ ...f, capDonVi: e.target.value as DonVi["capDonVi"] }))} className={selectCls}>
-            <option value="tinh">Cấp tỉnh</option>
-            <option value="huyen">Cấp huyện</option>
-            <option value="xa">Cấp xã</option>
+            <option value="tinh">Cấp tỉnh / thành phố</option>
+            <option value="xa">Cấp xã / phường</option>
           </select>
         </Field>
         <Field label="Địa chỉ">

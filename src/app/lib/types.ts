@@ -130,7 +130,7 @@ export interface DonVi {
   dienThoai: string;
   email: string;
   truongDonVi: string;
-  capDonVi: "tinh" | "huyen" | "xa";
+  capDonVi: "tinh" | "xa";
 }
 
 // --- Kho bai ---
