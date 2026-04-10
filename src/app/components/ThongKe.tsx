@@ -146,55 +146,128 @@ export function ThongKe() {
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Tổng tang vật", value: kpi.tongTangVat, icon: Package, color: "#0d3b66", bg: "#e8eef5" },
-          { label: "Đang lưu kho", value: kpi.dangLuuKho, icon: Warehouse, color: "#1565c0", bg: "#e3f2fd" },
-          { label: "Đã xử lý", value: kpi.daXuLy, icon: CheckCircle2, color: "#2e7d32", bg: "#e8f5e9" },
-          { label: "Quá hạn", value: kpi.quaHan, icon: AlertTriangle, color: "#c62828", bg: "#ffebee" },
-        ].map((card) => (
-          <div key={card.label} className="bg-white rounded-xl border border-border shadow-sm p-5">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: card.bg }}>
-                <card.icon className="w-5 h-5" style={{ color: card.color }} />
+        {/* Tổng tang vật - blue */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+                <Package className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <p className="text-2xl font-bold" style={{ color: card.color }}>{card.value}</p>
-                <p className="text-xs text-muted-foreground">{card.label}</p>
+              <div className="w-16 h-16 relative">
+                <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#dbeafe" strokeWidth="2.5" />
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeDasharray="70 30" strokeLinecap="round" className="transition-all duration-1000" />
+                </svg>
               </div>
             </div>
+            <p className="text-3xl font-black text-blue-900 mb-0.5">{kpi.tongTangVat}</p>
+            <p className="text-xs font-semibold text-blue-600/70 uppercase tracking-wider">Tổng tang vật</p>
           </div>
-        ))}
+        </div>
+
+        {/* Đang lưu kho - cyan */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-cyan-50 border border-cyan-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-200">
+                <Warehouse className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-16 h-16 relative">
+                <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#cffafe" strokeWidth="2.5" />
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#06b6d4" strokeWidth="2.5" strokeDasharray="60 40" strokeLinecap="round" className="transition-all duration-1000" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl font-black text-cyan-900 mb-0.5">{kpi.dangLuuKho}</p>
+            <p className="text-xs font-semibold text-cyan-600/70 uppercase tracking-wider">Đang lưu kho</p>
+          </div>
+        </div>
+
+        {/* Đã xử lý - green */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-11 h-11 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center shadow-lg shadow-green-200">
+                <CheckCircle2 className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-16 h-16 relative">
+                <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#dcfce7" strokeWidth="2.5" />
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeDasharray="55 45" strokeLinecap="round" className="transition-all duration-1000" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl font-black text-green-900 mb-0.5">{kpi.daXuLy}</p>
+            <p className="text-xs font-semibold text-green-600/70 uppercase tracking-wider">Đã xử lý</p>
+          </div>
+        </div>
+
+        {/* Quá hạn - red */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-11 h-11 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg shadow-red-200">
+                <AlertTriangle className="w-5 h-5 text-white" />
+              </div>
+              <div className="w-16 h-16 relative">
+                <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#fee2e2" strokeWidth="2.5" />
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeDasharray="20 80" strokeLinecap="round" className="transition-all duration-1000" />
+                </svg>
+              </div>
+            </div>
+            <p className="text-3xl font-black text-red-900 mb-0.5">{kpi.quaHan}</p>
+            <p className="text-xs font-semibold text-red-600/70 uppercase tracking-wider">Quá hạn</p>
+          </div>
+        </div>
       </div>
 
       {/* Stats row 2 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-border shadow-sm p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#fff3e0] flex items-center justify-center">
-            <Gavel className="w-5 h-5 text-[#e65100]" />
-          </div>
-          <div>
-            <p className="text-xl font-bold text-[#e65100]">{kpi.tongXuLy}</p>
-            <p className="text-xs text-muted-foreground">Đề xuất xử lý</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-xl border border-border shadow-sm p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#f3e5f5] flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-[#7b1fa2]" />
-          </div>
-          <div>
-            <p className="text-xl font-bold text-[#7b1fa2]">{kpi.tongHoSo}</p>
-            <p className="text-xs text-muted-foreground">Hồ sơ vụ việc</p>
+        {/* Đề xuất xử lý - orange */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative flex items-center gap-4">
+            <div className="w-11 h-11 bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl flex items-center justify-center shadow-lg shadow-orange-200 shrink-0">
+              <Gavel className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-orange-900">{kpi.tongXuLy}</p>
+              <p className="text-xs font-semibold text-orange-600/70 uppercase tracking-wider">Đề xuất xử lý</p>
+            </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-border shadow-sm p-5 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#e8eef5] flex items-center justify-center">
-            <BarChart3 className="w-5 h-5 text-[#0d3b66]" />
+
+        {/* Hồ sơ vụ việc - purple */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative flex items-center gap-4">
+            <div className="w-11 h-11 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center shadow-lg shadow-purple-200 shrink-0">
+              <TrendingUp className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-purple-900">{kpi.tongHoSo}</p>
+              <p className="text-xs font-semibold text-purple-600/70 uppercase tracking-wider">Hồ sơ vụ việc</p>
+            </div>
           </div>
-          <div>
-            <p className="text-xl font-bold text-[#0d3b66]">
-              {(kpi.tongGiaTri / 1_000_000).toFixed(0)}M
-            </p>
-            <p className="text-xs text-muted-foreground">Tổng giá trị (VND)</p>
+        </div>
+
+        {/* Tổng giá trị - blue */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-200/30 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div className="relative flex items-center gap-4">
+            <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 shrink-0">
+              <BarChart3 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-blue-900">{(kpi.tongGiaTri / 1_000_000).toFixed(0)}M</p>
+              <p className="text-xs font-semibold text-blue-600/70 uppercase tracking-wider">Tổng giá trị (VND)</p>
+            </div>
           </div>
         </div>
       </div>

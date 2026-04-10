@@ -872,25 +872,61 @@ export function TraCuu() {
               <>
                 {/* Stats bar */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {[
-                    { label: "Kết quả", value: filtered.length.toString(), color: "#0d3b66", bg: "#e8eef5", icon: Package },
-                    { label: "Quá hạn", value: stats.quaHan.toString(), color: "#c62828", bg: "#ffebee", icon: AlertTriangle },
-                    { label: "Sắp đến hạn", value: stats.sapHan.toString(), color: "#e65100", bg: "#fff3e0", icon: Clock },
-                    { label: "Tổng giá trị", value: fmtMoney(stats.tongGiaTri), color: "#2e7d32", bg: "#e8f5e9", icon: CheckCircle2 },
-                  ].map((s) => {
-                    const SIcon = s.icon;
-                    return (
-                      <div key={s.label} className="bg-white rounded-xl border border-gray-100 shadow-sm px-4 py-3 flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: s.bg }}>
-                          <SIcon className="w-4.5 h-4.5" style={{ color: s.color, width: 18, height: 18 }} />
-                        </div>
-                        <div>
-                          <p className="text-[11px] text-gray-500">{s.label}</p>
-                          <p className="text-base font-bold" style={{ color: s.color }}>{s.value}</p>
-                        </div>
+                  {/* Kết quả - blue */}
+                  <div className="group relative overflow-hidden bg-gradient-to-br from-white to-blue-50 border border-blue-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-200/30 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="relative flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 shrink-0">
+                        <Package className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
                       </div>
-                    );
-                  })}
+                      <div>
+                        <p className="text-[11px] font-semibold text-blue-600/70 uppercase tracking-wider">Kết quả</p>
+                        <p className="text-xl font-black text-blue-900">{filtered.length}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quá hạn - red */}
+                  <div className="group relative overflow-hidden bg-gradient-to-br from-white to-red-50 border border-red-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-red-200/30 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="relative flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg shadow-red-200 shrink-0">
+                        <AlertTriangle className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold text-red-600/70 uppercase tracking-wider">Quá hạn</p>
+                        <p className="text-xl font-black text-red-900">{stats.quaHan}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sắp đến hạn - orange */}
+                  <div className="group relative overflow-hidden bg-gradient-to-br from-white to-orange-50 border border-orange-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-orange-200/30 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="relative flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl flex items-center justify-center shadow-lg shadow-orange-200 shrink-0">
+                        <Clock className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold text-orange-600/70 uppercase tracking-wider">Sắp đến hạn</p>
+                        <p className="text-xl font-black text-orange-900">{stats.sapHan}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tổng giá trị - green */}
+                  <div className="group relative overflow-hidden bg-gradient-to-br from-white to-green-50 border border-green-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-green-200/30 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div className="relative flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center shadow-lg shadow-green-200 shrink-0">
+                        <CheckCircle2 className="w-4.5 h-4.5 text-white" style={{ width: 18, height: 18 }} />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold text-green-600/70 uppercase tracking-wider">Tổng giá trị</p>
+                        <p className="text-xl font-black text-green-900">{fmtMoney(stats.tongGiaTri)}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Toolbar */}
