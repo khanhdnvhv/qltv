@@ -6,28 +6,15 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Công an tỉnh XX — Quản lý Tang Vật Vi phạm Hành chính</title>
     <script>
-      // SPA GitHub Pages: decode redirect từ 404.html
+      // SPA GitHub Pages: restore URL đã lưu bởi 404.html
       (function () {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
-
-      // Xử lý URL dạng /?/ho-so → /qltv/ho-so
-      (function () {
-        var l = window.location;
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function (s) {
-            return s.replace(/~and~/g, '&');
-          });
-          window.history.replaceState(
-            null, null,
-            l.pathname.slice(0, -1) + decoded[0] +
-            (decoded[1] ? '?' + decoded[1] : '') +
-            l.hash
-          );
+        var redirect = sessionStorage.getItem('spa_redirect');
+        if (redirect) {
+          sessionStorage.removeItem('spa_redirect');
+          // Chỉ restore nếu khác URL hiện tại (tránh loop)
+          if (redirect !== window.location.href) {
+            window.history.replaceState(null, null, redirect);
+          }
         }
       })();
     </script>
