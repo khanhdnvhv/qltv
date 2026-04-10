@@ -29,7 +29,7 @@ function formatNum(n: number) {
 }
 
 export function XuLyTangVat() {
-  const { xuLy, tangVat, donVi, store } = useStoreState();
+  const { xuLy, tangVat, donVi, canCuPhapLyMau, store } = useStoreState();
   const [filterTT, setFilterTT] = useState<TrangThaiXuLy | "">("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -447,12 +447,16 @@ export function XuLyTangVat() {
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Căn cứ pháp lý <span className="text-red-500">*</span>
                 </label>
-                <input
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none"
-                  placeholder="Điều khoản, văn bản pháp luật áp dụng..."
+                <select
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400 bg-white"
                   value={form.canCuPhapLy}
                   onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
-                />
+                >
+                  <option value="">— Chọn căn cứ pháp lý —</option>
+                  {canCuPhapLyMau.map((m) => (
+                    <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Số quyết định (nếu có)</label>

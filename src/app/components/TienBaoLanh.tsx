@@ -37,7 +37,7 @@ const STATUS_STYLES: Record<TrangThaiBaoLanh, { cls: string; label: string }> = 
 };
 
 export function TienBaoLanh() {
-  const { store, currentUser } = useStoreState();
+  const { store, currentUser, canCuPhapLyMau } = useStoreState();
   const canProcess = ["admin", "lanhdao"].includes(currentUser.vaiTro);
   const canCreate = ["admin", "canbonv", "thukho"].includes(currentUser.vaiTro);
 
@@ -390,7 +390,16 @@ export function TienBaoLanh() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Căn cứ pháp lý</label>
-                <input value={form.canCuPhapLy} onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })} className="w-full border rounded-lg px-3 py-2 text-sm" />
+                <select
+                  value={form.canCuPhapLy}
+                  onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-400 bg-white"
+                >
+                  <option value="">— Chọn căn cứ pháp lý —</option>
+                  {canCuPhapLyMau.map((m) => (
+                    <option key={m.id} value={m.noiDung}>{m.tieuDe} — {m.noiDung}</option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">

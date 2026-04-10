@@ -10,7 +10,6 @@ import { MENU_BY_ROLE, VAI_TRO_LABELS } from "../lib/constants";
 
 const allMenuItems = [
   { to: "/",                   icon: LayoutDashboard, label: "Dashboard" },
-  { to: "/danh-muc",           icon: BookOpen,         label: "Danh mục" },
   { to: "/ho-so",              icon: FolderOpen,       label: "Hồ sơ vụ việc" },
   { to: "/tang-vat",           icon: Package,          label: "Quản lý tang vật" },
   { to: "/niem-phong",         icon: Stamp,            label: "Niêm phong" },
@@ -29,6 +28,7 @@ const allBottomItems = [
   { to: "/canh-bao",  icon: AlertTriangle, label: "Cảnh báo",  badge: "alert"  as const },
   { to: "/thong-bao", icon: Bell,          label: "Thông báo", badge: "unread" as const },
   { to: "/nhat-ky",   icon: History,       label: "Nhật ký" },
+  { to: "/danh-muc",  icon: BookOpen,      label: "Danh mục" },
   { to: "/cai-dat",   icon: Settings,      label: "Cài đặt" },
 ];
 
