@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import {
-  Banknote, Plus, Eye, ArrowRight, CheckCircle, XCircle,
+  Banknote, Plus, Eye, ArrowRight, CheckCircle, XCircle, X,
   ChevronLeft, ChevronRight, Clock, AlertTriangle, TrendingUp, CheckCircle2,
 } from "lucide-react";
 import { useStoreState } from "../hooks/useStoreState";
@@ -309,15 +309,23 @@ export function TienBaoLanh() {
         </div>
       </div>
 
-      {/* CREATE MODAL */}
+      {/* CREATE SIDE PANEL */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-600 to-amber-700 p-5 rounded-t-2xl">
-              <h2 className="text-white font-bold text-lg">Tiếp nhận tiền bảo lãnh</h2>
-              <p className="text-amber-200 text-sm mt-0.5">Điều 15 NĐ 47/2026/NĐ-CP</p>
+        <>
+          {/* Overlay */}
+          <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setShowCreateModal(false)} />
+          {/* Side panel */}
+          <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-2xl flex flex-col z-50">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
+              <div>
+                <h2 className="text-xl font-bold text-[#0d3b66]">Tiếp nhận tiền bảo lãnh</h2>
+                <p className="text-xs text-gray-400 mt-0.5">Điều 15 NĐ 47/2026/NĐ-CP</p>
+              </div>
+              <button onClick={() => setShowCreateModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tang vật <span className="text-red-500">*</span></label>
                 <select
@@ -385,12 +393,12 @@ export function TienBaoLanh() {
                 <input value={form.canCuPhapLy} onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })} className="w-full border rounded-lg px-3 py-2 text-sm" />
               </div>
             </div>
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
-              <button onClick={() => setShowCreateModal(false)} className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Hủy</button>
-              <button onClick={handleCreate} className="px-4 py-2 text-sm bg-amber-600 text-white rounded-lg hover:bg-amber-700">Tiếp nhận</button>
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white shrink-0">
+              <button onClick={() => setShowCreateModal(false)} className="border border-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50">Hủy</button>
+              <button onClick={handleCreate} className="bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0a2f52]">Tiếp nhận</button>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* DETAIL MODAL */}
