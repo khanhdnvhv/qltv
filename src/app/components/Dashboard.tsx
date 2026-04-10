@@ -108,7 +108,7 @@ export function Dashboard() {
       <div>
         <h1 className="text-2xl font-bold text-[#0d3b66]">Dashboard</h1>
         <p className="text-gray-500 text-sm mt-1">
-          Tổng quan hệ thống quản lý tang vật &nbsp;·&nbsp; Vĩnh Phúc
+          Tổng quan hệ thống quản lý tang vật &nbsp;·&nbsp; Ninh Bình
         </p>
       </div>
 

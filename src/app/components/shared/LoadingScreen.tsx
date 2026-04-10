@@ -105,7 +105,7 @@ export function LoadingScreen({ onDone, duration = 1400 }: LoadingScreenProps) {
             Quản lý Tang Vật
           </h1>
           <p className="text-white/60 text-sm mt-1">
-            Vi phạm Hành chính — Vĩnh Phúc
+            Vi phạm Hành chính — Ninh Bình
           </p>
         </div>
 

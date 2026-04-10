@@ -267,7 +267,7 @@ function TabDonVi({ donVi }: { donVi: DonVi[] }) {
         onSubmit={handleSubmit}
       >
         <Field label="Tên đơn vị" required>
-          <input value={form.ten} onChange={e => setForm(f => ({ ...f, ten: e.target.value }))} className={inputCls} placeholder="VD: CA xã Bình Xuyên" />
+          <input value={form.ten} onChange={e => setForm(f => ({ ...f, ten: e.target.value }))} className={inputCls} placeholder="VD: CA xã Gia Viễn" />
         </Field>
         <Field label="Mã đơn vị" required>
           <input value={form.ma} onChange={e => setForm(f => ({ ...f, ma: e.target.value }))} className={inputCls} placeholder="VD: CABX" />
@@ -288,7 +288,7 @@ function TabDonVi({ donVi }: { donVi: DonVi[] }) {
           <input value={form.diaChi} onChange={e => setForm(f => ({ ...f, diaChi: e.target.value }))} className={inputCls} placeholder="Địa chỉ trụ sở" />
         </Field>
         <Field label="Điện thoại">
-          <input value={form.dienThoai} onChange={e => setForm(f => ({ ...f, dienThoai: e.target.value }))} className={inputCls} placeholder="0211.xxxxxxx" />
+          <input value={form.dienThoai} onChange={e => setForm(f => ({ ...f, dienThoai: e.target.value }))} className={inputCls} placeholder="0229.xxxxxxx" />
         </Field>
         <Field label="Email">
           <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className={inputCls} placeholder="email@congantinhxx.gov.vn" />

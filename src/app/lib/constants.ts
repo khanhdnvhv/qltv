@@ -513,7 +513,7 @@ export const MOCK_USERS: User[] = [
     hoTen: "Lê Minh Tuấn",
     chucVu: "Cán bộ nghiệp vụ",
     donViId: "dv2",
-    donViTen: "CA xã Bình Xuyên",
+    donViTen: "CA xã Gia Viễn",
     vaiTro: "canbonv",
     avatar: "LT",
     trangThai: "active",
