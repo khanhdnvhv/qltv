@@ -363,7 +363,7 @@ export function KySo() {
           onClick={() => setViewDoc(null)}
         >
           <div
-            className="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl"
+            className="bg-white rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden shadow-2xl"
             onClick={e => e.stopPropagation()}
           >
             <div className="px-6 py-4 border-b border-border flex items-center justify-between">
@@ -372,7 +372,7 @@ export function KySo() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-muted-foreground">Loại văn bản</p>
@@ -414,7 +414,7 @@ export function KySo() {
                 </div>
               )}
             </div>
-            <div className="px-6 py-4 border-t border-border flex justify-between">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-between bg-white">
               {viewDoc.trangThai === "cho_ky" && (
                 <div className="flex gap-2">
                   <button

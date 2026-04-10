@@ -355,12 +355,12 @@ export function LuanChuyen() {
       {/* Create Modal */}
       {showCreate && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-xl font-bold text-[#0d3b66]">Tạo đề nghị luân chuyển</h2>
               <button onClick={() => setShowCreate(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X className="w-5 h-5" /></button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-1.5 block">
                   Tang vật <span className="text-red-500">*</span>
@@ -469,7 +469,7 @@ export function LuanChuyen() {
                 />
               </div>
             </div>
-            <div className="flex gap-3 px-6 pb-6">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
               <button onClick={() => setShowCreate(false)} className="flex-1 border border-gray-200 text-gray-700 px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50">Hủy</button>
               <button onClick={handleCreate} className="flex-1 bg-[#0d3b66] text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-[#0a2f52]">Gửi đề nghị</button>
             </div>

@@ -294,12 +294,12 @@ export function GiaoTuGiu() {
       {/* CREATE MODAL */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-5 rounded-t-2xl">
               <h2 className="text-white font-bold text-lg">Tạo đề xuất giao tự giữ</h2>
               <p className="text-blue-200 text-sm mt-0.5">Điều 14 NĐ 47/2026/NĐ-CP</p>
             </div>
-            <div className="p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tang vật <span className="text-red-500">*</span></label>
                 <select
@@ -371,7 +371,7 @@ export function GiaoTuGiu() {
                 <input value={form.canCuPhapLy} onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })} className="w-full border rounded-lg px-3 py-2 text-sm" />
               </div>
             </div>
-            <div className="p-5 border-t flex justify-end gap-2">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
               <button onClick={() => setShowCreateModal(false)} className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Hủy</button>
               <button onClick={handleCreate} className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">Tạo đề xuất</button>
             </div>
@@ -382,7 +382,7 @@ export function GiaoTuGiu() {
       {/* DETAIL MODAL */}
       {showDetailModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 rounded-t-2xl flex justify-between items-start">
               <div>
                 <h2 className="text-white font-bold text-lg">{showDetailModal.maGiaoTuGiu}</h2>
@@ -392,7 +392,7 @@ export function GiaoTuGiu() {
                 {STATUS_STYLES[showDetailModal.trangThai].label}
               </span>
             </div>
-            <div className="p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4">
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div><p className="text-gray-500">Tang vật</p><p className="font-medium">{showDetailModal.tenTangVat}</p></div>
                 <div><p className="text-gray-500">Biên bản</p><p className="font-medium">{showDetailModal.maBienBan}</p></div>
@@ -421,7 +421,7 @@ export function GiaoTuGiu() {
               )}
               {showDetailModal.ghiChu && <div><p className="text-gray-500 text-sm">Ghi chú</p><p className="text-sm mt-1">{showDetailModal.ghiChu}</p></div>}
             </div>
-            <div className="p-5 border-t flex justify-end">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
               <button onClick={() => setShowDetailModal(null)} className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Đóng</button>
             </div>
           </div>

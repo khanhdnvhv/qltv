@@ -312,12 +312,12 @@ export function TienBaoLanh() {
       {/* CREATE MODAL */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="bg-gradient-to-r from-amber-600 to-amber-700 p-5 rounded-t-2xl">
               <h2 className="text-white font-bold text-lg">Tiếp nhận tiền bảo lãnh</h2>
               <p className="text-amber-200 text-sm mt-0.5">Điều 15 NĐ 47/2026/NĐ-CP</p>
             </div>
-            <div className="p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Tang vật <span className="text-red-500">*</span></label>
                 <select
@@ -385,7 +385,7 @@ export function TienBaoLanh() {
                 <input value={form.canCuPhapLy} onChange={(e) => setForm({ ...form, canCuPhapLy: e.target.value })} className="w-full border rounded-lg px-3 py-2 text-sm" />
               </div>
             </div>
-            <div className="p-5 border-t flex justify-end gap-2">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
               <button onClick={() => setShowCreateModal(false)} className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Hủy</button>
               <button onClick={handleCreate} className="px-4 py-2 text-sm bg-amber-600 text-white rounded-lg hover:bg-amber-700">Tiếp nhận</button>
             </div>
@@ -396,7 +396,7 @@ export function TienBaoLanh() {
       {/* DETAIL MODAL */}
       {showDetailModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-5 rounded-t-2xl flex justify-between items-start">
               <div>
                 <h2 className="text-white font-bold text-lg">{showDetailModal.maBaoLanh}</h2>
@@ -406,7 +406,7 @@ export function TienBaoLanh() {
                 {STATUS_STYLES[showDetailModal.trangThai].label}
               </span>
             </div>
-            <div className="p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto p-5 space-y-4">
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div><p className="text-gray-500">Đối tượng</p><p className="font-medium">{showDetailModal.doiTuongTen}</p></div>
                 <div><p className="text-gray-500">CCCD</p><p className="font-medium">{showDetailModal.doiTuongCccd}</p></div>
@@ -433,7 +433,7 @@ export function TienBaoLanh() {
               )}
               {showDetailModal.ghiChu && <div><p className="text-gray-500 text-sm">Ghi chú</p><p className="text-sm mt-1">{showDetailModal.ghiChu}</p></div>}
             </div>
-            <div className="p-5 border-t flex justify-end">
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-white">
               <button onClick={() => setShowDetailModal(null)} className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-50">Đóng</button>
             </div>
           </div>
