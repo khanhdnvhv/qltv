@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/Layout";
 import { LoginPage } from "./components/LoginPage";
 import { Dashboard } from "./components/Dashboard";
-import { DashboardThongKe } from "./components/DashboardThongKe";
 import { HoSoVuViec } from "./components/HoSoVuViec";
 import { TangVatManager } from "./components/TangVatManager";
 import { NiemPhong } from "./components/NiemPhong";
@@ -28,7 +27,6 @@ export const router = createBrowserRouter(
     Component: Layout,
     children: [
       { index: true, Component: Dashboard },
-      { path: "dashboard-thong-ke", Component: DashboardThongKe },
       { path: "ho-so", Component: HoSoVuViec },
       { path: "tang-vat", Component: TangVatManager },
       { path: "niem-phong", Component: NiemPhong },

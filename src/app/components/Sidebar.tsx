@@ -2,15 +2,14 @@ import { NavLink } from "react-router";
 import {
   LayoutDashboard, FolderOpen, Package, Stamp, Warehouse,
   ClipboardCheck, ArrowLeftRight, Gavel, FileCheck, Search,
-  BarChart3, PieChart, AlertTriangle, Bell, History, Settings,
+  BarChart3, AlertTriangle, Bell, History, Settings,
   CarFront, Banknote,
 } from "lucide-react";
 import { useStoreState } from "../hooks/useStoreState";
 import { MENU_BY_ROLE, VAI_TRO_LABELS } from "../lib/constants";
 
 const allMenuItems = [
-  { to: "/",                   icon: LayoutDashboard, label: "Trang chủ" },
-  { to: "/dashboard-thong-ke", icon: PieChart,         label: "Dashboard thống kê" },
+  { to: "/",                   icon: LayoutDashboard, label: "Dashboard" },
   { to: "/ho-so",              icon: FolderOpen,       label: "Hồ sơ vụ việc" },
   { to: "/tang-vat",           icon: Package,          label: "Quản lý tang vật" },
   { to: "/niem-phong",         icon: Stamp,            label: "Niêm phong" },
