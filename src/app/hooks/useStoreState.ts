@@ -31,6 +31,8 @@ export function useStoreState() {
     kiemKe: appStore.kiemKe,
     luanChuyen: appStore.luanChuyen,
     xuLy: appStore.xuLy,
+    giaoTuGiu: appStore.giaoTuGiu,
+    tienBaoLanh: appStore.tienBaoLanh,
     canhBao: appStore.canhBao,
     vanBan: appStore.vanBan,
     thongBao: appStore.thongBao,

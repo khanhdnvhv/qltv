@@ -38,7 +38,7 @@ const TRANG_THAI_OPTIONS: { value: TrangThaiTangVat | ""; label: string }[] = [
 ];
 
 export function TangVatManager() {
-  const { tangVat, kho, donVi, hoSo, store } = useStoreState();
+  const { tangVat, kho, donVi, hoSo, donViTinhDM, store } = useStoreState();
   const [search, setSearch] = useState("");
   const [filterLoai, setFilterLoai] = useState<LoaiTangVat | "">("");
   const [filterTT, setFilterTT] = useState<TrangThaiTangVat | "">("");
@@ -609,9 +609,15 @@ export function TangVatManager() {
                   <input
                     className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
                     placeholder="chiếc, kg, lít..."
+                    list="don-vi-tinh-list"
                     value={form.donViTinh}
                     onChange={(e) => setForm({ ...form, donViTinh: e.target.value })}
                   />
+                  <datalist id="don-vi-tinh-list">
+                    {donViTinhDM.map((dvt) => (
+                      <option key={dvt.id} value={dvt.kyHieu}>{dvt.ten}</option>
+                    ))}
+                  </datalist>
                 </div>
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-1.5 block">Giá trị ước tính (đ)</label>

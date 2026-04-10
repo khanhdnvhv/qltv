@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useStoreState } from "../hooks/useStoreState";
-import { TRANG_THAI_HO_SO, TRANG_THAI_TANG_VAT, MOCK_USERS } from "../lib/constants";
+import { TRANG_THAI_HO_SO, TRANG_THAI_TANG_VAT } from "../lib/constants";
 import type { HoSoVuViec as IHoSo, TrangThaiHoSo } from "../lib/types";
 
 function formatNum(n: number) {
@@ -24,7 +24,7 @@ const STATUS_FILTER_OPTIONS: { value: TrangThaiHoSo | ""; label: string }[] = [
 ];
 
 export function HoSoVuViec() {
-  const { hoSo, tangVat, donVi, store } = useStoreState();
+  const { hoSo, tangVat, donVi, users, store } = useStoreState();
   const [search, setSearch] = useState("");
   const [filterTT, setFilterTT] = useState<TrangThaiHoSo | "">("");
   const [filterDV, setFilterDV] = useState("");
@@ -46,14 +46,14 @@ export function HoSoVuViec() {
   const [form, setForm] = useState({
     maBienBan: "",
     ngayLap: new Date().toISOString().slice(0, 10),
-    donViLapId: "dv1",
-    canBoLapId: "u4",
+    donViLapId: "",
+    canBoLapId: "",
     doiTuongViPham: "",
     diaChiDoiTuong: "",
     cccdDoiTuong: "",
     soDienThoaiDoiTuong: "",
     emailDoiTuong: "",
-    loaiGiayToDoiTuong: "cccd" as "cccd" | "cmnd" | "ho_chieu" | "khac",
+    loaiGiayToDoiTuong: "cccd" as "cccd" | "cccd_dien_tu" | "cmnd" | "ho_chieu" | "mst",
     hanhViViPham: "",
     canCuPhapLy: "",
     diaDiemViPham: "",
@@ -83,7 +83,7 @@ export function HoSoVuViec() {
       return;
     }
     const dv = donVi.find((d) => d.id === form.donViLapId);
-    const canBo = MOCK_USERS.find((u) => u.id === form.canBoLapId);
+    const canBo = users.find((u) => u.id === form.canBoLapId);
     const [y, m, d] = form.ngayLap.split("-").map(Number);
     store.addHoSo({
       maBienBan: form.maBienBan,
@@ -120,7 +120,7 @@ export function HoSoVuViec() {
     });
     setShowCreate(false);
     setTaiLieuList([]);
-    setForm({ maBienBan: "", ngayLap: new Date().toISOString().slice(0, 10), donViLapId: "dv1", canBoLapId: "u4", doiTuongViPham: "", diaChiDoiTuong: "", cccdDoiTuong: "", soDienThoaiDoiTuong: "", emailDoiTuong: "", loaiGiayToDoiTuong: "cccd", hanhViViPham: "", canCuPhapLy: "", diaDiemViPham: "", ghiChu: "", tongGiaTriUocTinh: 0 });
+    setForm({ maBienBan: "", ngayLap: new Date().toISOString().slice(0, 10), donViLapId: "", canBoLapId: "", doiTuongViPham: "", diaChiDoiTuong: "", cccdDoiTuong: "", soDienThoaiDoiTuong: "", emailDoiTuong: "", loaiGiayToDoiTuong: "cccd" as "cccd" | "cccd_dien_tu" | "cmnd" | "ho_chieu" | "mst", hanhViViPham: "", canCuPhapLy: "", diaDiemViPham: "", ghiChu: "", tongGiaTriUocTinh: 0 });
   }
 
   function handleSaveEdit() {
@@ -622,6 +622,7 @@ export function HoSoVuViec() {
                     value={form.donViLapId}
                     onChange={(e) => setForm({ ...form, donViLapId: e.target.value })}
                   >
+                    <option value="">-- Chọn đơn vị --</option>
                     {donVi.map((d) => (
                       <option key={d.id} value={d.id}>{d.ten}</option>
                     ))}
@@ -634,8 +635,9 @@ export function HoSoVuViec() {
                     value={form.canBoLapId}
                     onChange={(e) => setForm({ ...form, canBoLapId: e.target.value })}
                   >
-                    {MOCK_USERS.filter((u) => ["admin", "lanhdao", "canbonv", "thukho"].includes(u.vaiTro)).map((u) => (
-                      <option key={u.id} value={u.id}>{u.hoTen}</option>
+                    <option value="">-- Chọn cán bộ --</option>
+                    {users.filter((u) => ["admin", "lanhdao", "canbonv", "thukho"].includes(u.vaiTro)).map((u) => (
+                      <option key={u.id} value={u.id}>{u.hoTen} ({u.donViTen})</option>
                     ))}
                   </select>
                 </div>
@@ -662,9 +664,10 @@ export function HoSoVuViec() {
                     onChange={(e) => setForm({ ...form, loaiGiayToDoiTuong: e.target.value as typeof form.loaiGiayToDoiTuong })}
                   >
                     <option value="cccd">CCCD</option>
+                    <option value="cccd_dien_tu">CCCD điện tử</option>
                     <option value="cmnd">CMND</option>
                     <option value="ho_chieu">Hộ chiếu</option>
-                    <option value="khac">Khác</option>
+                    <option value="mst">Mã số thuế</option>
                   </select>
                 </div>
                 <div>
