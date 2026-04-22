@@ -135,6 +135,7 @@ export function HoSoVuViec() {
   const tangVatOfHoSo = selectedHoSo
     ? tangVat.filter((t) => t.hoSoId === selectedHoSo.id)
     : [];
+  const tongGiaTriLive = tangVatOfHoSo.reduce((s, tv) => s + (tv.giaTriUocTinh || 0) * (tv.soLuong || 1), 0);
 
   return (
     <>
@@ -471,11 +472,11 @@ export function HoSoVuViec() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-gray-50 rounded-lg p-3">
                   <p className="text-[10px] text-gray-400 uppercase">Tổng GT ước tính</p>
-                  <p className="text-sm font-bold text-[#0d3b66] mt-0.5">{formatNum(selectedHoSo.tongGiaTriUocTinh)} đ</p>
+                  <p className="text-sm font-bold text-[#0d3b66] mt-0.5">{formatNum(tongGiaTriLive)} đ</p>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-3">
                   <p className="text-[10px] text-gray-400 uppercase">Số tang vật</p>
-                  <p className="text-sm font-bold text-[#0d3b66] mt-0.5">{selectedHoSo.soTangVat} loại</p>
+                  <p className="text-sm font-bold text-[#0d3b66] mt-0.5">{tangVatOfHoSo.length} loại</p>
                 </div>
               </div>
 

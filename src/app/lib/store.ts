@@ -1291,6 +1291,15 @@ class AppStore {
       this.nhatKy       = lsGet<NhatKy>(STORAGE_KEYS.NHAT_KY, [...MOCK_NHAT_KY]);
       this.cauHinh      = lsGetOne<CauHinh>(STORAGE_KEYS.CAU_HINH, { ...DEFAULT_CAU_HINH });
     }
+    // Đồng bộ soTangVat + tongGiaTriUocTinh trên tất cả hồ sơ từ dữ liệu thực tế
+    this.hoSo = this.hoSo.map((h) => {
+      const tvList = this.tangVat.filter((t) => t.hoSoId === h.id);
+      return {
+        ...h,
+        soTangVat: tvList.length,
+        tongGiaTriUocTinh: tvList.reduce((s, t) => s + (t.giaTriUocTinh || 0) * (t.soLuong || 1), 0),
+      };
+    });
     // Restore session: nếu còn trong thời gian timeout thì tự đăng nhập lại
     this._restoreSession();
   }
@@ -1521,6 +1530,16 @@ class AppStore {
   // ========================
   // TANG VAT
   // ========================
+  private _syncHoSoStats(hoSoId: string) {
+    if (!hoSoId) return;
+    const tvList = this.tangVat.filter((t) => t.hoSoId === hoSoId);
+    const soTangVat = tvList.length;
+    const tongGiaTriUocTinh = tvList.reduce((s, t) => s + (t.giaTriUocTinh || 0) * (t.soLuong || 1), 0);
+    this.hoSo = this.hoSo.map((h) =>
+      h.id === hoSoId ? { ...h, soTangVat, tongGiaTriUocTinh } : h
+    );
+  }
+
   addTangVat(data: Omit<TangVat, "id" | "maTangVat" | "createdAt" | "updatedAt">) {
     const now = new Date();
     const dateStr = `${String(now.getDate()).padStart(2,"0")}/${String(now.getMonth()+1).padStart(2,"0")}/${now.getFullYear()}`;
@@ -1532,6 +1551,7 @@ class AppStore {
       updatedAt: dateStr,
     };
     this.tangVat = [tv, ...this.tangVat];
+    this._syncHoSoStats(tv.hoSoId);
     this._addNhatKy("Tạo tang vật", "TangVat", tv.id, tv.maTangVat, `Tạo tang vật ${tv.ten}`);
     this.notify();
     return tv;
@@ -1539,6 +1559,8 @@ class AppStore {
 
   updateTangVat(id: string, data: Partial<TangVat>) {
     this.tangVat = this.tangVat.map((t) => t.id === id ? { ...t, ...data, updatedAt: new Date().toLocaleDateString("vi-VN") } : t);
+    const hoSoId = this.tangVat.find((t) => t.id === id)?.hoSoId;
+    if (hoSoId) this._syncHoSoStats(hoSoId);
     this.notify();
   }
 
@@ -1546,6 +1568,7 @@ class AppStore {
     const tv = this.tangVat.find((t) => t.id === id);
     if (!tv) return;
     this.tangVat = this.tangVat.filter((t) => t.id !== id);
+    this._syncHoSoStats(tv.hoSoId);
     this._addNhatKy("Xóa tang vật", "TangVat", id, tv.maTangVat, `Xóa tang vật ${tv.ten}`);
     this.notify();
   }
