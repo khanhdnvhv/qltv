@@ -50,7 +50,7 @@ export function TangVatManager() {
   const [showCreate, setShowCreate] = useState(false);
   const [showEdit, setShowEdit] = useState<TangVat | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<TangVat | null>(null);
-  const [editForm, setEditForm] = useState({ ten: "", dacDiemNhanDang: "", tinhTrangBanDau: "", giaTriUocTinh: 0, ghiChu: "" });
+  const [editForm, setEditForm] = useState({ ten: "", dacDiemNhanDang: "", tinhTrangBanDau: "", giaTriUocTinh: 0, ghiChu: "", hanLuuKho: "", viTriKhoMoTa: "" });
 
   const [anhUrls, setAnhUrls] = useState<string[]>([""]);
   const addAnhUrl = () => setAnhUrls(prev => [...prev, ""]);
@@ -79,6 +79,8 @@ export function TangVatManager() {
     ngayHetHanGiayPhep: "",
     loaiGiayPhep: "",
     hanDungSanPham: "",
+    hanLuuKho: "",
+    viTriKhoMoTa: "",
   });
 
   const filtered = useMemo(() => {
@@ -148,6 +150,8 @@ export function TangVatManager() {
       ngayHetHanGiayPhep: form.ngayHetHanGiayPhep || undefined,
       loaiGiayPhep: form.loaiGiayPhep || undefined,
       hanDungSanPham: form.hanDungSanPham || undefined,
+      hanLuuKho: form.hanLuuKho ? (() => { const [y, m, d] = form.hanLuuKho.split("-"); return `${d}/${m}/${y}`; })() : undefined,
+      viTriKhoMoTa: form.viTriKhoMoTa || undefined,
     });
     setShowCreate(false);
     setAnhUrls([""]);
@@ -162,6 +166,8 @@ export function TangVatManager() {
       tinhTrangBanDau: editForm.tinhTrangBanDau,
       giaTriUocTinh: editForm.giaTriUocTinh,
       ghiChu: editForm.ghiChu,
+      viTriKhoMoTa: editForm.viTriKhoMoTa || undefined,
+      hanLuuKho: editForm.hanLuuKho ? (() => { const [y, m, d] = editForm.hanLuuKho.split("-"); return `${d}/${m}/${y}`; })() : undefined,
     });
     toast.success("Đã cập nhật tang vật");
     setShowEdit(null);
@@ -340,7 +346,7 @@ export function TangVatManager() {
                             <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                               <button
                                 title="Chỉnh sửa"
-                                onClick={() => { setEditForm({ ten: tv.ten, dacDiemNhanDang: tv.dacDiemNhanDang, tinhTrangBanDau: tv.tinhTrangBanDau || "", giaTriUocTinh: tv.giaTriUocTinh, ghiChu: tv.ghiChu || "" }); setShowEdit(tv); }}
+                                onClick={() => { setEditForm({ ten: tv.ten, dacDiemNhanDang: tv.dacDiemNhanDang, tinhTrangBanDau: tv.tinhTrangBanDau || "", giaTriUocTinh: tv.giaTriUocTinh, ghiChu: tv.ghiChu || "", viTriKhoMoTa: tv.viTriKhoMoTa || "", hanLuuKho: tv.hanLuuKho ? (() => { const [d, m, y] = tv.hanLuuKho!.split("/"); return `${y}-${m}-${d}`; })() : "" }); setShowEdit(tv); }}
                                 className="p-1.5 hover:bg-amber-50 rounded-md transition-colors"
                               >
                                 <Pencil className="w-3.5 h-3.5 text-gray-400 hover:text-amber-600" />
@@ -759,6 +765,33 @@ export function TangVatManager() {
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-semibold text-gray-700 mb-1.5 block flex items-center gap-1">
+                    <Warehouse className="w-3.5 h-3.5 text-gray-400" />
+                    Vị trí trong kho
+                  </label>
+                  <input
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                    placeholder="VD: Khu A - Hàng 1 - Ô 5"
+                    value={form.viTriKhoMoTa}
+                    onChange={(e) => setForm({ ...form, viTriKhoMoTa: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-semibold text-gray-700 mb-1.5 block flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                    Hạn lưu kho
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                    value={form.hanLuuKho}
+                    onChange={(e) => setForm({ ...form, hanLuuKho: e.target.value })}
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-1">
                   <Camera className="w-3.5 h-3.5" />
@@ -885,6 +918,32 @@ export function TangVatManager() {
                   value={editForm.ghiChu}
                   onChange={(e) => setEditForm({ ...editForm, ghiChu: e.target.value })}
                 />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-semibold text-gray-700 mb-1.5 block flex items-center gap-1">
+                    <Warehouse className="w-3.5 h-3.5 text-gray-400" />
+                    Vị trí trong kho
+                  </label>
+                  <input
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                    placeholder="VD: Khu A - Hàng 1 - Ô 5"
+                    value={editForm.viTriKhoMoTa}
+                    onChange={(e) => setEditForm({ ...editForm, viTriKhoMoTa: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-semibold text-gray-700 mb-1.5 block flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                    Hạn lưu kho
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-blue-400"
+                    value={editForm.hanLuuKho}
+                    onChange={(e) => setEditForm({ ...editForm, hanLuuKho: e.target.value })}
+                  />
+                </div>
               </div>
             </div>
             <div className="flex gap-3 px-6 pb-6">
