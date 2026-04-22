@@ -1760,9 +1760,24 @@ class AppStore {
     this.notify();
   }
 
+  guiKyVanBan(id: string) {
+    this.vanBan = this.vanBan.map((v) =>
+      v.id === id ? { ...v, trangThai: "cho_ky" as const } : v
+    );
+    this._addNhatKy("Gửi ký văn bản", "VanBan", id, this.vanBan.find(v => v.id === id)?.maVanBan ?? "", "Gửi văn bản chờ ký duyệt");
+    this.notify();
+  }
+
   tuChoiVanBan(id: string, lyDo: string) {
     this.vanBan = this.vanBan.map((v) =>
       v.id === id ? { ...v, trangThai: "tu_choi" as const, lyDoTuChoi: lyDo } : v
+    );
+    this.notify();
+  }
+
+  hoiPhucVanBan(id: string) {
+    this.vanBan = this.vanBan.map((v) =>
+      v.id === id ? { ...v, trangThai: "nhap" as const, lyDoTuChoi: undefined } : v
     );
     this.notify();
   }
